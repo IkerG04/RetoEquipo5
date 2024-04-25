@@ -38,52 +38,140 @@ public class MantenimientosBasicos extends JFrame {
         professorsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showMaintenanceDialog("Profesores");
+                showActionSelectionDialog("Profesores");
             }
         });
 
         coursesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showMaintenanceDialog("Cursos");
+                showActionSelectionDialog("Cursos");
             }
         });
 
         groupsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showMaintenanceDialog("Grupos");
+                showActionSelectionDialog("Grupos");
             }
         });
 
         departmentsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showMaintenanceDialog("Departamentos");
+                showActionSelectionDialog("Departamentos");
             }
         });
 
         getContentPane().add(mainPanel);
     }
 
-    private void showMaintenanceDialog(String entityType) {
-        int option = JOptionPane.showConfirmDialog(this,
-                "¿Deseas eliminar la información de " + entityType + "?",
-                "Confirmación de Eliminación",
-                JOptionPane.YES_NO_OPTION);
+    private void showActionSelectionDialog(String entityType) {
+        String[] options = {"Editar", "Eliminar"};
+        int choice = JOptionPane.showOptionDialog(this,
+                "¿Qué acción deseas realizar para " + entityType + "?",
+                "Selección de Acción",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
 
-        if (option == JOptionPane.YES_OPTION) {
-            // Aquí iría la lógica para eliminar la información (simulada)
-            JOptionPane.showMessageDialog(this,
-                    "Información de " + entityType + " eliminada exitosamente.",
-                    "Eliminación Exitosa",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this,
-                    "Operación de eliminación cancelada.",
-                    "Operación Cancelada",
-                    JOptionPane.WARNING_MESSAGE);
+        if (choice == 0) {
+            // Editar
+            showMaintenanceDialog(entityType, "Editar");
+        } else if (choice == 1) {
+            // Eliminar
+            int confirmOption = JOptionPane.showConfirmDialog(this,
+                    "¿Estás seguro de eliminar la información de " + entityType + "?",
+                    "Confirmación de Eliminación",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (confirmOption == JOptionPane.YES_OPTION) {
+                // Aquí iría la lógica para eliminar la información (simulada)
+                JOptionPane.showMessageDialog(this,
+                        "Información de " + entityType + " eliminada exitosamente.",
+                        "Eliminación Exitosa",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Operación de eliminación cancelada.",
+                        "Operación Cancelada",
+                        JOptionPane.WARNING_MESSAGE);
+            }
         }
+    }
+
+    private void showMaintenanceDialog(String entityType, String action) {
+        String[] currentData = fetchCurrentData(entityType);
+
+        if (currentData == null) {
+            JOptionPane.showMessageDialog(this,
+                    "No se encontraron datos de " + entityType + ".",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        JPanel inputPanel = new JPanel(new GridLayout(currentData.length, 2));
+
+        // Mostrar los datos actuales en campos de texto editables
+        JTextField[] textFields = new JTextField[currentData.length];
+        for (int i = 0; i < currentData.length; i++) {
+            inputPanel.add(new JLabel(entityType + " " + (i + 1) + ":"));
+            textFields[i] = new JTextField(currentData[i]);
+            inputPanel.add(textFields[i]);
+        }
+
+        int option = JOptionPane.showConfirmDialog(this,
+                inputPanel,
+                action + " " + entityType,
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE);
+
+        if (option == JOptionPane.OK_OPTION) {
+            // Obtener los nuevos valores de los campos editables
+            String[] newData = new String[currentData.length];
+            for (int i = 0; i < textFields.length; i++) {
+                newData[i] = textFields[i].getText();
+            }
+
+            // Aquí iría la lógica para guardar los cambios (simulada)
+            boolean changesSaved = saveChanges(entityType, newData);
+
+            if (changesSaved) {
+                JOptionPane.showMessageDialog(this,
+                        "Cambios guardados exitosamente.",
+                        "Éxito",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Error al guardar los cambios. Inténtalo de nuevo.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private String[] fetchCurrentData(String entityType) {
+        // Simular obtención de datos actuales (a reemplazar con datos reales)
+        if (entityType.equals("Profesores")) {
+            return new String[]{"Juan Pérez", "María Gómez", "Carlos Ruiz"};
+        } else if (entityType.equals("Cursos")) {
+            return new String[]{"Matemáticas", "Historia", "Inglés"};
+        } else if (entityType.equals("Grupos")) {
+            return new String[]{"Grupo A", "Grupo B", "Grupo C"};
+        } else if (entityType.equals("Departamentos")) {
+            return new String[]{"Informática", "Matemáticas", "Ciencias Sociales"};
+        }
+        return null;
+    }
+
+    private boolean saveChanges(String entityType, String[] newData) {
+        // Aquí implementarías la lógica real para guardar los cambios (simulada)
+        // Por ejemplo, guardar los datos modificados en una base de datos
+        System.out.println("Guardando cambios para " + entityType + ": " + String.join(", ", newData));
+        return true; // Simulación de éxito
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
