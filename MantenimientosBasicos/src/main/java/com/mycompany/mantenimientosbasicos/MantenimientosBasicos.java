@@ -18,17 +18,15 @@ public class MantenimientosBasicos extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
-        setLocationRelativeTo(null); // Centrar en pantalla
+        setLocationRelativeTo(null);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
-        // Crear botones para las opciones de mantenimiento
         JButton professorsButton = new JButton("Profesores");
         JButton coursesButton = new JButton("Cursos");
         JButton groupsButton = new JButton("Grupos");
         JButton departmentsButton = new JButton("Departamentos");
 
-        // Agregar los botones al panel principal
         mainPanel.add(professorsButton, BorderLayout.NORTH);
         mainPanel.add(coursesButton, BorderLayout.CENTER);
         mainPanel.add(groupsButton, BorderLayout.WEST);
@@ -78,17 +76,14 @@ public class MantenimientosBasicos extends JFrame {
                 options[0]);
 
         if (choice == 0) {
-            // Editar
             showMaintenanceDialog(entityType, "Editar");
         } else if (choice == 1) {
-            // Eliminar
             int confirmOption = JOptionPane.showConfirmDialog(this,
                     "¿Estás seguro de eliminar la información de " + entityType + "?",
                     "Confirmación de Eliminación",
                     JOptionPane.YES_NO_OPTION);
 
             if (confirmOption == JOptionPane.YES_OPTION) {
-                // Aquí iría la lógica para eliminar la información (simulada)
                 JOptionPane.showMessageDialog(this,
                         "Información de " + entityType + " eliminada exitosamente.",
                         "Eliminación Exitosa",
@@ -115,7 +110,6 @@ public class MantenimientosBasicos extends JFrame {
 
         JPanel inputPanel = new JPanel(new GridLayout(currentData.length, 2));
 
-        // Mostrar los datos actuales en campos de texto editables
         JTextField[] textFields = new JTextField[currentData.length];
         for (int i = 0; i < currentData.length; i++) {
             inputPanel.add(new JLabel(entityType + " " + (i + 1) + ":"));
@@ -130,13 +124,11 @@ public class MantenimientosBasicos extends JFrame {
                 JOptionPane.PLAIN_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {
-            // Obtener los nuevos valores de los campos editables
             String[] newData = new String[currentData.length];
             for (int i = 0; i < textFields.length; i++) {
                 newData[i] = textFields[i].getText();
             }
 
-            // Aquí iría la lógica para guardar los cambios (simulada)
             boolean changesSaved = saveChanges(entityType, newData);
 
             if (changesSaved) {
@@ -154,7 +146,6 @@ public class MantenimientosBasicos extends JFrame {
     }
 
     private String[] fetchCurrentData(String entityType) {
-        // Simular obtención de datos actuales (a reemplazar con datos reales)
         if (entityType.equals("Profesores")) {
             return new String[]{"Juan Pérez", "María Gómez", "Carlos Ruiz"};
         } else if (entityType.equals("Cursos")) {
@@ -168,8 +159,6 @@ public class MantenimientosBasicos extends JFrame {
     }
 
     private boolean saveChanges(String entityType, String[] newData) {
-        // Aquí implementarías la lógica real para guardar los cambios (simulada)
-        // Por ejemplo, guardar los datos modificados en una base de datos
         System.out.println("Guardando cambios para " + entityType + ": " + String.join(", ", newData));
         return true; // Simulación de éxito
     }
