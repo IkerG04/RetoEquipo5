@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -15,103 +17,192 @@ import java.awt.event.ActionListener;
  */
 public class Solicitud extends JFrame {
 
-    private JComboBox<String> departmentComboBox;
-    private JComboBox<String> courseComboBox;
-    private JComboBox<String> groupComboBox;
-    private JTextField numStudentsField;
+    private List<SolicitudData> solicitudes = new ArrayList<>(); // Lista para almacenar las solicitudes
 
     public Solicitud() {
-        super("Sistema de Gestión Educativa");
+        super("Mantenimiento de Solicitudes");
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 500);
-        setLocationRelativeTo(null);
+        setSize(400, 300);
+        setLocationRelativeTo(null); // Centrar en pantalla
 
-        JPanel createRequestPanel = new JPanel(new GridLayout(10, 2));
+        JPanel mainPanel = new JPanel(new BorderLayout());
 
-        createRequestPanel.add(new JLabel("Departamento:"));
-        String[] departmentOptions = {"Informática", "Matemáticas", "Ciencias Sociales"};
-        departmentComboBox = new JComboBox<>(departmentOptions);
-        createRequestPanel.add(departmentComboBox);
-
-        createRequestPanel.add(new JLabel("Curso:"));
-        courseComboBox = new JComboBox<>();
-        createRequestPanel.add(courseComboBox);
-
-        createRequestPanel.add(new JLabel("Grupo:"));
-        groupComboBox = new JComboBox<>();
-        createRequestPanel.add(groupComboBox);
-
-        createRequestPanel.add(new JLabel("Número de Alumnos:"));
-        numStudentsField = new JTextField();
-        createRequestPanel.add(numStudentsField);
-
+        // Crear botones para las opciones de mantenimiento
+        JButton professorsButton = new JButton("Profesores");
+        JButton coursesButton = new JButton("Cursos");
+        JButton groupsButton = new JButton("Grupos");
+        JButton departmentsButton = new JButton("Departamentos");
         JButton createRequestButton = new JButton("Crear Solicitud");
-        createRequestPanel.add(new JLabel()); 
-        createRequestPanel.add(createRequestButton);
 
-        departmentComboBox.addActionListener(new ActionListener() {
+        // Agregar los botones al panel principal
+        mainPanel.add(professorsButton, BorderLayout.NORTH);
+        mainPanel.add(coursesButton, BorderLayout.CENTER);
+        mainPanel.add(groupsButton, BorderLayout.WEST);
+        mainPanel.add(departmentsButton, BorderLayout.EAST);
+        mainPanel.add(createRequestButton, BorderLayout.SOUTH);
+
+        // Manejar eventos de botones
+        professorsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String selectedDepartment = (String) departmentComboBox.getSelectedItem();
-                loadCourses(selectedDepartment);
+                showActionSelectionDialog("Profesores");
+            }
+        });
+
+        coursesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showActionSelectionDialog("Cursos");
+            }
+        });
+
+        groupsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showActionSelectionDialog("Grupos");
+            }
+        });
+
+        departmentsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showActionSelectionDialog("Departamentos");
             }
         });
 
         createRequestButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String department = (String) departmentComboBox.getSelectedItem();
-                String course = (String) courseComboBox.getSelectedItem();
-                String group = (String) groupComboBox.getSelectedItem();
-                int numStudents = Integer.parseInt(numStudentsField.getText());
-
-                boolean requestCreated = processCreateRequest(department, course, group, numStudents);
-
-                if (requestCreated) {
-                    JOptionPane.showMessageDialog(createRequestPanel,
-                            "Solicitud creada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                    clearFields();
-                } else {
-                    JOptionPane.showMessageDialog(createRequestPanel,
-                            "Error al crear la solicitud. Inténtalo de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                showCreateRequestForm();
             }
         });
 
-        getContentPane().add(createRequestPanel);
+        getContentPane().add(mainPanel);
     }
 
-    private void loadCourses(String department) {
-        if (department.equals("Informática")) {
-            String[] courses = {"1º Informática", "2º Informática"};
-            courseComboBox.setModel(new DefaultComboBoxModel<>(courses));
-        } else if (department.equals("Matemáticas")) {
-            String[] courses = {"1º Matemáticas", "2º Matemáticas", "3º Matemáticas"};
-            courseComboBox.setModel(new DefaultComboBoxModel<>(courses));
-        } else if (department.equals("Ciencias Sociales")) {
-            String[] courses = {"1º Sociales", "2º Sociales", "3º Sociales"};
-            courseComboBox.setModel(new DefaultComboBoxModel<>(courses));
+    private void showActionSelectionDialog(String entityType) {
+        String[] options = {"Editar", "Eliminar"};
+        int choice = JOptionPane.showOptionDialog(this,
+                "¿Qué acción deseas realizar para " + entityType + "?",
+                "Selección de Acción",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+        if (choice == 0) {
+            // Editar
+            showMaintenanceDialog(entityType, "Editar");
+        } else if (choice == 1) {
+            // Eliminar
+            int confirmOption = JOptionPane.showConfirmDialog(this,
+                    "¿Estás seguro de eliminar la información de " + entityType + "?",
+                    "Confirmación de Eliminación",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (confirmOption == JOptionPane.YES_OPTION) {
+                // Aquí iría la lógica para eliminar la información (simulada)
+                JOptionPane.showMessageDialog(this,
+                        "Información de " + entityType + " eliminada exitosamente.",
+                        "Eliminación Exitosa",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Operación de eliminación cancelada.",
+                        "Operación Cancelada",
+                        JOptionPane.WARNING_MESSAGE);
+            }
         }
-        groupComboBox.removeAllItems();
     }
 
-    private boolean processCreateRequest(String department, String course, String group, int numStudents) {
-        System.out.println("Procesando solicitud para: " + department + ", " + course + " - " + group + ", Alumnos: " + numStudents);
+    private void showMaintenanceDialog(String entityType, String action) {
+        // Aquí se implementaría la lógica para editar la información (pendiente de desarrollo)
+        JOptionPane.showMessageDialog(this,
+                "Lógica para editar " + entityType + " pendiente de desarrollo.",
+                "Editar " + entityType,
+                JOptionPane.INFORMATION_MESSAGE);
+    }
 
-        try {
-            Thread.sleep(2000); 
-            System.out.println("Solicitud guardada exitosamente.");
-            return true;
-        } catch (InterruptedException ex) {
-            System.out.println("Error al procesar la solicitud: " + ex.getMessage());
-            return false;
+    private void showCreateRequestForm() {
+        JPanel inputPanel = new JPanel(new GridLayout(0, 2));
+
+        // Campos de solicitud
+        JTextField professorField = new JTextField(20);
+        JTextField departmentField = new JTextField(20);
+        JTextField titleField = new JTextField(20);
+        JComboBox<String> planningComboBox = new JComboBox<>(new String[]{"Sí", "No"});
+        JComboBox<String> transportComboBox = new JComboBox<>(new String[]{"Andando", "Bici", "Bus", "Taxi", "Barco", "Tren", "Avión"});
+        JTextField startDateField = new JTextField(20);
+        JTextField endDateField = new JTextField(20);
+        JComboBox<String> groupField = new JComboBox<>(new String[]{"Grupo A", "Grupo B", "Grupo C"});
+        JTextField numStudentsField = new JTextField(20);
+        JCheckBox accommodationCheckBox = new JCheckBox("Alojamiento");
+        JTextField responsibleField = new JTextField(20);
+        JTextField participantsField = new JTextField(20);
+        JTextArea commentsArea = new JTextArea(4, 20);
+
+        inputPanel.add(new JLabel("Profesor que hace la solicitud:"));
+        inputPanel.add(professorField);
+        inputPanel.add(new JLabel("Departamento:"));
+        inputPanel.add(departmentField);
+        inputPanel.add(new JLabel("Título de la actividad:"));
+        inputPanel.add(titleField);
+        inputPanel.add(new JLabel("¿Actividad prevista en la programación didáctica?"));
+        inputPanel.add(planningComboBox);
+        inputPanel.add(new JLabel("Medio de transporte:"));
+        inputPanel.add(transportComboBox);
+        inputPanel.add(new JLabel("Fecha y hora de inicio:"));
+        inputPanel.add(startDateField);
+        inputPanel.add(new JLabel("Fecha y hora de fin:"));
+        inputPanel.add(endDateField);
+        inputPanel.add(new JLabel("Grupo o cursos:"));
+        inputPanel.add(groupField);
+        inputPanel.add(new JLabel("Número de alumnos:"));
+        inputPanel.add(numStudentsField);
+        inputPanel.add(new JLabel("¿Alojamiento?"));
+        inputPanel.add(accommodationCheckBox);
+        inputPanel.add(new JLabel("Profesores responsables:"));
+        inputPanel.add(responsibleField);
+        inputPanel.add(new JLabel("Profesores participantes:"));
+        inputPanel.add(participantsField);
+        inputPanel.add(new JLabel("Comentarios adicionales:"));
+        inputPanel.add(new JScrollPane(commentsArea));
+
+        int option = JOptionPane.showConfirmDialog(this,
+                inputPanel,
+                "Crear Nueva Solicitud",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE);
+
+        if (option == JOptionPane.OK_OPTION) {
+            // Obtener valores de los campos
+            String professor = professorField.getText();
+            String department = departmentField.getText();
+            String title = titleField.getText();
+            String planningDidactic = (String) planningComboBox.getSelectedItem();
+            String transport = (String) transportComboBox.getSelectedItem();
+            String startDate = startDateField.getText();
+            String endDate = endDateField.getText();
+            String group = (String) groupField.getSelectedItem();
+            int numStudents = Integer.parseInt(numStudentsField.getText());
+            boolean accommodation = accommodationCheckBox.isSelected();
+            String responsible = responsibleField.getText();
+            String participants = participantsField.getText();
+            String comments = commentsArea.getText();
+
+            // Crear nueva solicitud
+            SolicitudData solicitud = new SolicitudData(professor, department, title, planningDidactic, transport, startDate, endDate,
+                    group, numStudents, accommodation, responsible, participants, comments);
+
+            solicitudes.add(solicitud); // Agregar solicitud a la lista
+
+            JOptionPane.showMessageDialog(this,
+                    "Solicitud creada exitosamente.",
+                    "Solicitud Creada",
+                    JOptionPane.INFORMATION_MESSAGE);
         }
-    }
-
-    private void clearFields() {
-        courseComboBox.setSelectedIndex(0);
-        numStudentsField.setText("");
     }
 
     @SuppressWarnings("unchecked")
