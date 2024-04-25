@@ -41,7 +41,6 @@ public class SolicitudData {
         this.comments = comments;
     }
 
-    // Getters y setters (a implementar según necesidad)
 
     public String getProfessor() {
         return professor;
