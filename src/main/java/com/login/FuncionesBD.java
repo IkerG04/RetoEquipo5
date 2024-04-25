@@ -49,8 +49,6 @@ public class FuncionesBD {
 
     // Validar datos
     public boolean validarDatos(String usuario, String password) {
-        boolean valido = false;
-
         Statement sentencia = null;
         ResultSet rs = null;
         Connection conn = AccesoBaseDatos.getInstance().getConn();
@@ -61,7 +59,7 @@ public class FuncionesBD {
             rs = sentencia.executeQuery(sql);
             while (rs.next()) {
 
-                if (rs.getString(usuario).equals(usuario) && rs.getString(password).equals(password)) {
+                if (rs.getString(1).equals(usuario) && rs.getString(2).equals(password)) {
                     return true;
                 }
 
@@ -78,7 +76,7 @@ public class FuncionesBD {
                 System.out.println("Error al cerrar la sentencia " + ex.getMessage());
             }
         }
-        return valido;
+        return false;
     }
 
 }
