@@ -25,7 +25,7 @@ public class Solicitud extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 500);
-        setLocationRelativeTo(null); // Centrar en pantalla
+        setLocationRelativeTo(null);
 
         JPanel createRequestPanel = new JPanel(new GridLayout(10, 2));
 
@@ -47,10 +47,9 @@ public class Solicitud extends JFrame {
         createRequestPanel.add(numStudentsField);
 
         JButton createRequestButton = new JButton("Crear Solicitud");
-        createRequestPanel.add(new JLabel()); // Espacio en blanco
+        createRequestPanel.add(new JLabel()); 
         createRequestPanel.add(createRequestButton);
 
-        // Cargar cursos según el departamento seleccionado
         departmentComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,7 +66,6 @@ public class Solicitud extends JFrame {
                 String group = (String) groupComboBox.getSelectedItem();
                 int numStudents = Integer.parseInt(numStudentsField.getText());
 
-                // Procesar y guardar la solicitud en el sistema
                 boolean requestCreated = processCreateRequest(department, course, group, numStudents);
 
                 if (requestCreated) {
@@ -85,7 +83,6 @@ public class Solicitud extends JFrame {
     }
 
     private void loadCourses(String department) {
-        // Simular carga dinámica de cursos según el departamento seleccionado
         if (department.equals("Informática")) {
             String[] courses = {"1º Informática", "2º Informática"};
             courseComboBox.setModel(new DefaultComboBoxModel<>(courses));
@@ -96,19 +93,14 @@ public class Solicitud extends JFrame {
             String[] courses = {"1º Sociales", "2º Sociales", "3º Sociales"};
             courseComboBox.setModel(new DefaultComboBoxModel<>(courses));
         }
-        // Limpiar selección de grupo al cambiar de departamento
         groupComboBox.removeAllItems();
     }
 
     private boolean processCreateRequest(String department, String course, String group, int numStudents) {
-        // Aquí implementarías la lógica real para procesar y guardar la solicitud en tu sistema
-        // Por ahora, simularemos el procesamiento con mensajes en consola
         System.out.println("Procesando solicitud para: " + department + ", " + course + " - " + group + ", Alumnos: " + numStudents);
 
-        // Simular el guardado exitoso de la solicitud
         try {
-            // Aquí podrías realizar operaciones como almacenamiento en una base de datos o archivo
-            Thread.sleep(2000); // Simular una operación de guardado (2 segundos)
+            Thread.sleep(2000); 
             System.out.println("Solicitud guardada exitosamente.");
             return true;
         } catch (InterruptedException ex) {
@@ -118,7 +110,6 @@ public class Solicitud extends JFrame {
     }
 
     private void clearFields() {
-        // Limpiar todos los campos del formulario después de crear la solicitud
         courseComboBox.setSelectedIndex(0);
         numStudentsField.setText("");
     }
