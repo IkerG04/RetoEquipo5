@@ -16,9 +16,7 @@ import java.sql.Connection;
 public class FuncionesBD {
 
     // muestra los datos de una tabla
-    public String[] mostrarDatos(String usuario, String password) {
-        String[] datos = new String[2];
-
+    public boolean mostrarDatos(String usuario, String password) {
         Statement sentencia = null;
         ResultSet rs = null;
         Connection conn = AccesoBaseDatos.getInstance().getConn();
@@ -28,8 +26,10 @@ public class FuncionesBD {
             String sql = "select usuario, password from usuarios";
             rs = sentencia.executeQuery(sql);
             while (rs.next()) {
-                datos[0] = rs.getString(usuario);
-                datos[1] = rs.getString(password);
+
+                if (usuario.equals(rs.getString(1)) && password.equals(rs.getString(2))) {
+                    return true;
+                }
 
             }
         } catch (SQLException ex) {
@@ -44,7 +44,7 @@ public class FuncionesBD {
                 System.out.println("Error al cerrar la sentencia " + ex.getMessage());
             }
         }
-        return datos;
+        return false;
     }
 
     // Validar datos

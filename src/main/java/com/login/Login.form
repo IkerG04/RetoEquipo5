@@ -55,19 +55,16 @@
               <Group type="102" attributes="0">
                   <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <Component id="userLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="jSeparator1" min="-2" pref="410" max="-2" attributes="0"/>
-                          <Component id="passTxt" min="-2" pref="410" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="userLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="jSeparator1" min="-2" pref="410" max="-2" attributes="0"/>
+                      <Component id="passTxt" min="-2" pref="410" max="-2" attributes="0"/>
                       <Component id="userTxt" min="-2" pref="410" max="-2" attributes="0"/>
                       <Component id="passLabel" min="-2" max="-2" attributes="0"/>
                       <Component id="jSeparator2" min="-2" pref="410" max="-2" attributes="0"/>
                       <Component id="title" min="-2" max="-2" attributes="0"/>
                       <Component id="loginBtn" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="380" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
