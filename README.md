@@ -10,4 +10,6 @@ Iker García Iturri - COORDINADOR
 Angel Fernandez - PORTAVOZ
 Marcos Cuevas - RESPONSABLE DE RECURSOS
 Alvaro Berodia - RESPONSABLE DE RECURSOS
-Ricardo Gonzalez - Junior
+Ricardo Gonzalez - Junior 
+
+si
