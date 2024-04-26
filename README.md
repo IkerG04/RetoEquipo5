@@ -21,7 +21,7 @@
 
 (se han creado el github con todos los integrantes de grupo presente como se muestra en dicha imagen:
 
-![git](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png){width='100px'}
+![git](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png){width=100px}
 
 como tambien se ah creado el diagrama de gantt junto 
  )
