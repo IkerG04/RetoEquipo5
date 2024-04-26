@@ -2,7 +2,7 @@
 
 
 
-# DIA 1(24/04/2024)
+## DIA 1(24/04/2024)
 
 (el dia de hoy se ah explicado los procediminetos a seguir con el proyecto que se tiene en mente dando distintos puntos de vista de ideas con las personas que conforman dicho grupo repartiendo los distintos roles a ocupar)
 
@@ -16,7 +16,7 @@
 
 (Ricardo Gonzalez - JUNIOR: Complementario a los demás roles,es decir,ayuda a todos los diferentes integrantes) 
 ---
-# DIA 2 (25/04/2024)
+## DIA 2 (25/04/2024)
 
 (se ah creado el github con todos los integrantes de grupo presente como se muestra en dicha imagen:
 
