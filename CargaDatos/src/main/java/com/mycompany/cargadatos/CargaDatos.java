@@ -22,7 +22,7 @@ import java.util.Map;
  */
 public class CargaDatos extends JFrame {
 
-    private Map<String, Boolean> profesoresActivos = new HashMap<>(); // Mapa para mantener el estado de los profesores activos
+    private Map<String, Boolean> profesoresActivos = new HashMap<>();   
 
     public CargaDatos() {
         super("Carga de Datos desde Archivo CSV");
@@ -72,23 +72,17 @@ public class CargaDatos extends JFrame {
                 String emailProfesor = datos[1].trim();
                 boolean esActivo = Boolean.parseBoolean(datos[2].trim());
 
-                // Verificar si el profesor está activo según el archivo CSV
-                if (esActivo) {
-                    profesoresActivos.put(emailProfesor, true);
+                if (profesoresActivos.containsKey(emailProfesor)) {
+                    profesoresActivos.put(emailProfesor, esActivo && profesoresActivos.get(emailProfesor));
                 } else {
-                    // Si el profesor está inactivo en el archivo CSV, asegúrate de que esté marcado como inactivo
-                    profesoresActivos.put(emailProfesor, false);
+                    if (esActivo) {
+                        profesoresActivos.put(emailProfesor, true);
+                    }
                 }
             }
         }
         reader.close();
 
-        // Filtrar y mantener solo los profesores activos en la aplicación
-        filtrarProfesoresActivos();
-    }
-
-    private void filtrarProfesoresActivos() {
-        // Eliminar profesores inactivos del mapa de profesores activos
         profesoresActivos.entrySet().removeIf(entry -> !entry.getValue());
     }
 
