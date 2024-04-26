@@ -20,7 +20,7 @@
 ## DIA 2 (25/04/2024)
 
 (se han creado el github con todos los integrantes de grupo presente como se muestra en dicha imagen:
-(https://vivaldi.com/wp-content/themes/vivaldicom-theme/img/press/icons/viv_icon.png)
+[Vivaldi logo](https://vivaldi.com/wp-content/themes/vivaldicom-theme/img/press/icons/viv_icon.png)
 
 como tambien se ah creado el diagrama de gantt junto 
  )
