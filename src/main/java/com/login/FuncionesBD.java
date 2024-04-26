@@ -15,8 +15,8 @@ import java.sql.Connection;
  */
 public class FuncionesBD {
 
-    // muestra los datos de una tabla
-    public boolean mostrarDatos(String usuario, String password) {
+    // Validar datos
+    public boolean validarDatos(String usuario, String password) {
         Statement sentencia = null;
         ResultSet rs = null;
         Connection conn = AccesoBaseDatos.getInstance().getConn();
@@ -45,40 +45,6 @@ public class FuncionesBD {
             }
         }
         return false;
-    }
-
-    // Validar datos
-    public boolean validarDatos(String usuario, String password) {
-        boolean valido = false;
-
-        Statement sentencia = null;
-        ResultSet rs = null;
-        Connection conn = AccesoBaseDatos.getInstance().getConn();
-        try {
-            sentencia = conn.createStatement();
-            // dentro de executeQuery va el código de la select
-            String sql = "select usuario, password from usuarios";
-            rs = sentencia.executeQuery(sql);
-            while (rs.next()) {
-
-                if (rs.getString(usuario).equals(usuario) && rs.getString(password).equals(password)) {
-                    return true;
-                }
-
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error en la consulta " + ex.getMessage());
-        } finally {
-            try {
-                if (sentencia != null) {
-                    rs.close();
-                    sentencia.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println("Error al cerrar la sentencia " + ex.getMessage());
-            }
-        }
-        return valido;
     }
 
 }
