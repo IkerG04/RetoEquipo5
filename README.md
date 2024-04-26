@@ -25,5 +25,5 @@ se han creado el github con todos los integrantes de grupo presente como se mues
 
 como tambien se ah creado el diagrama de gantt hecho por el integrante Marcos
 
-[![](https://i.postimg.cc/TPzXzSFB/si.png)](https://postimg.cc/GBxNYMcj)
+[![](https://i.postimg.cc/TPzXzSFB/si.png)](https://postimg.cc/GBxNYMcj){ancho=200 altura=150}
  
