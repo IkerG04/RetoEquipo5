@@ -1,5 +1,10 @@
 package com.login;
 
+import com.programa.Administrador;
+import com.programa.SuperUsuario;
+import com.programa.Profesor;
+import com.programa.EquipoDirectivo;
+
 import java.awt.Color;
 
 public class Login extends javax.swing.JFrame {
@@ -87,8 +92,8 @@ public class Login extends javax.swing.JFrame {
             exitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(exitBtnLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(exitTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(exitTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
@@ -299,6 +304,34 @@ public class Login extends javax.swing.JFrame {
 
         if (usuarioValido) {
             javax.swing.JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.", "LOGIN", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+            switch (accesoBD.validarAdmin(usuarioIngresado)) {
+                case 1:
+                    //SuperUsuario
+                    this.dispose();
+                    SuperUsuario superUsuario = new SuperUsuario();
+                    superUsuario.setVisible(true);
+                    break;
+                case 2:
+                    //Administrador
+                    this.dispose();
+                    Administrador administrador = new Administrador();
+                    administrador.setVisible(true);
+                    break;
+                case 3:
+                    //EquipoDirectivo
+                    this.dispose();
+                    EquipoDirectivo equipoDirectivo = new EquipoDirectivo();
+                    equipoDirectivo.setVisible(true);
+                    break;
+                case 4:
+                    //Profesor
+                    this.dispose();
+                    Profesor profesor = new Profesor();
+                    profesor.setVisible(true);
+                    break;
+            }
+
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
