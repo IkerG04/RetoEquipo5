@@ -19,9 +19,11 @@
 ---
 ## DIA 2 (25/04/2024)
 
-(se han creado el github con todos los integrantes de grupo presente como se muestra en dicha imagen:
+se han creado el github con todos los integrantes de grupo presente como se muestra en dicha imagen:
 
 [![](https://i.postimg.cc/5y27Qr10/Captura-de-pantalla-2024-04-26-172314.png)](https://postimg.cc/Fdwg2DY5)
 
 como tambien se ah creado el diagrama de gantt hecho por el integrante Marcos
+
+[![](https://i.postimg.cc/TPzXzSFB/si.png)](https://postimg.cc/GBxNYMcj)
  
