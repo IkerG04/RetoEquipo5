@@ -8,13 +8,13 @@ package com.datos;
  *
  * @author DAW104
  */
-public class Profesor {
+public class Usuario {
 
-    private int idProfesor;
-    private String dni;
-    private Departamento departamento;
-    private String nombre;
-    private String apellidos;
-    private boolean activo;
-    private enum perfil {SuperUsuario};
+    private String correo;
+    private String password;
+
+    public Usuario(String correo, String password) {
+        this.correo = correo;
+        this.password = password;
+    }
 }
