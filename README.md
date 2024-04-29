@@ -23,11 +23,11 @@ se han creado el github con todos los integrantes de grupo presente como se mues
 
 [![](https://i.postimg.cc/5y27Qr10/Captura-de-pantalla-2024-04-26-172314.png)](https://postimg.cc/Fdwg2DY5)
 
-como tambien se ah creado el diagrama de gantt hecho por el integrante Marcos
+como tambien se a creado el diagrama de gantt hecho por el integrante Marcos
 
 [![](https://i.postimg.cc/TPzXzSFB/si.png)](https://postimg.cc/GBxNYMcj)
 
-se ha echo un crokis de la pagina web (concepto) de como seria su resultado final 
+se a echo un crokis de la pagina web (concepto) de como seria su resultado final 
 
 [![](https://i.postimg.cc/HkHHQgW6/Sin-t-tulo.png)](https://postimg.cc/mtd0sKH9)
 
@@ -46,3 +46,4 @@ se estructura la base de datos gracias a Alvaro y ademas aportaciones del resto 
 [![](https://i.postimg.cc/Y0tStmgC/jasdhsjadhfhsiufyesuf.png)](https://postimg.cc/sQ0zcxwk)
 
 se intento crear un servidor con ubuntu server el cual no hubo mucho exito alternando asi a "ubuntu LTS/(NO SERVER)" para inciar con su creacion 
+
