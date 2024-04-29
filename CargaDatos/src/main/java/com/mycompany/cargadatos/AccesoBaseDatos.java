@@ -5,7 +5,7 @@ la creación a un único objeto la creación de objetos pertenecientes a una cla
 y asegura de que sólo haya esta instancia única
 
  */
-package com.login;
+package com.mycompany.cargadatos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
