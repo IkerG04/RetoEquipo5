@@ -37,14 +37,14 @@ el diagrama de entidad relacion creado por Iker
  
 ## DIA 3 (26/04/2024)
 
-se han creado los diagramas (relacional,entidad relacion y el de clases)
+* se han creado los diagramas (relacional,entidad relacion y el de clases)
 
 ## DIA 4 (29/04/2024)
 
-se estructura la base de datos gracias a Alvaro y ademas aportaciones del resto del grupo 
+* se estructura la base de datos gracias a Alvaro y ademas aportaciones del resto del grupo 
 
 [![](https://i.postimg.cc/Y0tStmgC/jasdhsjadhfhsiufyesuf.png)](https://postimg.cc/sQ0zcxwk)
 
-se intento crear un servidor con ubuntu server el cual no hubo mucho exito alternando asi a "ubuntu LTS/(NO SERVER)" para inciar con su creacion 
+* se intento crear un servidor con ubuntu server el cual no hubo mucho exito alternando asi a "ubuntu LTS/(NO SERVER)" para inciar con su creacion 
 
 [![](https://i.postimg.cc/6Txp7zMr/image.png)](https://postimg.cc/PvKj9bsJ)
