@@ -96,17 +96,12 @@ CREATE TABLE IF NOT EXISTS `gestoractividadesextraescolares`.`profesor` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `dni` VARCHAR(9) NOT NULL,
   `correo` VARCHAR(45) NOT NULL,
-  `departamento` INT NOT NULL,
   `nombre` VARCHAR(45) NOT NULL,
   `apellidos` VARCHAR(45) NOT NULL,
   `activo` TINYINT NOT NULL,
   `perfil` ENUM('SuperUsuario', 'Administrador', 'EquipoAdministrativo', 'Profesor') NOT NULL,
   `contraseña` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_profesor_departamento_idx` (`departamento` ASC) VISIBLE,
-  CONSTRAINT `fk_profesor_departamento`
-    FOREIGN KEY (`departamento`)
-    REFERENCES `gestoractividadesextraescolares`.`departamento` (`id`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -264,6 +259,7 @@ CREATE TABLE IF NOT EXISTS `gestoractividadesextraescolares`.`usuario` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
