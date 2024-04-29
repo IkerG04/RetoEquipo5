@@ -38,3 +38,9 @@ el diagrama de entidad relacion creado por Iker
 ## DIA 3 (26/04/2024)
 
 se han creado los diagramas (relacional,entidad relacion y el de clases)
+
+## DIA 4 (29/04/2024)
+
+se estructura la base de datos gracias a Alvaro y ademas aportaciones del resto del grupo 
+
+[![](https://i.postimg.cc/Y0tStmgC/jasdhsjadhfhsiufyesuf.png)](https://postimg.cc/sQ0zcxwk)
