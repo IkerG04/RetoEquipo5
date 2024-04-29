@@ -41,15 +41,10 @@ public class AccesoBaseDatos {
             }
         } catch (SQLException ex) {
             // manejo de los errores
-            System.out.println("SQLException: " + ex.getMessage()); //nos indica la descripción del error
+            System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState()); 
-            /*devuelve un código SQL estándar definido por ISO/ANSI 
-            y el Open Group que identifica de forma unívoca el error que se ha producido.
-            */
 
             System.out.println("VendorError: " + ex.getErrorCode()); 
-            /*es un código de error que lanza la base de datos.
-            En este caso el código de error es diferente dependiendo del proveedor de base de datos que estemos utilizando.*/
         }
     }
 
