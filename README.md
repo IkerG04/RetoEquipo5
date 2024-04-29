@@ -47,3 +47,4 @@ se estructura la base de datos gracias a Alvaro y ademas aportaciones del resto 
 
 se intento crear un servidor con ubuntu server el cual no hubo mucho exito alternando asi a "ubuntu LTS/(NO SERVER)" para inciar con su creacion 
 
+[![](https://i.postimg.cc/6Txp7zMr/image.png)](https://postimg.cc/PvKj9bsJ)
