@@ -44,3 +44,5 @@ se han creado los diagramas (relacional,entidad relacion y el de clases)
 se estructura la base de datos gracias a Alvaro y ademas aportaciones del resto del grupo 
 
 [![](https://i.postimg.cc/Y0tStmgC/jasdhsjadhfhsiufyesuf.png)](https://postimg.cc/sQ0zcxwk)
+
+se intento crear un servidor con ubuntu server el cual no hubo mucho exito alternando asi a "ubuntu LTS/(NO SERVER)" para inciar con su creacion 
