@@ -171,6 +171,43 @@ body {
 .nav-container input[type="checkbox"]:checked~.logo {
     display: none;
 }
+  /*carousel*/ 
+  h1 {
+    text-align: center;
+}
+
+#carrusel-contenido {
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+}
+
+#carrusel-caja {
+    display: flex; /* Usar flexbox para alinear los elementos */
+    width: 600%; /* Seis imágenes, por lo que el contenedor debe ser seis veces más ancho */
+    overflow: hidden; /* Ocultar el desbordamiento */
+    animation: automatizacion 50s infinite linear; /* Animación del carrusel */
+    transition: transform 5s ease; /* Transición suave para el desplazamiento */
+}
+
+.carrusel-elemento {
+    flex: 0 0 16.66666%; /* Cada elemento ocupa el 16.666% del ancho */
+}
+
+.imagen {
+    width: 110%; /* La imagen ocupa todo el ancho del contenedor */
+    height: 30%; /* Altura automática para mantener la relación de aspecto */
+    object-fit: cover; /* Ajustar la imagen para cubrir todo el contenedor */
+}
+
+@keyframes automatizacion {
+    0% {
+        transform: translateX(0); /* Sin desplazamiento al principio */
+    }
+    100% {
+        transform: translateX(-84%); /* Desplazar hacia la izquierda */
+    }
+}
 
   /* Footer Styles */
   footer {
