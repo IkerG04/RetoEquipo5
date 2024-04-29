@@ -35,3 +35,6 @@ el diagrama de entidad relacion creado por Iker
 
 [![](https://i.postimg.cc/Dw6hFsxP/Captura-de-pantalla-2024-04-26-192324.png)](https://postimg.cc/Jssv5yVs)
  
+## DIA 3 (26/04/2024)
+
+se han creado los diagramas (relacional,entidad relacion y el de clases)
