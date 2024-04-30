@@ -89,7 +89,7 @@ public class Principal extends JFrame {
         if (user.getPerfil() == Usuario.perfil.SuperUsuario || user.getPerfil() == Usuario.perfil.Administrador) {
             cargaDatosBoton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    //dispose();
+                    dispose();
                     CargaDatos carga = new CargaDatos();
                     carga.setVisible(true);
                 }
