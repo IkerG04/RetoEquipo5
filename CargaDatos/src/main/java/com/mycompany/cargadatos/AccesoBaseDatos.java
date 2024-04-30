@@ -11,7 +11,7 @@ import java.util.Properties;
 public class AccesoBaseDatos {
 
     private Connection conn = null;
-    private static final String BD = "RetoTest";
+    private static final String BD = "gestoractividadesextraescolaresprueba";
     private static final String USUARIO = "root";
     private static final String CLAVE = "mysql";
     private static final String URL = "jdbc:mysql://localhost:3306/" + BD;
