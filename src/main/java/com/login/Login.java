@@ -1,10 +1,9 @@
 package com.login;
 
+import com.bd.FuncionesBD;
+import com.bd.AccesoBaseDatos;
 import com.datos.Usuario;
-import com.programa.Administrador;
-import com.programa.SuperUsuario;
-import com.programa.Profesor;
-import com.programa.EquipoDirectivo;
+import com.programa.Principal;
 
 import java.awt.Color;
 
@@ -103,7 +102,7 @@ public class Login extends javax.swing.JFrame {
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
                 .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(490, Short.MAX_VALUE))
+                .addContainerGap(456, Short.MAX_VALUE))
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,6 +119,14 @@ public class Login extends javax.swing.JFrame {
         userTxt.setForeground(new java.awt.Color(204, 204, 204));
         userTxt.setToolTipText("");
         userTxt.setBorder(null);
+        userTxt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                userTxtFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                userTxtFocusLost(evt);
+            }
+        });
         userTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 userTxtMousePressed(evt);
@@ -138,9 +145,22 @@ public class Login extends javax.swing.JFrame {
 
         passTxt.setForeground(new java.awt.Color(204, 204, 204));
         passTxt.setBorder(null);
+        passTxt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passTxtFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passTxtFocusLost(evt);
+            }
+        });
         passTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 passTxtMousePressed(evt);
+            }
+        });
+        passTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passTxtActionPerformed(evt);
             }
         });
 
@@ -183,11 +203,10 @@ public class Login extends javax.swing.JFrame {
         bgLayout.setHorizontalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(50, 50, 50)
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addComponent(userLabel)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(passTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -195,9 +214,14 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(passLabel)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(title)
-                            .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(50, Short.MAX_VALUE))
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(bgLayout.createSequentialGroup()
+                .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,7 +259,7 @@ public class Login extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,14 +312,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_userTxtMousePressed
 
     private void passTxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passTxtMousePressed
-        if (String.valueOf(passTxt.getPassword()).equals("********")) {
-            passTxt.setText("");
-            passTxt.setForeground(Color.black);
-        }
-        if (userTxt.getText().isEmpty()) {
-            userTxt.setText("Ingrese su nombre de usuario");
-            userTxt.setForeground(Color.gray);
-        }
+
     }//GEN-LAST:event_passTxtMousePressed
 
     private void loginBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnTxtMouseClicked
@@ -308,34 +325,10 @@ public class Login extends javax.swing.JFrame {
 
         if (usuarioValido) {
             javax.swing.JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.", "LOGIN", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-            Usuario user = new Usuario(usuarioIngresado, passwordIngresada);
-            switch (accesoBD.validarAdmin(usuarioIngresado)) {
-                case 1:
-                    //SuperUsuario
-                    this.dispose();
-                    SuperUsuario superUsuario = new SuperUsuario();
-                    superUsuario.setVisible(true);
-                    break;
-                case 2:
-                    //Administrador
-                    this.dispose();
-                    Administrador administrador = new Administrador();
-                    administrador.setVisible(true);
-                    break;
-                case 3:
-                    //EquipoDirectivo
-                    this.dispose();
-                    EquipoDirectivo equipoDirectivo = new EquipoDirectivo();
-                    equipoDirectivo.setVisible(true);
-                    break;
-                case 4:
-                    //Profesor
-                    this.dispose();
-                    Profesor profesor = new Profesor();
-                    profesor.setVisible(true);
-                    break;
-            }
-
+            Usuario user = new Usuario(usuarioIngresado, passwordIngresada, accesoBD.validarAdmin(usuarioIngresado) - 1);
+            Principal principal = new Principal();
+            this.dispose();
+            principal.setVisible(true);
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
@@ -344,6 +337,30 @@ public class Login extends javax.swing.JFrame {
     private void userTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_userTxtActionPerformed
+
+    private void passTxtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passTxtFocusGained
+        passTxt.setText("");
+        passTxt.setForeground(Color.black);
+    }//GEN-LAST:event_passTxtFocusGained
+
+    private void passTxtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passTxtFocusLost
+        passTxt.setText("********");
+        passTxt.setForeground(Color.gray);
+    }//GEN-LAST:event_passTxtFocusLost
+
+    private void userTxtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userTxtFocusGained
+        passTxt.setText("");
+        passTxt.setForeground(Color.black);
+    }//GEN-LAST:event_userTxtFocusGained
+
+    private void userTxtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userTxtFocusLost
+        passTxt.setText("Ingrese su nombre de usuario");
+        passTxt.setForeground(Color.gray);
+    }//GEN-LAST:event_userTxtFocusLost
+
+    private void passTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passTxtActionPerformed
 
     /**
      * @param args the command line arguments

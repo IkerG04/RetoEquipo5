@@ -13,8 +13,15 @@ public class Usuario {
     private String correo;
     private String password;
 
-    public Usuario(String correo, String password) {
+    private enum perfil {
+        SuperUsuario, Administrador, EquipoDirectivo, Profesor
+    };
+
+    private perfil perfilUsuario;
+
+    public Usuario(String correo, String password, int numPerfil) {
         this.correo = correo;
         this.password = password;
+        perfilUsuario = perfil.values()[numPerfil];
     }
 }

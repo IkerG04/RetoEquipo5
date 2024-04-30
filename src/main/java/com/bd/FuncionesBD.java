@@ -2,7 +2,7 @@
  * Diferentes métdos que puedo requerir en mi conexión
 Es muy conveniente comprobar el resultado de las consultas ejecutadas en la propia BD
  */
-package com.login;
+package com.bd;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

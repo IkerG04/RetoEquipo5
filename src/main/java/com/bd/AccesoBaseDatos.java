@@ -5,7 +5,7 @@ la creación a un único objeto la creación de objetos pertenecientes a una cla
 y asegura de que sólo haya esta instancia única
 
  */
-package com.login;
+package com.bd;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,7 +26,7 @@ public class AccesoBaseDatos {
     private static String clave = "mysql";
     private static final String URL = "jdbc:mysql://localhost:3306/" + BD; //conexión al servidor de la BD
 
-    protected AccesoBaseDatos(String usuario, String clave) {
+    public AccesoBaseDatos(String usuario, String clave) {
 
         this.usuario = usuario;
         this.clave = clave;
