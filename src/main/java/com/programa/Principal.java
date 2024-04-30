@@ -56,11 +56,15 @@ public class Principal extends JFrame {
             mantenimientosBoton = new JButton("Mantenimientos Básicos");
             panelBotones.add(mantenimientosBoton);
         }
+
         solicitudBoton = new JButton("Solicitud");
-        actividadBoton = new JButton("Actividad");
+
+        if (user.getPerfil() == Usuario.perfil.EquipoDirectivo || user.getPerfil() == Usuario.perfil.Administrador) {
+            actividadBoton = new JButton("Actividad");
+            panelBotones.add(actividadBoton);
+        }
 
         panelBotones.add(solicitudBoton);
-        panelBotones.add(actividadBoton);
     }
 
     private void estilizarBotones() {
@@ -110,11 +114,13 @@ public class Principal extends JFrame {
             }
         });
 
-        actividadBoton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Agrega aquí la funcionalidad para el botón "Actividad"
-            }
-        });
+        if (user.getPerfil() == Usuario.perfil.EquipoDirectivo || user.getPerfil() == Usuario.perfil.Administrador) {
+            actividadBoton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    // Agrega aquí la funcionalidad para el botón "Actividad"
+                }
+            });
+        }
     }
 
 
