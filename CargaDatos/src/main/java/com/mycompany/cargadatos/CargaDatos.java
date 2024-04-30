@@ -13,12 +13,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class CargaDatos extends JFrame {
-
-    private Map<String, Boolean> profesoresActivos = new HashMap<>();
 
     public CargaDatos() {
         super("Carga de Datos desde Archivo CSV");
@@ -44,7 +43,7 @@ public class CargaDatos extends JFrame {
                     try {
                         cargarProfesoresDesdeCSV(selectedFile);
                         mostrarMensajeExito("Profesores cargados exitosamente desde el archivo CSV.");
-                    } catch (IOException ex) {
+                    } catch (IOException | SQLException ex) {
                         mostrarMensajeError("Error al cargar el archivo CSV: " + ex.getMessage());
                     }
                 }
@@ -54,30 +53,43 @@ public class CargaDatos extends JFrame {
         getContentPane().add(mainPanel);
     }
 
-    private void cargarProfesoresDesdeCSV(File file) throws IOException {
+    private void cargarProfesoresDesdeCSV(File file) throws IOException, SQLException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line;
+
+        AccesoBaseDatos db = AccesoBaseDatos.getInstance();
+        Connection conn = db.getConn();
+
+        String insertQuery = "INSERT INTO profesor (dni, correo, nombre, apellidos, activo, perfil, contraseña) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement pstmt = conn.prepareStatement(insertQuery);
 
         while ((line = reader.readLine()) != null) {
             String[] datos = line.split(",");
 
-            if (datos.length >= 3) {
-                String nombreProfesor = datos[0].trim();
-                String emailProfesor = datos[1].trim();
-                boolean esActivo = Boolean.parseBoolean(datos[2].trim());
+            if (datos.length >= 7) {
+                String dni = datos[0].trim();
+                String correo = datos[1].trim();
+                String nombre = datos[2].trim();
+                String apellidos = datos[3].trim();
+                boolean activo = Boolean.parseBoolean(datos[4].trim());
+                String perfil = datos[5].trim();
+                String contraseña = datos[6].trim();
 
-                if (profesoresActivos.containsKey(emailProfesor)) {
-                    profesoresActivos.put(emailProfesor, esActivo && profesoresActivos.get(emailProfesor));
-                } else {
-                    if (esActivo) {
-                        profesoresActivos.put(emailProfesor, true);
-                    }
-                }
+                pstmt.setString(1, dni);
+                pstmt.setString(2, correo);
+                pstmt.setString(3, nombre);
+                pstmt.setString(4, apellidos);
+                pstmt.setBoolean(5, activo);
+                pstmt.setString(6, perfil);
+                pstmt.setString(7, contraseña);
+
+                pstmt.executeUpdate();
             }
         }
-        reader.close();
 
-        profesoresActivos.entrySet().removeIf(entry -> !entry.getValue());
+        reader.close();
+        pstmt.close();
+        db.cerrar();
     }
 
     private void mostrarMensajeExito(String mensaje) {
