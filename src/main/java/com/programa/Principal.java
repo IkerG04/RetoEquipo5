@@ -86,11 +86,14 @@ public class Principal extends JFrame {
     }
 
     private void agregarFuncionalidadBotones() {
+
+        Principal estePrincipal = this;
+
         if (user.getPerfil() == Usuario.perfil.SuperUsuario || user.getPerfil() == Usuario.perfil.Administrador) {
             cargaDatosBoton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     dispose();
-                    CargaDatos carga = new CargaDatos();
+                    CargaDatos carga = new CargaDatos(estePrincipal);
                     carga.setVisible(true);
                 }
             });
@@ -100,7 +103,7 @@ public class Principal extends JFrame {
             mantenimientosBoton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     dispose();
-                    MantenimientosBasicos mantenimiento = new MantenimientosBasicos();
+                    MantenimientosBasicos mantenimiento = new MantenimientosBasicos(estePrincipal);
                     mantenimiento.setVisible(true);
                 }
             });
@@ -108,8 +111,8 @@ public class Principal extends JFrame {
 
         solicitudBoton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dispose();
-                Solicitud solicitud = new Solicitud();
+                setVisible(false);
+                Solicitud solicitud = new Solicitud(estePrincipal);
                 solicitud.setVisible(true);
             }
         });
@@ -122,7 +125,6 @@ public class Principal extends JFrame {
             });
         }
     }
-
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -146,7 +148,6 @@ public class Principal extends JFrame {
     /**
      * @param args the command line arguments
      */
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

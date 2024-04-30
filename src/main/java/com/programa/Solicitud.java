@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package com.programa;
 
 import javax.swing.*;
@@ -11,16 +7,16 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author DAW129
- */
 public class Solicitud extends JFrame {
+
+    private JFrame principal; // Referencia al JFrame principal
 
     private List<SolicitudData> solicitudes = new ArrayList<>(); // Lista para almacenar las solicitudes
 
-    public Solicitud() {
+    public Solicitud(JFrame principal) {
         super("Mantenimiento de Solicitudes");
+
+        this.principal = principal; // Asignar la referencia al JFrame principal
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
@@ -75,6 +71,20 @@ public class Solicitud extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 showCreateRequestForm();
+            }
+        });
+
+        // Crear botón "Volver"
+        JButton backButton = new JButton("Volver");
+        mainPanel.add(backButton, BorderLayout.SOUTH);
+
+        // Manejar evento del botón "Volver"
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Hacer visible el JFrame principal y cerrar el actual
+                principal.setVisible(true);
+                dispose();
             }
         });
 
@@ -224,7 +234,6 @@ public class Solicitud extends JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

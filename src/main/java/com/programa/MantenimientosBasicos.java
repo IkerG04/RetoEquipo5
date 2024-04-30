@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package com.programa;
 
 import javax.swing.*;
@@ -9,30 +5,51 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- *
- * @author DAW129
- */
 public class MantenimientosBasicos extends JFrame {
 
-    public MantenimientosBasicos() {
+    private JFrame principal; // Referencia al JFrame principal
+
+    public MantenimientosBasicos(JFrame principal) {
         super("Mantenimiento Básico");
+
+        this.principal = principal; // Asignar la referencia al JFrame principal
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
         setLocationRelativeTo(null);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 2, 10, 10)); // Panel para botones con espacio vertical
 
         JButton professorsButton = new JButton("Profesores");
         JButton coursesButton = new JButton("Cursos");
         JButton groupsButton = new JButton("Grupos");
         JButton departmentsButton = new JButton("Departamentos");
+        JButton backButton = new JButton("Volver");
 
-        mainPanel.add(professorsButton, BorderLayout.NORTH);
-        mainPanel.add(coursesButton, BorderLayout.CENTER);
-        mainPanel.add(groupsButton, BorderLayout.WEST);
-        mainPanel.add(departmentsButton, BorderLayout.EAST);
+        // Estilo de botones
+        Font buttonFont = new Font("Arial", Font.BOLD, 14);
+        professorsButton.setFont(buttonFont);
+        coursesButton.setFont(buttonFont);
+        groupsButton.setFont(buttonFont);
+        departmentsButton.setFont(buttonFont);
+        backButton.setFont(buttonFont);
+
+        Color buttonColor = new Color(255, 204, 153);
+        professorsButton.setBackground(buttonColor);
+        coursesButton.setBackground(buttonColor);
+        groupsButton.setBackground(buttonColor);
+        departmentsButton.setBackground(buttonColor);
+        backButton.setBackground(buttonColor);
+
+        // Añadir botones al panel de botones
+        buttonPanel.add(professorsButton);
+        buttonPanel.add(coursesButton);
+        buttonPanel.add(groupsButton);
+        buttonPanel.add(departmentsButton);
+
+        mainPanel.add(buttonPanel, BorderLayout.CENTER);
+        mainPanel.add(backButton, BorderLayout.SOUTH);
 
         // Manejar eventos de botones
         professorsButton.addActionListener(new ActionListener() {
@@ -60,6 +77,15 @@ public class MantenimientosBasicos extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 showActionSelectionDialog("Departamentos");
+            }
+        });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Hacer visible el JFrame principal y cerrar el actual
+                principal.setVisible(true);
+                dispose();
             }
         });
 
@@ -188,7 +214,6 @@ public class MantenimientosBasicos extends JFrame {
     /**
      * @param args the command line arguments
      */
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

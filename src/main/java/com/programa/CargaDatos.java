@@ -14,10 +14,14 @@ import java.util.Map;
 
 public class CargaDatos extends JFrame {
 
+    private JFrame principal; // Referencia al JFrame principal
+
     private Map<String, Boolean> profesoresActivos = new HashMap<>();
 
-    public CargaDatos() {
+    public CargaDatos(JFrame principal) {
         super("Carga de Datos desde Archivo CSV");
+
+        this.principal = principal; // Asignar la referencia al JFrame principal
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 200);
@@ -26,8 +30,25 @@ public class CargaDatos extends JFrame {
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         JButton cargarCSVButton = new JButton("Cargar Archivo CSV");
-        mainPanel.add(cargarCSVButton, BorderLayout.CENTER);
+        JButton volverButton = new JButton("Volver");
 
+        // Estilizar botones
+        Font buttonFont = new Font("Arial", Font.BOLD, 14);
+        cargarCSVButton.setFont(buttonFont);
+        volverButton.setFont(buttonFont);
+
+        Color buttonColor = new Color(255, 204, 153);
+        cargarCSVButton.setBackground(buttonColor);
+        volverButton.setBackground(buttonColor);
+
+        // Agregar botones al panel principal
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+        buttonPanel.add(cargarCSVButton);
+        buttonPanel.add(volverButton);
+
+        mainPanel.add(buttonPanel, BorderLayout.CENTER);
+
+        // Manejar evento del botón "Cargar Archivo CSV"
         cargarCSVButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -46,6 +67,16 @@ public class CargaDatos extends JFrame {
                         mostrarMensajeError("Error al cargar el archivo CSV: " + ex.getMessage());
                     }
                 }
+            }
+        });
+
+        // Manejar evento del botón "Volver"
+        volverButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Hacer visible el JFrame principal y cerrar el actual
+                principal.setVisible(true);
+                dispose();
             }
         });
 
@@ -108,7 +139,6 @@ public class CargaDatos extends JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
