@@ -16,23 +16,17 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author DAW129
- */
 public class CargaDatos extends JFrame {
 
-    private Map<String, Boolean> profesoresActivos = new HashMap<>();   
+    private Map<String, Boolean> profesoresActivos = new HashMap<>();
 
     public CargaDatos() {
         super("Carga de Datos desde Archivo CSV");
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 200);
         setLocationRelativeTo(null);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
-
         JButton cargarCSVButton = new JButton("Cargar Archivo CSV");
         mainPanel.add(cargarCSVButton, BorderLayout.CENTER);
 
