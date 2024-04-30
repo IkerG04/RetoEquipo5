@@ -1,6 +1,6 @@
 # RetoEquipo5# 
 
-
+I
 
 ## DIA 1(24/04/2024)
 
@@ -48,3 +48,13 @@ el diagrama de entidad relacion creado por Iker
 * se intento crear un servidor con ubuntu server el cual no hubo mucho exito alternando asi a "ubuntu LTS/(NO SERVER)" para inciar con su creacion 
 
 [![](https://i.postimg.cc/6Txp7zMr/image.png)](https://postimg.cc/PvKj9bsJ)
+
+## DIA 5 (30/04/2024)
+
+Se han implementado la funcion de cargar archivos csv a Java  
+
+[![vfvcvvdfvb.png](https://i.postimg.cc/VvqKZtz2/vfvcvvdfvb.png)](https://postimg.cc/gL0ynnXK)
+
+se han juntado las distintas partes creadas del proyecto java (login con el resto del proyecto)
+
+[![easdfsgfsdfdfwe4fe.png](https://i.postimg.cc/XYMSXfP6/easdfsgfsdfdfwe4fe.png)](https://postimg.cc/VdFHVC1K)
