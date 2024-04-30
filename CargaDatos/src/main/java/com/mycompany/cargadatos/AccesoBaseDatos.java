@@ -1,10 +1,3 @@
-/*
- * sigue el patrón Singleton para la conexión a la base de datos
-En ingeniería de software, singleton o instancia única es un patrón de diseño que restringe 
-la creación a un único objeto la creación de objetos pertenecientes a una clase 
-y asegura de que sólo haya esta instancia única
-
- */
 package com.mycompany.cargadatos;
 
 import java.sql.Connection;
@@ -13,17 +6,15 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /**
- *
- * @author pe
+ * @author Equipo 5
  */
 public class AccesoBaseDatos {
 
-    private Connection conn = null; //atributo conexión
-    // constantes a definir. pueden depender de la base a usar, qué credenciales tiene la BD...
-    private static final String BD = "test";
-    private static final String USUARIO = "root";//son los datos para conectarse a la BD Mysql
-    private static final String CLAVE = "";
-    private static final String URL = "jdbc:mysql://localhost:3306/" + BD; //conexión al servidor de la BD
+    private Connection conn = null;
+    private static final String BD = "RetoTest";
+    private static final String USUARIO = "root";
+    private static final String CLAVE = "mysql";
+    private static final String URL = "jdbc:mysql://localhost:3306/" + BD;
 
     private AccesoBaseDatos() {
 
@@ -40,7 +31,6 @@ public class AccesoBaseDatos {
                 System.out.println("Conexion correcta a: " + URL);
             }
         } catch (SQLException ex) {
-            // manejo de los errores
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState()); 
 
@@ -52,20 +42,14 @@ public class AccesoBaseDatos {
         return AccesoBaseDatosHolder.INSTANCE;
     }
 
-    private static class AccesoBaseDatosHolder {//método privado
+    private static class AccesoBaseDatosHolder {
 
-        private static final AccesoBaseDatos INSTANCE = new AccesoBaseDatos();//variable estática privada
+        private static final AccesoBaseDatos INSTANCE = new AccesoBaseDatos();
     }
     
-    
-    //otros métodos que puedan ser necesarios
-    
-    //obtener la conexion
     public Connection getConn() {
         return conn;
     }
- 
-    // cerrar la conexión
     public boolean cerrar() {
         boolean siCerrada = false;
         try {
@@ -78,5 +62,4 @@ public class AccesoBaseDatos {
         }
         return siCerrada;
     }
-
 }
