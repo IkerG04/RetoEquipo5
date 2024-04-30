@@ -232,7 +232,7 @@ public class CargaDatos extends JFrame {
             reader.readLine(); // Omitir la primera línea (encabezados)
 
             PreparedStatement pstmt = conn.prepareStatement(
-                    "INSERT INTO curso (codcurso, descurso, etapa, activo) VALUES (?, ?, ?, ?)");
+                    "INSERT INTO curso (id, etapa, descripcion, activo) VALUES (?, ?, ?, ?)");
 
             while ((line = reader.readLine()) != null) {
                 String[] datos = line.split(",");
