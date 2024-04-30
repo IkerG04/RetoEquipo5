@@ -13,7 +13,7 @@ public class Usuario {
     private String correo;
     private String password;
 
-    private enum perfil {
+    public enum perfil {
         SuperUsuario, Administrador, EquipoDirectivo, Profesor
     };
 
@@ -23,5 +23,9 @@ public class Usuario {
         this.correo = correo;
         this.password = password;
         perfilUsuario = perfil.values()[numPerfil];
+    }
+
+    public Enum getPerfil() {
+        return perfilUsuario;
     }
 }

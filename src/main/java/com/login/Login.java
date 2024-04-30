@@ -328,9 +328,9 @@ public class Login extends javax.swing.JFrame {
         if (usuarioValido) {
             javax.swing.JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.", "LOGIN", javax.swing.JOptionPane.INFORMATION_MESSAGE);
             Usuario user = new Usuario(usuarioIngresado, passwordIngresada, accesoBD.validarAdmin(usuarioIngresado) - 1);
-            Principal principal = new Principal();
+            Principal principal1 = new Principal(user);
             this.dispose();
-            principal.setVisible(true);
+            principal1.setVisible(true);
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
