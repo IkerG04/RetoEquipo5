@@ -117,6 +117,7 @@ public class Login extends javax.swing.JFrame {
 
         userTxt.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         userTxt.setForeground(new java.awt.Color(204, 204, 204));
+        userTxt.setText("Ingrese su nombre de usuario");
         userTxt.setToolTipText("");
         userTxt.setBorder(null);
         userTxt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -144,6 +145,7 @@ public class Login extends javax.swing.JFrame {
         passLabel.setText("CONTRASEÑA");
 
         passTxt.setForeground(new java.awt.Color(204, 204, 204));
+        passTxt.setText("********");
         passTxt.setBorder(null);
         passTxt.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
