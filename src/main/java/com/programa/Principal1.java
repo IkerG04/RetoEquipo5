@@ -67,6 +67,9 @@ public class Principal1 extends javax.swing.JDialog {
         solicitud = new javax.swing.JPanel();
         imagenSolicitud = new javax.swing.JLabel();
         texto2 = new javax.swing.JLabel();
+        actividad = new javax.swing.JPanel();
+        imagenSolicitud1 = new javax.swing.JLabel();
+        texto3 = new javax.swing.JLabel();
 
         cerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         cerrarSesion.setForeground(new java.awt.Color(0, 0, 0));
@@ -195,6 +198,40 @@ public class Principal1 extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        actividad.setBackground(new java.awt.Color(51, 51, 51));
+        actividad.setPreferredSize(new java.awt.Dimension(90, 80));
+        actividad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                actividadMouseClicked(evt);
+            }
+        });
+
+        imagenSolicitud1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/actividad.png"))); // NOI18N
+
+        texto3.setForeground(new java.awt.Color(255, 255, 255));
+        texto3.setText("Actividad");
+
+        javax.swing.GroupLayout actividadLayout = new javax.swing.GroupLayout(actividad);
+        actividad.setLayout(actividadLayout);
+        actividadLayout.setHorizontalGroup(
+            actividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(actividadLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(actividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(texto3)
+                    .addComponent(imagenSolicitud1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        actividadLayout.setVerticalGroup(
+            actividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(actividadLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(imagenSolicitud1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(texto3)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -204,7 +241,8 @@ public class Principal1 extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cargaDatos, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
                     .addComponent(solicitud, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
-                    .addComponent(mantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(mantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(actividad, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -217,7 +255,9 @@ public class Principal1 extends javax.swing.JDialog {
                 .addComponent(mantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(solicitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(277, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(actividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(191, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -266,18 +306,25 @@ public class Principal1 extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_solicitudMouseClicked
 
+    private void actividadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actividadMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_actividadMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel actividad;
     private javax.swing.JPanel cargaDatos;
     private javax.swing.JLabel cerrarSesion;
     private javax.swing.JLabel imagenCargaDatos;
     private javax.swing.JLabel imagenMantenimiento;
     private javax.swing.JLabel imagenSolicitud;
+    private javax.swing.JLabel imagenSolicitud1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel mantenimiento;
     private javax.swing.JPanel solicitud;
     private javax.swing.JLabel texto2;
+    private javax.swing.JLabel texto3;
     private javax.swing.JLabel textoCargaDatos;
     private javax.swing.JLabel textoMantenimiento;
     // End of variables declaration//GEN-END:variables
