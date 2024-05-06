@@ -55,12 +55,18 @@ public class Principal1 extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         cerrarSesion = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1 = new javax.swing.JPanel();
+        cargaDatos = new javax.swing.JPanel();
+        imagenCargaDatos = new javax.swing.JLabel();
+        textoCargaDatos = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        mantenimiento = new javax.swing.JPanel();
+        imagenMantenimiento = new javax.swing.JLabel();
+        textoMantenimiento = new javax.swing.JLabel();
+        solicitud = new javax.swing.JPanel();
+        imagenSolicitud = new javax.swing.JLabel();
+        texto2 = new javax.swing.JLabel();
 
         cerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         cerrarSesion.setForeground(new java.awt.Color(0, 0, 0));
@@ -73,30 +79,152 @@ public class Principal1 extends javax.swing.JDialog {
             }
         });
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+
+        cargaDatos.setBackground(new java.awt.Color(51, 51, 51));
+        cargaDatos.setPreferredSize(new java.awt.Dimension(90, 80));
+        cargaDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cargaDatosMouseClicked(evt);
+            }
+        });
+
+        imagenCargaDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/cargaDatos.png"))); // NOI18N
+
+        textoCargaDatos.setForeground(new java.awt.Color(255, 255, 255));
+        textoCargaDatos.setText("Carga de datos");
+
+        javax.swing.GroupLayout cargaDatosLayout = new javax.swing.GroupLayout(cargaDatos);
+        cargaDatos.setLayout(cargaDatosLayout);
+        cargaDatosLayout.setHorizontalGroup(
+            cargaDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cargaDatosLayout.createSequentialGroup()
+                .addGroup(cargaDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cargaDatosLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(imagenCargaDatos))
+                    .addGroup(cargaDatosLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(textoCargaDatos)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        cargaDatosLayout.setVerticalGroup(
+            cargaDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cargaDatosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(imagenCargaDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoCargaDatos)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel1.setFont(new java.awt.Font("Source Code Pro Black", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText(" ACEX");
+
+        mantenimiento.setBackground(new java.awt.Color(40, 40, 40));
+        mantenimiento.setPreferredSize(new java.awt.Dimension(90, 80));
+        mantenimiento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mantenimientoMouseClicked(evt);
+            }
+        });
+
+        imagenMantenimiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/mantenimiento.png"))); // NOI18N
+
+        textoMantenimiento.setForeground(new java.awt.Color(255, 255, 255));
+        textoMantenimiento.setText("Mantenimiento");
+
+        javax.swing.GroupLayout mantenimientoLayout = new javax.swing.GroupLayout(mantenimiento);
+        mantenimiento.setLayout(mantenimientoLayout);
+        mantenimientoLayout.setHorizontalGroup(
+            mantenimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mantenimientoLayout.createSequentialGroup()
+                .addGroup(mantenimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mantenimientoLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(imagenMantenimiento))
+                    .addGroup(mantenimientoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(textoMantenimiento)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        mantenimientoLayout.setVerticalGroup(
+            mantenimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mantenimientoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(imagenMantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoMantenimiento)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        solicitud.setBackground(new java.awt.Color(51, 51, 51));
+        solicitud.setPreferredSize(new java.awt.Dimension(90, 80));
+        solicitud.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                solicitudMouseClicked(evt);
+            }
+        });
+
+        imagenSolicitud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/solicitud.png"))); // NOI18N
+
+        texto2.setForeground(new java.awt.Color(255, 255, 255));
+        texto2.setText("Solicitud");
+
+        javax.swing.GroupLayout solicitudLayout = new javax.swing.GroupLayout(solicitud);
+        solicitud.setLayout(solicitudLayout);
+        solicitudLayout.setHorizontalGroup(
+            solicitudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(solicitudLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(solicitudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(texto2)
+                    .addComponent(imagenSolicitud))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        solicitudLayout.setVerticalGroup(
+            solicitudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(solicitudLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(imagenSolicitud, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(texto2)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1023, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(755, Short.MAX_VALUE)
-                .addComponent(cerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cargaDatos, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                    .addComponent(solicitud, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                    .addComponent(mantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(cerrarSesion)
-                .addContainerGap(514, Short.MAX_VALUE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cargaDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(solicitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(277, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,9 +252,33 @@ public class Principal1 extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_cerrarSesionMouseClicked
 
+    private void cargaDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargaDatosMouseClicked
+        cargaDatos.setBackground(new Color(40, 40, 40));
+        mantenimiento.setBackground(new Color(51, 51, 51));
+        solicitud.setBackground(new Color(51, 51, 51));
+    }//GEN-LAST:event_cargaDatosMouseClicked
+
+    private void mantenimientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mantenimientoMouseClicked
+
+    private void solicitudMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_solicitudMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_solicitudMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel cargaDatos;
     private javax.swing.JLabel cerrarSesion;
+    private javax.swing.JLabel imagenCargaDatos;
+    private javax.swing.JLabel imagenMantenimiento;
+    private javax.swing.JLabel imagenSolicitud;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel mantenimiento;
+    private javax.swing.JPanel solicitud;
+    private javax.swing.JLabel texto2;
+    private javax.swing.JLabel textoCargaDatos;
+    private javax.swing.JLabel textoMantenimiento;
     // End of variables declaration//GEN-END:variables
 }
