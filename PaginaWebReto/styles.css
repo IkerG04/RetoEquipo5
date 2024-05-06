@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+/*header*/
 body {
     font-family: "Poppins", sans-serif;
     min-height: 100vh;
@@ -11,12 +11,12 @@ body {
     flex-direction: column;
     justify-content: space-between;
     margin: 0;
-    /* Asegura que no haya márgenes */
     overflow-x: hidden;
-    /* Evita el desplazamiento horizontal */
+   
 }
 
 .container {
+    background-color: #232936;
     max-width: 50%;
     justify-content: center;
     margin: auto;
@@ -27,6 +27,7 @@ body {
     width: 100%;
     box-shadow: 0 2px 4px rgba(36, 36, 36, 0.15);
     position: relative;
+    background-color: #232936;
     
 }
 
@@ -36,7 +37,7 @@ body {
     align-items: center;
     height: 80%;
     padding:0;
-         
+
 
 }
 
@@ -82,7 +83,7 @@ body {
     display: block;
     height: 32px;
     width: 32px;
-    top: 20%;
+    top: 34%;
     left: -37%;
     z-index: 5;
     opacity: 0;
@@ -94,7 +95,7 @@ body {
     height: 26px;
     width: 32px;
     position: absolute;
-    top: 20%;
+    top: 37%;
     left: -37%;
     z-index: 2;
     display: flex;
@@ -107,7 +108,7 @@ body {
     height: 4px;
     width: 100%;
     border-radius: 10px;
-    background: #000000;
+    background: #ffffff;
 }
 
 .nav-container .hamburger-lines .line1 {
@@ -125,16 +126,29 @@ body {
 }
 
 .logo {
+    
     position: absolute;
     top: 10%;
     right: 20%;
     font-size: 200%;
-    color: #000000;
+    z-index:999;
+    color: #ffffff;
+   
+    text-align: center;
+
+    width: auto;
+}
+@media screen and (max-width: 1024px) {
+     .logo > h1{
+        font-size: 26px;
+        
+    }
+     
 }
 
 .navbar .menu-items {
     padding-top: 12%;
-    box-shadow: inset 0 0 2000px rgba(190, 189, 189, 0.384);
+    box-shadow: inset 0 0 2000px rgba(190, 189, 189, 0);
     justify-content: center;
     transform: translate(-150%);
     display: flex;
@@ -171,6 +185,29 @@ body {
 .nav-container input[type="checkbox"]:checked~.logo {
     display: none;
 }
+
+/*body*/
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+}
+
+
+
+.presentacion {
+    text-align: center; /* Centra el texto */
+    margin-bottom: 40%; /* Ajusta la distancia entre el texto y el carrusel */
+    margin-top: -10%;
+}
+
+.video-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
   /*carousel*/ 
   h1 {
     text-align: center;
@@ -181,22 +218,27 @@ body {
     overflow: hidden;
     text-align: center;
 }
-
 #carrusel-caja {
+   
     display: flex; /* Usar flexbox para alinear los elementos */
     width: 600%; /* Seis imágenes, por lo que el contenedor debe ser seis veces más ancho */
     overflow: hidden; /* Ocultar el desbordamiento */
-    animation: automatizacion 50s infinite linear; /* Animación del carrusel */
+    animation: automatizacion 80s infinite linear; /* Animación del carrusel */
     transition: transform 5s ease; /* Transición suave para el desplazamiento */
 }
-
-.carrusel-elemento {
-    flex: 0 0 16.66666%; /* Cada elemento ocupa el 16.666% del ancho */
+#carrusel-caja >img{
+   height: 100%;
 }
+.carrusel-elemento {
+    flex: 0 0 16.66666%; 
+    height: 400px;
+    background-color: red;
+}
+
 
 .imagen {
     width: 110%; /* La imagen ocupa todo el ancho del contenedor */
-    height: 30%; /* Altura automática para mantener la relación de aspecto */
+    height: 100%; /* Altura automática para mantener la relación de aspecto */
     object-fit: cover; /* Ajustar la imagen para cubrir todo el contenedor */
 }
 
@@ -209,31 +251,93 @@ body {
     }
 }
 
+
+/* Estilos para la sección principal */
+.seccion-principal {
+    display: flex;
+    padding: 2%;
+    margin-top: 2%;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.404);
+}
+
+.seccion-izquierda {
+    flex: 1;
+}
+
+.seccion-izquierda h2 {
+    font-size: 24px;
+    color: rgb(0, 0, 0);
+}
+
+.seccion-izquierda ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.seccion-izquierda li {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+}
+
+.seccion-derecha {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+}
+
+.seccion-derecha h3 {
+    margin-top: 20px;
+    font-size: 20px;
+    color: rgb(0, 0, 0);
+}
+
+.seccion-derecha p {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: rgb(0, 0, 0);
+}
+
+
   /* Footer Styles */
   footer {
-    background-color: #e4e4e470;
-    padding: 1% 0;
+    background-color: #232936;
+    padding: 30px 0;
     text-align: center;
-    margin-top: auto;
-   
-  }
-  
-  footer .container {
-    display: flex;
-    justify-content: space-between;
+    justify-content: center;
+}
+
+footer .container {
+    display: inline-flex;
+    justify-content: center;
     align-items: center;
-  }
-  
-  footer img {
-    height: 40px;
-  }
-  
-  footer img.social-icon {
-    height: 40px;
+}
+
+footer img {
+    height: 50px;
+    margin: 0 20px;
+}
+
+#imagenconsejeria,
+#youtubelogo {
+    height: 80px;
+}
+
+footer img.social-icon,
+#youtubelogo {
     transition: transform 0.3s ease-in-out;
-  }
-  
-  footer img.social-icon:hover {
-    transform: scale(1.1); 
-  }
-  
+}
+
+footer img.social-icon:hover,
+#youtubelogo:hover {
+    transform: scale(1.2);
+}
+
+footer p {
+    margin-top: 10px;
+    color: #fff;
+    font-size: 14px;
+}
