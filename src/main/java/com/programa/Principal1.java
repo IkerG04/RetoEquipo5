@@ -32,18 +32,6 @@ public class Principal1 extends javax.swing.JDialog {
         initComponents();
 
         this.user = user;
-
-        this.cerrarSesion.setText(" " + user.getNombre() + " " + user.getApellidos());
-        // Limitar el tamaño del JLabel cerrarSesion
-        FontMetrics metrics = cerrarSesion.getFontMetrics(cerrarSesion.getFont());
-        int textWidth = metrics.stringWidth(cerrarSesion.getText());
-        int textHeight = metrics.getHeight();
-        Dimension preferredSize = new Dimension(textWidth, textHeight);
-        cerrarSesion.setPreferredSize(preferredSize);
-        cerrarSesion.setMaximumSize(preferredSize);
-
-// Ajustar automáticamente el texto dentro del tamaño del JLabel cerrarSesion
-        cerrarSesion.setHorizontalAlignment(JLabel.LEFT); // Ajustar el texto a la izquierda
     }
 
     /**
@@ -55,7 +43,6 @@ public class Principal1 extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cerrarSesion = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         cargaDatos = new javax.swing.JPanel();
         imagenCargaDatos = new javax.swing.JLabel();
@@ -73,17 +60,6 @@ public class Principal1 extends javax.swing.JDialog {
         usuario = new javax.swing.JPanel();
         imagenUsuario = new javax.swing.JLabel();
         textoUsuario = new javax.swing.JLabel();
-
-        cerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        cerrarSesion.setForeground(new java.awt.Color(0, 0, 0));
-        cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/logout.png"))); // NOI18N
-        cerrarSesion.setText("Cuenta");
-        cerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cerrarSesionMouseClicked(evt);
-            }
-        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -248,7 +224,7 @@ public class Principal1 extends javax.swing.JDialog {
             }
         });
 
-        imagenUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/user.png"))); // NOI18N
+        imagenUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/usuario.png"))); // NOI18N
 
         textoUsuario.setForeground(new java.awt.Color(255, 255, 255));
         textoUsuario.setText("Usuario");
@@ -320,24 +296,6 @@ public class Principal1 extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarSesionMouseClicked
-        String[] options = {"Cerrar", "Cancelar"};
-        int choice = JOptionPane.showOptionDialog(this,
-                "¿Estás seguro de que quieres cerrar sesión?",
-                "Cerrar Sesión",
-                JOptionPane.DEFAULT_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                options[0]);
-
-        if (choice == 0) {
-            dispose();
-            Login login = new Login();
-            login.setVisible(true);
-        }
-    }//GEN-LAST:event_cerrarSesionMouseClicked
-
     private void cargaDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargaDatosMouseClicked
         cargaDatos.setBackground(new Color(40, 40, 40));
         mantenimiento.setBackground(new Color(51, 51, 51));
@@ -382,7 +340,6 @@ public class Principal1 extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actividad;
     private javax.swing.JPanel cargaDatos;
-    private javax.swing.JLabel cerrarSesion;
     private javax.swing.JLabel imagenActividad;
     private javax.swing.JLabel imagenCargaDatos;
     private javax.swing.JLabel imagenMantenimiento;
