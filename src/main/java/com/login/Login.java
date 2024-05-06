@@ -3,7 +3,7 @@ package com.login;
 import com.bd.FuncionesBD;
 import com.bd.AccesoBaseDatos;
 import com.datos.Usuario;
-import com.programa.Principal;
+import com.programa.Principal1;
 
 import java.awt.Color;
 
@@ -116,8 +116,7 @@ public class Login extends javax.swing.JFrame {
         userLabel.setText("USUARIO");
 
         userTxt.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        userTxt.setForeground(new java.awt.Color(204, 204, 204));
-        userTxt.setText("Ingrese su nombre de usuario");
+        userTxt.setForeground(new java.awt.Color(0, 0, 0));
         userTxt.setToolTipText("");
         userTxt.setBorder(null);
         userTxt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -144,8 +143,7 @@ public class Login extends javax.swing.JFrame {
         passLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         passLabel.setText("CONTRASEÑA");
 
-        passTxt.setForeground(new java.awt.Color(204, 204, 204));
-        passTxt.setText("********");
+        passTxt.setForeground(new java.awt.Color(0, 0, 0));
         passTxt.setBorder(null);
         passTxt.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -207,53 +205,51 @@ public class Login extends javax.swing.JFrame {
             .addGroup(bgLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(userLabel)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(passTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(userTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(passLabel)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(title)
-                            .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(50, Short.MAX_VALUE))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(title)
+                    .addComponent(jLabel1)
+                    .addComponent(userLabel)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passLabel)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 2, Short.MAX_VALUE))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(userLabel)
-                        .addGap(41, 41, 41)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(passTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGap(90, 90, 90)
+                                .addComponent(userLabel)
+                                .addGap(41, 41, 41)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(passTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGap(170, 170, 170)
+                                .addComponent(passLabel))
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(title))
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGap(280, 280, 280)
+                                .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(120, 120, 120)
+                        .addGap(188, 188, 188)
                         .addComponent(userTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(170, 170, 170)
-                        .addComponent(passLabel))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(230, 230, 230)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(title))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(280, 280, 280)
-                        .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(298, 298, 298)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -295,22 +291,15 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_exitTxtMouseExited
 
     private void loginBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnTxtMouseEntered
-        loginBtn.setBackground(new Color(0, 156, 223));
+
     }//GEN-LAST:event_loginBtnTxtMouseEntered
 
     private void loginBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnTxtMouseExited
-        loginBtn.setBackground(new Color(0, 134, 190));
+
     }//GEN-LAST:event_loginBtnTxtMouseExited
 
     private void userTxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTxtMousePressed
-        if (userTxt.getText().equals("Ingrese su nombre de usuario")) {
-            userTxt.setText("");
-            userTxt.setForeground(Color.black);
-        }
-        if (String.valueOf(passTxt.getPassword()).isEmpty()) {
-            passTxt.setText("********");
-            passTxt.setForeground(Color.gray);
-        }
+
     }//GEN-LAST:event_userTxtMousePressed
 
     private void passTxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passTxtMousePressed
@@ -327,9 +316,9 @@ public class Login extends javax.swing.JFrame {
 
         if (usuarioValido) {
             javax.swing.JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.", "LOGIN", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-            Usuario user = new Usuario(usuarioIngresado, passwordIngresada, accesoBD.validarAdmin(usuarioIngresado) - 1);
-            Principal principal1 = new Principal(user);
-            //this.dispose();
+            Usuario user = new Usuario(accesoBD.getNombre(usuarioIngresado), accesoBD.getApellidos(usuarioIngresado), usuarioIngresado, passwordIngresada, accesoBD.validarAdmin(usuarioIngresado));
+            Principal1 principal1 = new Principal1(user);
+            this.dispose();
             principal1.setVisible(true);
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
@@ -337,31 +326,42 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_loginBtnTxtMouseClicked
 
     private void userTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userTxtActionPerformed
-        // TODO add your handling code here:
+        passTxt.requestFocusInWindow();
     }//GEN-LAST:event_userTxtActionPerformed
 
     private void passTxtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passTxtFocusGained
-        passTxt.setText("");
-        passTxt.setForeground(Color.black);
+
     }//GEN-LAST:event_passTxtFocusGained
 
     private void passTxtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passTxtFocusLost
-        passTxt.setText("********");
-        passTxt.setForeground(Color.gray);
+
     }//GEN-LAST:event_passTxtFocusLost
 
     private void userTxtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userTxtFocusGained
-        passTxt.setText("");
-        passTxt.setForeground(Color.black);
+
     }//GEN-LAST:event_userTxtFocusGained
 
     private void userTxtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userTxtFocusLost
-        passTxt.setText("Ingrese su nombre de usuario");
-        passTxt.setForeground(Color.gray);
+
     }//GEN-LAST:event_userTxtFocusLost
 
     private void passTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passTxtActionPerformed
-        // TODO add your handling code here:
+        String usuarioIngresado = userTxt.getText();
+        String passwordIngresada = String.valueOf(passTxt.getPassword());
+
+        conexion = new AccesoBaseDatos("root", "mysql");
+
+        boolean usuarioValido = accesoBD.validarDatos(usuarioIngresado, passwordIngresada);
+
+        if (usuarioValido) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.", "LOGIN", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            Usuario user = new Usuario(accesoBD.getNombre(usuarioIngresado), accesoBD.getApellidos(usuarioIngresado), usuarioIngresado, passwordIngresada, accesoBD.validarAdmin(usuarioIngresado));
+            Principal1 principal1 = new Principal1(user);
+            this.dispose();
+            principal1.setVisible(true);
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_passTxtActionPerformed
 
     /**

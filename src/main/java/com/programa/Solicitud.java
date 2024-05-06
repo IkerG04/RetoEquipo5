@@ -14,7 +14,7 @@ public class Solicitud extends JFrame {
     private List<SolicitudData> solicitudes = new ArrayList<>(); // Lista para almacenar las solicitudes
 
     public Solicitud(JFrame principal) {
-        super("Mantenimiento de Solicitudes");
+        super("Solicitudes");
 
         this.principal = principal; // Asignar la referencia al JFrame principal
 

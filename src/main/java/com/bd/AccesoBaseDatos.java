@@ -21,7 +21,7 @@ public class AccesoBaseDatos {
 
     private Connection conn = null; //atributo conexión
     // constantes a definir. pueden depender de la base a usar, qué credenciales tiene la BD...
-    private static final String BD = "test";
+    private static final String BD = "gestoractividadesextraescolares";
     private static String usuario = "root";//son los datos para conectarse a la BD Mysql
     private static String clave = "mysql";
     private static final String URL = "jdbc:mysql://localhost:3306/" + BD; //conexión al servidor de la BD

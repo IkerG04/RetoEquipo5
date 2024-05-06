@@ -10,6 +10,8 @@ package com.datos;
  */
 public class Usuario {
 
+    private String nombre;
+    private String apellidos;
     private String correo;
     private String password;
 
@@ -19,10 +21,21 @@ public class Usuario {
 
     private perfil perfilUsuario;
 
-    public Usuario(String correo, String password, int numPerfil) {
+    public Usuario(String nombre, String apellidos, String correo, String password, int numPerfil) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
         this.correo = correo;
         this.password = password;
         perfilUsuario = perfil.values()[numPerfil];
+
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
     }
 
     public Enum getPerfil() {

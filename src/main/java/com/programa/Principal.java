@@ -19,6 +19,8 @@ public class Principal extends JFrame {
 
         this.user = user;
 
+        initComponents();
+
         // Configurar el JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
@@ -38,7 +40,7 @@ public class Principal extends JFrame {
 
         // Estilizar los botones
         estilizarBotones();
-
+        
         agregarFuncionalidadBotones();
 
         // Mostrar el JFrame
@@ -51,19 +53,18 @@ public class Principal extends JFrame {
             cargaDatosBoton = new JButton("Carga de Datos");
             panelBotones.add(cargaDatosBoton);
         }
-
+        
         if (user.getPerfil() == Usuario.perfil.SuperUsuario || user.getPerfil() == Usuario.perfil.Administrador) {
             mantenimientosBoton = new JButton("Mantenimientos Básicos");
             panelBotones.add(mantenimientosBoton);
         }
-
-        solicitudBoton = new JButton("Solicitud");
-
+        
         if (user.getPerfil() == Usuario.perfil.EquipoDirectivo || user.getPerfil() == Usuario.perfil.Administrador) {
             actividadBoton = new JButton("Actividad");
             panelBotones.add(actividadBoton);
         }
-
+        
+        solicitudBoton = new JButton("Solicitud");
         panelBotones.add(solicitudBoton);
     }
 
@@ -88,7 +89,7 @@ public class Principal extends JFrame {
     private void agregarFuncionalidadBotones() {
 
         Principal estePrincipal = this;
-
+        
         if (user.getPerfil() == Usuario.perfil.SuperUsuario || user.getPerfil() == Usuario.perfil.Administrador) {
             cargaDatosBoton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -98,7 +99,7 @@ public class Principal extends JFrame {
                 }
             });
         }
-
+        
         if (user.getPerfil() == Usuario.perfil.SuperUsuario || user.getPerfil() == Usuario.perfil.Administrador) {
             mantenimientosBoton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -108,7 +109,7 @@ public class Principal extends JFrame {
                 }
             });
         }
-
+        
         solicitudBoton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
@@ -116,11 +117,13 @@ public class Principal extends JFrame {
                 solicitud.setVisible(true);
             }
         });
-
+        
         if (user.getPerfil() == Usuario.perfil.EquipoDirectivo || user.getPerfil() == Usuario.perfil.Administrador) {
             actividadBoton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    // Agrega aquí la funcionalidad para el botón "Actividad"
+                    dispose();
+                    Actividad actividades = new Actividad();
+                    actividades.setVisible(true);
                 }
             });
         }
@@ -129,17 +132,30 @@ public class Principal extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFrame1 = new javax.swing.JFrame();
+
+        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
+        jFrame1.getContentPane().setLayout(jFrame1Layout);
+        jFrame1Layout.setHorizontalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jFrame1Layout.setVerticalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 894, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 498, Short.MAX_VALUE)
         );
 
         pack();
@@ -149,5 +165,6 @@ public class Principal extends JFrame {
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFrame jFrame1;
     // End of variables declaration//GEN-END:variables
 }
