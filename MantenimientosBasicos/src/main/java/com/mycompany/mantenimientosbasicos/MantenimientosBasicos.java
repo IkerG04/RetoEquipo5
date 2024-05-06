@@ -3,18 +3,32 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package com.mycompany.mantenimientosbasicos;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author DAW129
  */
 public class MantenimientosBasicos extends JFrame {
 
+    private Connection conn;
+
     public MantenimientosBasicos() {
         super("Mantenimiento Básico");
+
+        // Establecer conexión a la base de datos
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestoractividadesextraescolares", "root", "mysql");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
@@ -25,41 +39,17 @@ public class MantenimientosBasicos extends JFrame {
         JButton professorsButton = new JButton("Profesores");
         JButton coursesButton = new JButton("Cursos");
         JButton groupsButton = new JButton("Grupos");
-        JButton departmentsButton = new JButton("Departamentos");
+        JButton departmentsButton = new JButton("Departamento");
 
         mainPanel.add(professorsButton, BorderLayout.NORTH);
         mainPanel.add(coursesButton, BorderLayout.CENTER);
         mainPanel.add(groupsButton, BorderLayout.WEST);
         mainPanel.add(departmentsButton, BorderLayout.EAST);
 
-        // Manejar eventos de botones
-        professorsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showActionSelectionDialog("Profesores");
-            }
-        });
-
-        coursesButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showActionSelectionDialog("Cursos");
-            }
-        });
-
-        groupsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showActionSelectionDialog("Grupos");
-            }
-        });
-
-        departmentsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showActionSelectionDialog("Departamentos");
-            }
-        });
+        professorsButton.addActionListener(e -> showActionSelectionDialog("profesor"));
+        coursesButton.addActionListener(e -> showActionSelectionDialog("curso"));
+        groupsButton.addActionListener(e -> showActionSelectionDialog("grupos"));
+        departmentsButton.addActionListener(e -> showActionSelectionDialog("departamento"));
 
         getContentPane().add(mainPanel);
     }
@@ -84,15 +74,18 @@ public class MantenimientosBasicos extends JFrame {
                     JOptionPane.YES_NO_OPTION);
 
             if (confirmOption == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(this,
-                        "Información de " + entityType + " eliminada exitosamente.",
-                        "Eliminación Exitosa",
-                        JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "Operación de eliminación cancelada.",
-                        "Operación Cancelada",
-                        JOptionPane.WARNING_MESSAGE);
+                boolean deletionSuccess = deleteData(entityType);
+                if (deletionSuccess) {
+                    JOptionPane.showMessageDialog(this,
+                            "Información de " + entityType + " eliminada exitosamente.",
+                            "Eliminación Exitosa",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "Error al eliminar la información de " + entityType + ".",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }
@@ -146,21 +139,69 @@ public class MantenimientosBasicos extends JFrame {
     }
 
     private String[] fetchCurrentData(String entityType) {
-        if (entityType.equals("Profesores")) {
-            return new String[]{"Juan Pérez", "María Gómez", "Carlos Ruiz"};
-        } else if (entityType.equals("Cursos")) {
-            return new String[]{"Matemáticas", "Historia", "Inglés"};
-        } else if (entityType.equals("Grupos")) {
-            return new String[]{"Grupo A", "Grupo B", "Grupo C"};
-        } else if (entityType.equals("Departamentos")) {
-            return new String[]{"Informática", "Matemáticas", "Ciencias Sociales"};
+        try {
+            String query = "SELECT nombre FROM " + entityType;
+            PreparedStatement stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+            List<String> dataList = new ArrayList<>();
+            while (rs.next()) {
+                dataList.add(rs.getString("nombre"));
+            }
+
+            String[] data = new String[dataList.size()];
+            data = dataList.toArray(data);
+
+            stmt.close();
+            return data;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al obtener datos de la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
         }
-        return null;
     }
 
     private boolean saveChanges(String entityType, String[] newData) {
-        System.out.println("Guardando cambios para " + entityType + ": " + String.join(", ", newData));
-        return true; // Simulación de éxito
+        try {
+            String updateQuery = "UPDATE " + entityType + " SET nombre = ? WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(updateQuery);
+
+            for (int i = 0; i < newData.length; i++) {
+                stmt.setString(1, newData[i]);
+                stmt.setInt(2, i + 1); // Suponiendo que el id empieza desde 1 y aumenta de a 1
+                stmt.executeUpdate();
+            }
+
+            stmt.close();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al guardar cambios en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+
+    private boolean deleteData(String entityType) {
+        try {
+            String deleteQuery = "DELETE FROM " + entityType + " WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(deleteQuery);
+
+            String input = JOptionPane.showInputDialog(this, "Ingrese el ID de " + entityType + " a eliminar:");
+            int idToDelete = Integer.parseInt(input); // Convertir la entrada a entero
+
+            stmt.setInt(1, idToDelete);
+            int rowsAffected = stmt.executeUpdate();
+
+            stmt.close();
+            return rowsAffected > 0;
+
+        } catch (SQLException | NumberFormatException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al eliminar datos en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
