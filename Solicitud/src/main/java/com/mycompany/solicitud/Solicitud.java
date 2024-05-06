@@ -38,6 +38,10 @@ public class Solicitud extends JFrame {
         JButton createRequestButton = new JButton("Crear Solicitud");
         JButton viewRequestsButton = new JButton("Ver Solicitudes");
 
+        // Ajustar la altura de los botones
+        createRequestButton.setPreferredSize(new Dimension(createRequestButton.getPreferredSize().width, 400));
+        viewRequestsButton.setPreferredSize(new Dimension(viewRequestsButton.getPreferredSize().width, 40));
+
         createRequestButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
