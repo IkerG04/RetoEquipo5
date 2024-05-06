@@ -73,7 +73,7 @@ public class CargaDatos extends JFrame {
             for (File file : files) {
                 String tableName = file.getName().toLowerCase();
                 switch (tableName) {
-                    case "profesores.csv":
+                    case "profesor.csv":
                         cargarProfesoresDesdeCSV(file, conn, departamentoIdMap);
                         break;
                     case "departamentos.csv":
@@ -119,7 +119,7 @@ public class CargaDatos extends JFrame {
                 // Perfil aleatorio
                 String perfil = obtenerPerfilAleatorio();
 
-                // Insertar en la base de datos
+                // Insertar en la base de datos sin incluir 'cod'
                 pstmt.setString(1, extraerNombre(apellidosNombre));
                 pstmt.setString(2, extraerApellidos(apellidosNombre));
                 pstmt.setString(3, dni);
@@ -184,46 +184,46 @@ public class CargaDatos extends JFrame {
     }
 
     private void cargarDepartamentosDesdeCSV(File file, Connection conn, Map<String, Integer> departamentoIdMap)
-        throws IOException, SQLException {
-    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-        String line;
-        reader.readLine(); // Omitir la primera línea (encabezados)
+            throws IOException, SQLException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            reader.readLine(); // Omitir la primera línea (encabezados)
 
-        PreparedStatement pstmt = conn.prepareStatement(
-                "INSERT INTO departamento (id, cod, nombre) VALUES (?, ?, ?)");
+            PreparedStatement pstmt = conn.prepareStatement(
+                    "INSERT INTO departamento (id, cod, nombre) VALUES (?, ?, ?)");
 
-        while ((line = reader.readLine()) != null) {
-            String[] datos = line.split(",");
-            
-            if (datos.length < 3) {
-                // Verificar que haya suficientes datos en la línea
-                continue; // O saltar esta línea si no hay suficientes datos
+            while ((line = reader.readLine()) != null) {
+                String[] datos = line.split(",");
+
+                if (datos.length < 3) {
+                    // Verificar que haya suficientes datos en la línea
+                    continue; // O saltar esta línea si no hay suficientes datos
+                }
+
+                // Validar y convertir los datos a enteros
+                int id;
+                try {
+                    id = Integer.parseInt(datos[0].trim());
+                } catch (NumberFormatException e) {
+                    // Manejar el caso donde no se puede convertir a entero
+                    System.err.println("Error al convertir el ID a entero: " + e.getMessage());
+                    continue; // Otra opción: detener el procesamiento de esta línea
+                }
+
+                String cod = datos[1].trim();
+                String nombre = datos[2].trim();
+
+                // Insertar en la base de datos
+                pstmt.setInt(1, id);
+                pstmt.setString(2, cod);
+                pstmt.setString(3, nombre);
+
+                pstmt.executeUpdate();
             }
 
-            // Validar y convertir los datos a enteros
-            int id;
-            try {
-                id = Integer.parseInt(datos[0].trim());
-            } catch (NumberFormatException e) {
-                // Manejar el caso donde no se puede convertir a entero
-                System.err.println("Error al convertir el ID a entero: " + e.getMessage());
-                continue; // Otra opción: detener el procesamiento de esta línea
-            }
-            
-            String cod = datos[1].trim();
-            String nombre = datos[2].trim();
-
-            // Insertar en la base de datos
-            pstmt.setInt(1, id);
-            pstmt.setString(2, cod);
-            pstmt.setString(3, nombre);
-           
-            pstmt.executeUpdate();
+            pstmt.close();
         }
-
-        pstmt.close();
     }
-}
 
     private void cargarCursosDesdeCSV(File file, Connection conn, Map<String, Integer> cursoIdMap)
             throws IOException, SQLException {
