@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class AccesoBaseDatos {
 
-    private static final String BD = "gestoractividadesextraescolares";
+    private static final String BD = "gestoractividadesextraescolaresprueba";
     private static final String USUARIO = "root";
     private static final String CLAVE = "mysql";
     private static final String URL = "jdbc:mysql://localhost:3306/" + BD;
