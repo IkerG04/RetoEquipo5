@@ -24,6 +24,7 @@ public class MantenimientosBasicos extends JFrame {
         // Establecer conexión a la base de datos
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestoractividadesextraescolares", "root", "mysql");
+            System.out.println("Conexión establecida a la base de datos.");
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -101,13 +102,21 @@ public class MantenimientosBasicos extends JFrame {
             return;
         }
 
-        JPanel inputPanel = new JPanel(new GridLayout(currentData.length, 2));
+        JPanel inputPanel = new JPanel(new GridLayout(currentData.length / 3, 3)); // 3 columnas para ID, Código y Nombre
 
         JTextField[] textFields = new JTextField[currentData.length];
-        for (int i = 0; i < currentData.length; i++) {
-            inputPanel.add(new JLabel(entityType + " " + (i + 1) + ":"));
+        for (int i = 0; i < currentData.length; i += 3) { // Incremento de a 3 (ID, Código, Nombre)
+            inputPanel.add(new JLabel("ID:"));
             textFields[i] = new JTextField(currentData[i]);
             inputPanel.add(textFields[i]);
+
+            inputPanel.add(new JLabel("Código:"));
+            textFields[i + 1] = new JTextField(currentData[i + 1]);
+            inputPanel.add(textFields[i + 1]);
+
+            inputPanel.add(new JLabel("Nombre:"));
+            textFields[i + 2] = new JTextField(currentData[i + 2]);
+            inputPanel.add(textFields[i + 2]);
         }
 
         int option = JOptionPane.showConfirmDialog(this,
@@ -118,7 +127,7 @@ public class MantenimientosBasicos extends JFrame {
 
         if (option == JOptionPane.OK_OPTION) {
             String[] newData = new String[currentData.length];
-            for (int i = 0; i < textFields.length; i++) {
+            for (int i = 0; i < currentData.length; i++) {
                 newData[i] = textFields[i].getText();
             }
 
@@ -140,20 +149,22 @@ public class MantenimientosBasicos extends JFrame {
 
     private String[] fetchCurrentData(String entityType) {
         try {
-            String query = "SELECT nombre FROM " + entityType;
+            String query = "SELECT id, cod, nombre FROM " + entityType;
             PreparedStatement stmt = conn.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
 
-            List<String> dataList = new ArrayList<>();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+
+            StringBuilder dataList = new StringBuilder();
             while (rs.next()) {
-                dataList.add(rs.getString("nombre"));
+                for (int i = 1; i <= columnCount; i++) {
+                    dataList.append(rs.getString(i)).append(",");
+                }
             }
 
-            String[] data = new String[dataList.size()];
-            data = dataList.toArray(data);
-
             stmt.close();
-            return data;
+            return dataList.toString().split(",");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -164,12 +175,14 @@ public class MantenimientosBasicos extends JFrame {
 
     private boolean saveChanges(String entityType, String[] newData) {
         try {
-            String updateQuery = "UPDATE " + entityType + " SET nombre = ? WHERE id = ?";
+            String updateQuery = "UPDATE " + entityType + " SET cod = ?, nombre = ? WHERE id = ?";
             PreparedStatement stmt = conn.prepareStatement(updateQuery);
 
-            for (int i = 0; i < newData.length; i++) {
-                stmt.setString(1, newData[i]);
-                stmt.setInt(2, i + 1); // Suponiendo que el id empieza desde 1 y aumenta de a 1
+            for (int i = 0; i < newData.length; i += 3) {
+                stmt.setString(1, newData[i + 1]); // Código
+                stmt.setString(2, newData[i + 2]); // Nombre
+                stmt.setInt(3, Integer.parseInt(newData[i])); // ID
+
                 stmt.executeUpdate();
             }
 
