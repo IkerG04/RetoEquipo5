@@ -66,10 +66,10 @@ public class Principal1 extends javax.swing.JDialog {
         textoMantenimiento = new javax.swing.JLabel();
         solicitud = new javax.swing.JPanel();
         imagenSolicitud = new javax.swing.JLabel();
-        texto2 = new javax.swing.JLabel();
+        textoSolicitud = new javax.swing.JLabel();
         actividad = new javax.swing.JPanel();
-        imagenSolicitud1 = new javax.swing.JLabel();
-        texto3 = new javax.swing.JLabel();
+        imagenActividad = new javax.swing.JLabel();
+        textoActividad = new javax.swing.JLabel();
 
         cerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         cerrarSesion.setForeground(new java.awt.Color(0, 0, 0));
@@ -87,6 +87,7 @@ public class Principal1 extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
         cargaDatos.setBackground(new java.awt.Color(51, 51, 51));
+        cargaDatos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cargaDatos.setPreferredSize(new java.awt.Dimension(90, 80));
         cargaDatos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -128,6 +129,7 @@ public class Principal1 extends javax.swing.JDialog {
         jLabel1.setText(" ACEX");
 
         mantenimiento.setBackground(new java.awt.Color(40, 40, 40));
+        mantenimiento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mantenimiento.setPreferredSize(new java.awt.Dimension(90, 80));
         mantenimiento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -165,6 +167,7 @@ public class Principal1 extends javax.swing.JDialog {
         );
 
         solicitud.setBackground(new java.awt.Color(51, 51, 51));
+        solicitud.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         solicitud.setPreferredSize(new java.awt.Dimension(90, 80));
         solicitud.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -174,8 +177,8 @@ public class Principal1 extends javax.swing.JDialog {
 
         imagenSolicitud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/solicitud.png"))); // NOI18N
 
-        texto2.setForeground(new java.awt.Color(255, 255, 255));
-        texto2.setText("Solicitud");
+        textoSolicitud.setForeground(new java.awt.Color(255, 255, 255));
+        textoSolicitud.setText("Solicitud");
 
         javax.swing.GroupLayout solicitudLayout = new javax.swing.GroupLayout(solicitud);
         solicitud.setLayout(solicitudLayout);
@@ -184,7 +187,7 @@ public class Principal1 extends javax.swing.JDialog {
             .addGroup(solicitudLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(solicitudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(texto2)
+                    .addComponent(textoSolicitud)
                     .addComponent(imagenSolicitud))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -194,11 +197,12 @@ public class Principal1 extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(imagenSolicitud, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(texto2)
+                .addComponent(textoSolicitud)
                 .addContainerGap())
         );
 
         actividad.setBackground(new java.awt.Color(51, 51, 51));
+        actividad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         actividad.setPreferredSize(new java.awt.Dimension(90, 80));
         actividad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -206,10 +210,10 @@ public class Principal1 extends javax.swing.JDialog {
             }
         });
 
-        imagenSolicitud1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/actividad.png"))); // NOI18N
+        imagenActividad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/actividad.png"))); // NOI18N
 
-        texto3.setForeground(new java.awt.Color(255, 255, 255));
-        texto3.setText("Actividad");
+        textoActividad.setForeground(new java.awt.Color(255, 255, 255));
+        textoActividad.setText("Actividad");
 
         javax.swing.GroupLayout actividadLayout = new javax.swing.GroupLayout(actividad);
         actividad.setLayout(actividadLayout);
@@ -218,17 +222,17 @@ public class Principal1 extends javax.swing.JDialog {
             .addGroup(actividadLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(actividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(texto3)
-                    .addComponent(imagenSolicitud1))
+                    .addComponent(textoActividad)
+                    .addComponent(imagenActividad))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         actividadLayout.setVerticalGroup(
             actividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(actividadLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(imagenSolicitud1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(imagenActividad, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(texto3)
+                .addComponent(textoActividad)
                 .addContainerGap())
         );
 
@@ -241,7 +245,7 @@ public class Principal1 extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cargaDatos, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
                     .addComponent(solicitud, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
-                    .addComponent(mantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(mantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 91, Short.MAX_VALUE)
                     .addComponent(actividad, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -296,18 +300,28 @@ public class Principal1 extends javax.swing.JDialog {
         cargaDatos.setBackground(new Color(40, 40, 40));
         mantenimiento.setBackground(new Color(51, 51, 51));
         solicitud.setBackground(new Color(51, 51, 51));
+        actividad.setBackground(new Color(51, 51, 51));
     }//GEN-LAST:event_cargaDatosMouseClicked
 
     private void mantenimientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoMouseClicked
-        // TODO add your handling code here:
+        cargaDatos.setBackground(new Color(51, 51, 51));
+        mantenimiento.setBackground(new Color(40, 40, 40));
+        solicitud.setBackground(new Color(51, 51, 51));
+        actividad.setBackground(new Color(51, 51, 51));
     }//GEN-LAST:event_mantenimientoMouseClicked
 
     private void solicitudMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_solicitudMouseClicked
-        // TODO add your handling code here:
+        cargaDatos.setBackground(new Color(51, 51, 51));
+        mantenimiento.setBackground(new Color(51, 51, 51));
+        solicitud.setBackground(new Color(40, 40, 40));
+        actividad.setBackground(new Color(51, 51, 51));
     }//GEN-LAST:event_solicitudMouseClicked
 
     private void actividadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actividadMouseClicked
-        // TODO add your handling code here:
+        cargaDatos.setBackground(new Color(51, 51, 51));
+        mantenimiento.setBackground(new Color(51, 51, 51));
+        solicitud.setBackground(new Color(51, 51, 51));
+        actividad.setBackground(new Color(40, 40, 40));
     }//GEN-LAST:event_actividadMouseClicked
 
 
@@ -315,17 +329,17 @@ public class Principal1 extends javax.swing.JDialog {
     private javax.swing.JPanel actividad;
     private javax.swing.JPanel cargaDatos;
     private javax.swing.JLabel cerrarSesion;
+    private javax.swing.JLabel imagenActividad;
     private javax.swing.JLabel imagenCargaDatos;
     private javax.swing.JLabel imagenMantenimiento;
     private javax.swing.JLabel imagenSolicitud;
-    private javax.swing.JLabel imagenSolicitud1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel mantenimiento;
     private javax.swing.JPanel solicitud;
-    private javax.swing.JLabel texto2;
-    private javax.swing.JLabel texto3;
+    private javax.swing.JLabel textoActividad;
     private javax.swing.JLabel textoCargaDatos;
     private javax.swing.JLabel textoMantenimiento;
+    private javax.swing.JLabel textoSolicitud;
     // End of variables declaration//GEN-END:variables
 }
