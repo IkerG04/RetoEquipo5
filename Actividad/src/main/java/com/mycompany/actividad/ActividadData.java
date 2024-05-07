@@ -16,32 +16,29 @@ public class ActividadData {
     private String departamento;
     private String titulo;
     private boolean enProgramacion;
-    private String Transporte;
-    private LocalDate Inicio;
-    private LocalDate Fin;
-    private String Grupo;
+    private String transporte;
+    private LocalDate inicio;
+    private LocalDate fin;
+    private String grupo;
     private int numAlumnos;
-    private boolean Alojamiento;
+    private boolean alojamiento;
     private String comentarios;
     private String empresaTransporte;
     private boolean actividadRealizada;
 
-    public ActividadData(int id, String profesorSolicitante, String departamento, String tituloActividad,
-                         boolean enProgramacionDidactica, String medioTransporte, LocalDate fechaInicio,
-                         LocalDate fechaFin, String grupoCurso, int numAlumnos, boolean necesitaAlojamiento,
-                         String comentariosAdicionales, String empresaTransporte) {
+    public ActividadData(int id, String profesorSolicitante, String departamento, String titulo, boolean enProgramacion, String transporte, LocalDate inicio, LocalDate fin, String grupo, int numAlumnos, boolean alojamiento, String comentarios, String empresaTransporte, boolean par1) {
         this.id = id;
         this.profesorSolicitante = profesorSolicitante;
         this.departamento = departamento;
-        this.titulo = tituloActividad;
-        this.enProgramacion = enProgramacionDidactica;
-        this.Transporte = medioTransporte;
-        this.Inicio = fechaInicio;
-        this.Fin = fechaFin;
-        this.Grupo = grupoCurso;
+        this.titulo = titulo;
+        this.enProgramacion = enProgramacion;
+        this.transporte = transporte;
+        this.inicio = inicio;
+        this.fin = fin;
+        this.grupo = grupo;
         this.numAlumnos = numAlumnos;
-        this.Alojamiento = necesitaAlojamiento;
-        this.comentarios = comentariosAdicionales;
+        this.alojamiento = alojamiento;
+        this.comentarios = comentarios;
         this.empresaTransporte = empresaTransporte;
         this.actividadRealizada = false; // Inicialmente la actividad no está realizada
     }
@@ -89,35 +86,35 @@ public class ActividadData {
     }
 
     public String getTransporte() {
-        return Transporte;
+        return transporte;
     }
 
-    public void setTransporte(String Transporte) {
-        this.Transporte = Transporte;
+    public void setTransporte(String transporte) {
+        this.transporte = transporte;
     }
 
     public LocalDate getInicio() {
-        return Inicio;
+        return inicio;
     }
 
-    public void setInicio(LocalDate Inicio) {
-        this.Inicio = Inicio;
+    public void setInicio(LocalDate inicio) {
+        this.inicio = inicio;
     }
 
     public LocalDate getFin() {
-        return Fin;
+        return fin;
     }
 
-    public void setFin(LocalDate Fin) {
-        this.Fin = Fin;
+    public void setFin(LocalDate fin) {
+        this.fin = fin;
     }
 
     public String getGrupo() {
-        return Grupo;
+        return grupo;
     }
 
-    public void setGrupo(String Grupo) {
-        this.Grupo = Grupo;
+    public void setGrupo(String grupo) {
+        this.grupo = grupo;
     }
 
     public int getNumAlumnos() {
@@ -129,11 +126,11 @@ public class ActividadData {
     }
 
     public boolean isAlojamiento() {
-        return Alojamiento;
+        return alojamiento;
     }
 
-    public void setAlojamiento(boolean Alojamiento) {
-        this.Alojamiento = Alojamiento;
+    public void setAlojamiento(boolean alojamiento) {
+        this.alojamiento = alojamiento;
     }
 
     public String getComentarios() {
@@ -166,15 +163,15 @@ public class ActividadData {
                 "id=" + id +
                 ", profesorSolicitante='" + profesorSolicitante + '\'' +
                 ", departamento='" + departamento + '\'' +
-                ", tituloActividad='" + titulo + '\'' +
-                ", enProgramacionDidactica=" + enProgramacion +
-                ", medioTransporte='" + Transporte + '\'' +
-                ", fechaInicio=" + Inicio +
-                ", fechaFin=" + Fin +
-                ", grupoCurso='" + Grupo + '\'' +
+                ", titulo='" + titulo + '\'' +
+                ", enProgramacion=" + enProgramacion +
+                ", transporte='" + transporte + '\'' +
+                ", inicio=" + inicio +
+                ", fin=" + fin +
+                ", grupo='" + grupo + '\'' +
                 ", numAlumnos=" + numAlumnos +
-                ", necesitaAlojamiento=" + Alojamiento +
-                ", comentariosAdicionales='" + comentarios + '\'' +
+                ", alojamiento=" + alojamiento +
+                ", comentarios='" + comentarios + '\'' +
                 ", empresaTransporte='" + empresaTransporte + '\'' +
                 ", actividadRealizada=" + actividadRealizada +
                 '}';
