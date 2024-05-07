@@ -7,13 +7,12 @@ package com.mycompany.mantenimientosbasicos;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author DAW129
  */
+
 public class MantenimientosBasicos extends JFrame {
 
     private Connection conn;
@@ -32,190 +31,97 @@ public class MantenimientosBasicos extends JFrame {
         }
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 300);
+        setSize(600, 400);
         setLocationRelativeTo(null);
 
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel mainPanel = new JPanel();
+        JButton editProfessorsButton = new JButton("Editar Todos los Profesores");
 
-        JButton professorsButton = new JButton("Profesores");
-        JButton coursesButton = new JButton("Cursos");
-        JButton groupsButton = new JButton("Grupos");
-        JButton departmentsButton = new JButton("Departamento");
+        editProfessorsButton.addActionListener(e -> editAllProfessors());
 
-        mainPanel.add(professorsButton, BorderLayout.NORTH);
-        mainPanel.add(coursesButton, BorderLayout.CENTER);
-        mainPanel.add(groupsButton, BorderLayout.WEST);
-        mainPanel.add(departmentsButton, BorderLayout.EAST);
+        mainPanel.add(editProfessorsButton);
+        add(mainPanel);
 
-        professorsButton.addActionListener(e -> showActionSelectionDialog("profesor"));
-        coursesButton.addActionListener(e -> showActionSelectionDialog("curso"));
-        groupsButton.addActionListener(e -> showActionSelectionDialog("grupos"));
-        departmentsButton.addActionListener(e -> showActionSelectionDialog("departamento"));
-
-        getContentPane().add(mainPanel);
+        setVisible(true);
     }
 
-    private void showActionSelectionDialog(String entityType) {
-        String[] options = {"Editar", "Eliminar"};
-        int choice = JOptionPane.showOptionDialog(this,
-                "¿Qué acción deseas realizar para " + entityType + "?",
-                "Selección de Acción",
-                JOptionPane.DEFAULT_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                options[0]);
-
-        if (choice == 0) {
-            showMaintenanceDialog(entityType, "Editar");
-        } else if (choice == 1) {
-            int confirmOption = JOptionPane.showConfirmDialog(this,
-                    "¿Estás seguro de eliminar la información de " + entityType + "?",
-                    "Confirmación de Eliminación",
-                    JOptionPane.YES_NO_OPTION);
-
-            if (confirmOption == JOptionPane.YES_OPTION) {
-                boolean deletionSuccess = deleteData(entityType);
-                if (deletionSuccess) {
-                    JOptionPane.showMessageDialog(this,
-                            "Información de " + entityType + " eliminada exitosamente.",
-                            "Eliminación Exitosa",
-                            JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(this,
-                            "Error al eliminar la información de " + entityType + ".",
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        }
-    }
-
-    private void showMaintenanceDialog(String entityType, String action) {
-        String[] currentData = fetchCurrentData(entityType);
-
-        if (currentData == null) {
-            JOptionPane.showMessageDialog(this,
-                    "No se encontraron datos de " + entityType + ".",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        JPanel inputPanel = new JPanel(new GridLayout(currentData.length / 3, 3)); // 3 columnas para ID, Código y Nombre
-
-        JTextField[] textFields = new JTextField[currentData.length];
-        for (int i = 0; i < currentData.length; i += 3) { // Incremento de a 3 (ID, Código, Nombre)
-            inputPanel.add(new JLabel("ID:"));
-            textFields[i] = new JTextField(currentData[i]);
-            inputPanel.add(textFields[i]);
-
-            inputPanel.add(new JLabel("Código:"));
-            textFields[i + 1] = new JTextField(currentData[i + 1]);
-            inputPanel.add(textFields[i + 1]);
-
-            inputPanel.add(new JLabel("Nombre:"));
-            textFields[i + 2] = new JTextField(currentData[i + 2]);
-            inputPanel.add(textFields[i + 2]);
-        }
-
-        int option = JOptionPane.showConfirmDialog(this,
-                inputPanel,
-                action + " " + entityType,
-                JOptionPane.OK_CANCEL_OPTION,
-                JOptionPane.PLAIN_MESSAGE);
-
-        if (option == JOptionPane.OK_OPTION) {
-            String[] newData = new String[currentData.length];
-            for (int i = 0; i < currentData.length; i++) {
-                newData[i] = textFields[i].getText();
-            }
-
-            boolean changesSaved = saveChanges(entityType, newData);
-
-            if (changesSaved) {
-                JOptionPane.showMessageDialog(this,
-                        "Cambios guardados exitosamente.",
-                        "Éxito",
-                        JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "Error al guardar los cambios. Inténtalo de nuevo.",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }
-
-    private String[] fetchCurrentData(String entityType) {
+    private void editAllProfessors() {
         try {
-            String query = "SELECT id, cod, nombre FROM " + entityType;
+            String query = "SELECT * FROM profesor";
             PreparedStatement stmt = conn.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
 
-            ResultSetMetaData rsmd = rs.getMetaData();
-            int columnCount = rsmd.getColumnCount();
-
-            StringBuilder dataList = new StringBuilder();
             while (rs.next()) {
-                for (int i = 1; i <= columnCount; i++) {
-                    dataList.append(rs.getString(i)).append(",");
+                int professorId = rs.getInt("id");
+                String professorName = rs.getString("nombre");
+                String professorApellidos = rs.getString("apellidos");
+                String professorDNI = rs.getString("dni");
+                String professorCorreo = rs.getString("correo");
+                int professorActivo = rs.getInt("activo");
+                String professorPerfil = rs.getString("perfil");
+                String professorContraseña = rs.getString("contraseña");
+                int professorDepartamento = rs.getInt("departamento");
+
+                JPanel inputPanel = new JPanel(new GridLayout(0, 2));
+                inputPanel.add(new JLabel("Nombre:"));
+                JTextField nameField = new JTextField(professorName);
+                inputPanel.add(nameField);
+                inputPanel.add(new JLabel("Apellidos:"));
+                JTextField apellidosField = new JTextField(professorApellidos);
+                inputPanel.add(apellidosField);
+                inputPanel.add(new JLabel("DNI:"));
+                JTextField dniField = new JTextField(professorDNI);
+                inputPanel.add(dniField);
+                inputPanel.add(new JLabel("Correo:"));
+                JTextField correoField = new JTextField(professorCorreo);
+                inputPanel.add(correoField);
+                inputPanel.add(new JLabel("Activo (1 = Sí, 0 = No):"));
+                JTextField activoField = new JTextField(String.valueOf(professorActivo));
+                inputPanel.add(activoField);
+                inputPanel.add(new JLabel("Perfil:"));
+                JTextField perfilField = new JTextField(professorPerfil);
+                inputPanel.add(perfilField);
+                inputPanel.add(new JLabel("Contraseña:"));
+                JTextField contraseñaField = new JTextField(professorContraseña);
+                inputPanel.add(contraseñaField);
+                inputPanel.add(new JLabel("Departamento:"));
+                JTextField departamentoField = new JTextField(String.valueOf(professorDepartamento));
+                inputPanel.add(departamentoField);
+
+                int option = JOptionPane.showConfirmDialog(this,
+                        inputPanel,
+                        "Editar Profesor: " + professorName + " " + professorApellidos,
+                        JOptionPane.OK_CANCEL_OPTION,
+                        JOptionPane.PLAIN_MESSAGE);
+
+                if (option == JOptionPane.OK_OPTION) {
+                    String updateQuery = "UPDATE profesor SET nombre = ?, apellidos = ?, dni = ?, correo = ?, "
+                            + "activo = ?, perfil = ?, contraseña = ?, departamento = ? WHERE id = ?";
+                    PreparedStatement updateStmt = conn.prepareStatement(updateQuery);
+                    updateStmt.setString(1, nameField.getText());
+                    updateStmt.setString(2, apellidosField.getText());
+                    updateStmt.setString(3, dniField.getText());
+                    updateStmt.setString(4, correoField.getText());
+                    updateStmt.setInt(5, Integer.parseInt(activoField.getText()));
+                    updateStmt.setString(6, perfilField.getText());
+                    updateStmt.setString(7, contraseñaField.getText());
+                    updateStmt.setInt(8, Integer.parseInt(departamentoField.getText()));
+                    updateStmt.setInt(9, professorId);
+
+                    updateStmt.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Profesor actualizado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+                    updateStmt.close();
                 }
             }
 
             stmt.close();
-            return dataList.toString().split(",");
-
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al obtener datos de la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return null;
+            JOptionPane.showMessageDialog(this, "Error al editar los profesores.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private boolean saveChanges(String entityType, String[] newData) {
-        try {
-            String updateQuery = "UPDATE " + entityType + " SET cod = ?, nombre = ? WHERE id = ?";
-            PreparedStatement stmt = conn.prepareStatement(updateQuery);
-
-            for (int i = 0; i < newData.length; i += 3) {
-                stmt.setString(1, newData[i + 1]); // Código
-                stmt.setString(2, newData[i + 2]); // Nombre
-                stmt.setInt(3, Integer.parseInt(newData[i])); // ID
-
-                stmt.executeUpdate();
-            }
-
-            stmt.close();
-            return true;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al guardar cambios en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-    }
-
-    private boolean deleteData(String entityType) {
-        try {
-            String deleteQuery = "DELETE FROM " + entityType + " WHERE id = ?";
-            PreparedStatement stmt = conn.prepareStatement(deleteQuery);
-
-            String input = JOptionPane.showInputDialog(this, "Ingrese el ID de " + entityType + " a eliminar:");
-            int idToDelete = Integer.parseInt(input); // Convertir la entrada a entero
-
-            stmt.setInt(1, idToDelete);
-            int rowsAffected = stmt.executeUpdate();
-
-            stmt.close();
-            return rowsAffected > 0;
-
-        } catch (SQLException | NumberFormatException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al eliminar datos en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
