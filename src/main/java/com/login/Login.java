@@ -3,7 +3,7 @@ package com.login;
 import com.bd.FuncionesBD;
 import com.bd.AccesoBaseDatos;
 import com.datos.Usuario;
-import com.programa.Principal1;
+import com.programa.Principal2;
 
 import java.awt.Color;
 
@@ -317,7 +317,7 @@ public class Login extends javax.swing.JFrame {
         if (usuarioValido) {
             javax.swing.JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.", "LOGIN", javax.swing.JOptionPane.INFORMATION_MESSAGE);
             Usuario user = new Usuario(accesoBD.getNombre(usuarioIngresado), accesoBD.getApellidos(usuarioIngresado), usuarioIngresado, passwordIngresada, accesoBD.validarAdmin(usuarioIngresado));
-            Principal1 principal1 = new Principal1(user);
+            Principal2 principal1 = new Principal2(user);
             this.dispose();
             principal1.setVisible(true);
         } else {
@@ -356,7 +356,7 @@ public class Login extends javax.swing.JFrame {
         if (usuarioValido) {
             javax.swing.JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.", "LOGIN", javax.swing.JOptionPane.INFORMATION_MESSAGE);
             Usuario user = new Usuario(accesoBD.getNombre(usuarioIngresado), accesoBD.getApellidos(usuarioIngresado), usuarioIngresado, passwordIngresada, accesoBD.validarAdmin(usuarioIngresado));
-            Principal1 principal1 = new Principal1(user);
+            Principal2 principal1 = new Principal2(user);
             this.dispose();
             principal1.setVisible(true);
         } else {
