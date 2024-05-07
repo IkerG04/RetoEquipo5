@@ -6,10 +6,6 @@ package com.mycompany.actividad;
 
 import java.time.LocalDate;
 
-/**
- *
- * @author DAW129
- */
 public class ActividadData {
     private int id;
     private String profesorSolicitante;
@@ -26,7 +22,7 @@ public class ActividadData {
     private String empresaTransporte;
     private boolean actividadRealizada;
 
-    public ActividadData(int id, String profesorSolicitante, String departamento, String titulo, boolean enProgramacion, String transporte, LocalDate inicio, LocalDate fin, String grupo, int numAlumnos, boolean alojamiento, String comentarios, String empresaTransporte, boolean par1) {
+    public ActividadData(int id, String profesorSolicitante, String departamento, String titulo, boolean enProgramacion, String transporte, LocalDate inicio, LocalDate fin, String grupo, int numAlumnos, boolean alojamiento, String comentarios, String empresaTransporte, boolean actividadRealizada) {
         this.id = id;
         this.profesorSolicitante = profesorSolicitante;
         this.departamento = departamento;
@@ -40,11 +36,11 @@ public class ActividadData {
         this.alojamiento = alojamiento;
         this.comentarios = comentarios;
         this.empresaTransporte = empresaTransporte;
-        this.actividadRealizada = false; // Inicialmente la actividad no está realizada
+        this.actividadRealizada = actividadRealizada;
     }
 
-    ActividadData() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    // Constructor vacío por si se necesita
+    public ActividadData() {
     }
 
     // Getters y Setters

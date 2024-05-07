@@ -8,82 +8,57 @@ import java.time.LocalDate;
 
 
 public class AccesoBaseDatos {
+    private static AccesoBaseDatos instance;
+    private Connection conn;
 
-    private static final String BD = "gestoractividadesextraescolares";
-    private static final String USUARIO = "root";
-    private static final String CLAVE = "mysql";
-    private static final String URL = "jdbc:mysql://localhost:3306/" + BD;
+    // Constructor privado para evitar instanciación directa
+    private AccesoBaseDatos(String url, String user, String password) throws SQLException {
+        this.conn = DriverManager.getConnection(url, user, password);
+    }
 
-    private Connection conn = null;
+    // Método estático para obtener la instancia única de AccesoBaseDatos
+    public static synchronized AccesoBaseDatos getInstance(String url, String user, String password) throws SQLException {
+        if (instance == null) {
+            instance = new AccesoBaseDatos(url, user, password);
+        }
+        return instance;
+    }
 
-    private AccesoBaseDatos() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver"); // Cargar el controlador JDBC
-            conn = DriverManager.getConnection(URL, USUARIO, CLAVE);
-            System.out.println("Conexión establecida a la base de datos: " + URL);
-        } catch (ClassNotFoundException | SQLException ex) {
-            System.out.println("Error al conectar a la base de datos: " + ex.getMessage());
+    // Método para insertar una actividad en la base de datos
+    public boolean insertarActividad(ActividadData actividad) {
+        String query = "INSERT INTO solicitud (mediotransporte, departamento, comentariosadicionales, " +
+                "alojamiento, numeroalumnos, estado, grupocurso, fechainicioactividad, " +
+                "fechafinactividad, prevista, titulo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setBoolean(1, actividad.isEnProgramacion());
+            pstmt.setString(2, actividad.getDepartamento());
+            pstmt.setString(3, actividad.getComentarios());
+            pstmt.setBoolean(4, actividad.isAlojamiento());
+            pstmt.setInt(5, actividad.getNumAlumnos());
+            pstmt.setString(6, "Pendiente"); // Estado inicial (por ejemplo: Pendiente)
+            pstmt.setString(7, actividad.getGrupo());
+            pstmt.setDate(8, java.sql.Date.valueOf(actividad.getInicio()));
+            pstmt.setDate(9, java.sql.Date.valueOf(actividad.getFin()));
+            pstmt.setBoolean(10, true); // Actividad prevista (true/false)
+            pstmt.setString(11, actividad.getTitulo());
+
+            int rowsInserted = pstmt.executeUpdate();
+            return rowsInserted > 0;
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar actividad: " + ex.getMessage());
+            return false;
         }
     }
 
-    public static AccesoBaseDatos getInstance() {
-        return AccesoBaseDatosHolder.INSTANCE;
-    }
-
-    private static class AccesoBaseDatosHolder {
-        private static final AccesoBaseDatos INSTANCE = new AccesoBaseDatos();
-    }
-
-    public Connection getConn() {
-        return conn;
-    }
-
-    public boolean insertarActividad(ActividadData actividad) {
+    // Método para cerrar la conexión a la base de datos
+    public void cerrarConexion() {
         if (conn != null) {
             try {
-                String query = "INSERT INTO actividades (id, profesor_solicitante, departamento, titulo, " + //CAMBIAR TABLA
-                        "en_programacion, medio_transporte, fecha_inicio, fecha_fin, grupo_curso, " +
-                        "num_alumnos, necesita_alojamiento, comentarios_adicionales, empresa_transporte, " +
-                        "actividad_realizada) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-                PreparedStatement pstmt = conn.prepareStatement(query);
-                pstmt.setInt(1, actividad.getId());
-                pstmt.setString(2, actividad.getProfesorSolicitante());
-                pstmt.setString(3, actividad.getDepartamento());
-                pstmt.setString(4, actividad.getTitulo());
-                pstmt.setBoolean(5, actividad.isEnProgramacion());
-                pstmt.setString(6, actividad.getTransporte());
-                pstmt.setDate(7, java.sql.Date.valueOf(actividad.getInicio()));
-                pstmt.setDate(8, java.sql.Date.valueOf(actividad.getFin()));
-                pstmt.setString(9, actividad.getGrupo());
-                pstmt.setInt(10, actividad.getNumAlumnos());
-                pstmt.setBoolean(11, actividad.isAlojamiento());
-                pstmt.setString(12, actividad.getComentarios());
-                pstmt.setString(13, actividad.getEmpresaTransporte());
-                pstmt.setBoolean(14, actividad.isActividadRealizada());
-
-                int rowsInserted = pstmt.executeUpdate();
-                pstmt.close();
-
-                return rowsInserted > 0;
-            } catch (SQLException ex) {
-                System.out.println("Error al insertar actividad: " + ex.getMessage());
-            }
-        }
-        return false;
-    }
-
-    public boolean cerrar() {
-        boolean siCerrada = false;
-        try {
-            if (conn != null && !conn.isClosed()) {
                 conn.close();
-                siCerrada = true;
-                System.out.println("Conexión cerrada correctamente.");
+            } catch (SQLException ex) {
+                System.out.println("Error al cerrar conexión: " + ex.getMessage());
             }
-        } catch (SQLException ex) {
-            System.out.println("Error al cerrar la conexión: " + ex.getMessage());
         }
-        return siCerrada;
     }
 }
