@@ -2,7 +2,10 @@ package com.mycompany.actividad;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
+
 
 public class AccesoBaseDatos {
 
@@ -33,6 +36,41 @@ public class AccesoBaseDatos {
 
     public Connection getConn() {
         return conn;
+    }
+
+    public boolean insertarActividad(ActividadData actividad) {
+        if (conn != null) {
+            try {
+                String query = "INSERT INTO actividades (id, profesor_solicitante, departamento, titulo, " + //CAMBIAR TABLA
+                        "en_programacion, medio_transporte, fecha_inicio, fecha_fin, grupo_curso, " +
+                        "num_alumnos, necesita_alojamiento, comentarios_adicionales, empresa_transporte, " +
+                        "actividad_realizada) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                PreparedStatement pstmt = conn.prepareStatement(query);
+                pstmt.setInt(1, actividad.getId());
+                pstmt.setString(2, actividad.getProfesorSolicitante());
+                pstmt.setString(3, actividad.getDepartamento());
+                pstmt.setString(4, actividad.getTitulo());
+                pstmt.setBoolean(5, actividad.isEnProgramacion());
+                pstmt.setString(6, actividad.getTransporte());
+                pstmt.setDate(7, java.sql.Date.valueOf(actividad.getInicio()));
+                pstmt.setDate(8, java.sql.Date.valueOf(actividad.getFin()));
+                pstmt.setString(9, actividad.getGrupo());
+                pstmt.setInt(10, actividad.getNumAlumnos());
+                pstmt.setBoolean(11, actividad.isAlojamiento());
+                pstmt.setString(12, actividad.getComentarios());
+                pstmt.setString(13, actividad.getEmpresaTransporte());
+                pstmt.setBoolean(14, actividad.isActividadRealizada());
+
+                int rowsInserted = pstmt.executeUpdate();
+                pstmt.close();
+
+                return rowsInserted > 0;
+            } catch (SQLException ex) {
+                System.out.println("Error al insertar actividad: " + ex.getMessage());
+            }
+        }
+        return false;
     }
 
     public boolean cerrar() {
