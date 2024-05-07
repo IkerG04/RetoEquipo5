@@ -146,7 +146,7 @@ public class CargaDatos extends JFrame {
             pstmt.close();
             return departamentoId;
         }
-    }
+    } //Temporal
 
     private String extraerNombre(String apellidosNombre) {
         return apellidosNombre.split("\\s+")[1];
@@ -170,7 +170,7 @@ public class CargaDatos extends JFrame {
     private String obtenerPerfilAleatorio() {
         String[] perfiles = {"SuperUsuario", "Administrador", "EquipoAdministrativo", "Profesor"};
         return perfiles[(int) (perfiles.length * Math.random())];
-    }
+    } //Temporal
 
     private void mostrarMensajeExito(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -189,7 +189,7 @@ public class CargaDatos extends JFrame {
             sb.append(caracteres.charAt(index));
         }
         return sb.toString();
-    }
+    }//Temporal
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
