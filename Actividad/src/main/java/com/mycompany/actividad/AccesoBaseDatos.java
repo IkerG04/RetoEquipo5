@@ -48,25 +48,4 @@ public class AccesoBaseDatos {
         }
         return siCerrada;
     }
-
-    public static void main(String[] args) {
-        // Obtener una instancia de AccesoBaseDatos
-        AccesoBaseDatos accesoBD = AccesoBaseDatos.getInstance();
-
-        // Obtener la conexión a la base de datos
-        Connection conn = accesoBD.getConn();
-
-        // Realizar operaciones con la base de datos (ejemplo)
-        if (conn != null) {
-            try {
-                // Aquí puedes ejecutar consultas SQL, etc.
-                conn.createStatement().executeQuery("SELECT * FROM tabla");
-            } catch (SQLException ex) {
-                System.out.println("Error al ejecutar la consulta: " + ex.getMessage());
-            }
-        }
-
-        // Cerrar la conexión
-        accesoBD.cerrar();
-    }
 }
