@@ -58,3 +58,10 @@ Se han implementado la funcion de cargar archivos csv a Java
 se han juntado las distintas partes creadas del proyecto java (login con el resto del proyecto)
 
 [![easdfsgfsdfdfwe4fe.png](https://i.postimg.cc/XYMSXfP6/easdfsgfsdfdfwe4fe.png)](https://postimg.cc/VdFHVC1K)
+
+## DIA 6 (06/05/2024)
+
+se a iniciado la creacion del servidor con windows server y se ah empezado el java swimg
+
+
+## Dia 7 (07/05/2024)
