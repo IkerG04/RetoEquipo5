@@ -66,19 +66,18 @@ public class CargaDatos extends JFrame {
     private void cargarProfesoresDesdeCSV(File file) throws IOException, SQLException {
         Map<String, Integer> departamentoIdMap = new HashMap<>();
 
-        try (Connection conn = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
-             BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        try (Connection conn = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD); BufferedReader reader = new BufferedReader(new FileReader(file))) {
 
             String line;
             reader.readLine(); // Omitir la primera línea (encabezados)
 
             PreparedStatement pstmt = conn.prepareStatement(
                     "INSERT INTO profesor (nombre, apellidos, dni, correo, departamento, contraseña, activo, perfil) "
-                            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
             while ((line = reader.readLine()) != null) {
                 String[] datos = line.split(",");
-                
+
                 // Verificar que haya al menos 4 elementos en datos antes de acceder a ellos
                 if (datos.length >= 4) {
                     String apellidosNombre = datos[0].trim();
@@ -190,6 +189,7 @@ public class CargaDatos extends JFrame {
         }
         return sb.toString();
     }//Temporal
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
