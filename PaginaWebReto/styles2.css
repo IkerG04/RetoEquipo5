@@ -6,14 +6,9 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  background-color: #f2f2f2;
   margin: 0;
-  /* Asegura que no haya márgenes */
-  overflow-x: hidden;
-  /* Evita el desplazamiento horizontal */
+  padding: 0;
 }
 
 .container {
@@ -22,6 +17,7 @@ body {
   margin: auto;
 }
 
+/* Navbar Styles */
 
 .navbar {
   width: 100%;
@@ -34,10 +30,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80%;
-  padding:0;
-       
-
+  height: 80px; /* Ajuste de altura para evitar solapamiento con el calendario */
+  padding: 0;
 }
 
 .navbar .menu-items {
@@ -49,7 +43,6 @@ body {
   transform: translateY(-100%);
   transition: transform 0.3s ease-in-out;
   z-index: 10;
-  
 }
 
 .navbar .nav-container li {
@@ -83,7 +76,7 @@ body {
   height: 32px;
   width: 32px;
   top: 34%;
-  left: -37%;
+  left: -10%;
   z-index: 5;
   opacity: 0;
   cursor: pointer;
@@ -95,7 +88,7 @@ body {
   width: 32px;
   position: absolute;
   top: 37%;
-  left: -37%;
+  left: -10%;
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -126,7 +119,7 @@ body {
 
 .logo {
   position: absolute;
-  top: 10%;
+  top: 9%;
   right: 33%;
   font-size: 200%;
   color: #ffffff;
@@ -142,9 +135,8 @@ body {
   flex-direction: column;
   transition: transform 0.9s ease-in-out;
   text-align: center;
-  height:100vh;
+  height: 100vh;
   width: 100%;
-  
 }
 
 .navbar .menu-items li {
@@ -173,13 +165,175 @@ body {
   display: none;
 }
 
+
+/* Calendario Styles */
+.calendar {
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin-bottom: 050px;
+  margin-top: 100px;
+}
+
+.header {
+  background-color: #232936;
+  color: #fff;
+  padding: 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  text-align: center;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 2px;
+  margin-top: 10px;
+}
+
+.day {
+  position: relative; 
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 14px;
+  height: 100px;
+  overflow: hidden;
+}
+
+.day:hover {
+  background-color: #d9d9d9;
+  cursor: pointer;
+}
+
+.day .info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.day-number {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  position: absolute; /* Posiciona el número de día */
+  top: 5px; /* Ajusta la posición vertical */
+  left: 5px; /* Ajusta la posición horizontal */
+}
+
+.details {
+  font-size: 12px;
+  color: #666;
+}
+
+.excursion {
+  display: block;
+}
+
+.profesor,
+.clase {
+  font-style: italic;
+}
+
+/*extraescolares style*/
+table {
+  width: calc(100% - 80px); 
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-left: 39px; 
+  margin-right: 20px; 
+  margin-bottom: 250px;
+}
+
+th, td {
+  border: 1px solid rgb(0, 0, 0);
+  padding: 16px;
+  text-align: center;
+}
+h2{
+  text-align: center;
+}
+th {
+  background-color: #232936;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+
+body {
+  background-color: #f2f2f2;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.extra-curricular {
+  flex: 1;
+  margin-bottom: 200px;
+}
+
+.extra-curricular h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.activity {
+  display: flex;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.image {
+  width: 200px;
+  flex-shrink: 0;
+}
+
+.image img {
+  width: 100%;
+  height: 110px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.details {
+  background-color: #fff;
+  padding: 20px;
+  flex: 1;
+}
+
+.details h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.details p {
+  margin-bottom: 0;
+  color: #666;
+}
+
   /* Footer Styles */
   footer {
     background-color: #232936;
     padding: 30px 0;
     text-align: center;
     justify-content: center;
- }
+    display: block;
+}
 
 footer .container {
     display: inline-flex;
