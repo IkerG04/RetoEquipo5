@@ -4,8 +4,11 @@
  */
 package com.mycompany.mantenimientosbasicos;
 
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
 
 /**
@@ -16,6 +19,18 @@ import java.sql.*;
 public class MantenimientosBasicos extends JFrame {
 
     private Connection conn;
+    private JComboBox<String> entidadComboBox;
+    private JButton eliminarTodosButton; // Nuevo botón para eliminar todos los profesores
+
+    // Campos específicos para editar profesores
+    private JComboBox<String> profesorComboBox;
+    private JTextField nombreField;
+    private JTextField apellidosField;
+    private JTextField dniField;
+    private JTextField correoField;
+    private JCheckBox activoCheckBox;
+    private JTextField perfilField;
+    private JTextField contraseñaField;
 
     public MantenimientosBasicos() {
         super("Mantenimiento Básico");
@@ -34,94 +49,120 @@ public class MantenimientosBasicos extends JFrame {
         setSize(600, 400);
         setLocationRelativeTo(null);
 
-        JPanel mainPanel = new JPanel();
-        JButton editProfessorsButton = new JButton("Editar Todos los Profesores");
+        JPanel mainPanel = new JPanel(new BorderLayout());
 
-        editProfessorsButton.addActionListener(e -> editAllProfessors());
+        // Crear el panel para el menú y los botones de acción
+        JPanel menuPanel = new JPanel(new FlowLayout());
 
-        mainPanel.add(editProfessorsButton);
+        // Combo box para seleccionar la entidad
+        entidadComboBox = new JComboBox<>();
+        entidadComboBox.addItem("Profesores"); // Solo implementamos para profesores en este ejemplo
+
+        // Botón para eliminar todos los profesores
+        eliminarTodosButton = new JButton("Eliminar Todos");
+
+        // Agregar componentes al panel del menú
+        menuPanel.add(new JLabel("Seleccionar Entidad:"));
+        menuPanel.add(entidadComboBox);
+        menuPanel.add(eliminarTodosButton); // Agregar el nuevo botón
+
+        // Agregar el panel del menú antes del panel de edición
+        mainPanel.add(menuPanel, BorderLayout.NORTH);
+
+        // Panel para editar profesores (se mostrará por defecto)
+        JPanel editProfesorPanel = new JPanel(new GridLayout(0, 2));
+        editProfesorPanel.setBorder(BorderFactory.createTitledBorder("Editar Profesor"));
+
+        // Combo box para seleccionar profesor
+        profesorComboBox = new JComboBox<>();
+        populateProfessors(); // Llenar el combo box con profesores disponibles
+
+        // Campos de texto y otros componentes para editar información del profesor seleccionado
+        nombreField = new JTextField();
+        apellidosField = new JTextField();
+        dniField = new JTextField();
+        correoField = new JTextField();
+        activoCheckBox = new JCheckBox("Activo");
+        perfilField = new JTextField();
+        contraseñaField = new JTextField();
+
+        editProfesorPanel.add(new JLabel("Seleccionar Profesor:"));
+        editProfesorPanel.add(profesorComboBox);
+        editProfesorPanel.add(new JLabel("Nombre:"));
+        editProfesorPanel.add(nombreField);
+        editProfesorPanel.add(new JLabel("Apellidos:"));
+        editProfesorPanel.add(apellidosField);
+        editProfesorPanel.add(new JLabel("DNI:"));
+        editProfesorPanel.add(dniField);
+        editProfesorPanel.add(new JLabel("Correo:"));
+        editProfesorPanel.add(correoField);
+        editProfesorPanel.add(new JLabel("Activo:"));
+        editProfesorPanel.add(activoCheckBox);
+        editProfesorPanel.add(new JLabel("Perfil:"));
+        editProfesorPanel.add(perfilField);
+        editProfesorPanel.add(new JLabel("Contraseña:"));
+        editProfesorPanel.add(contraseñaField);
+
+        // Agregar el panel de edición de profesores al centro del marco principal
+        mainPanel.add(editProfesorPanel, BorderLayout.CENTER);
+
+        // Acción del botón para eliminar todos los profesores
+        eliminarTodosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eliminarTodosProfesores();
+            }
+        });
+
+        // Agregar el panel principal al marco
         add(mainPanel);
-
         setVisible(true);
     }
 
-    private void editAllProfessors() {
+    private void populateProfessors() {
         try {
-            String query = "SELECT * FROM profesor";
+            String query = "SELECT id, nombre, apellidos FROM profesor";
             PreparedStatement stmt = conn.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                int professorId = rs.getInt("id");
-                String professorName = rs.getString("nombre");
-                String professorApellidos = rs.getString("apellidos");
-                String professorDNI = rs.getString("dni");
-                String professorCorreo = rs.getString("correo");
-                int professorActivo = rs.getInt("activo");
-                String professorPerfil = rs.getString("perfil");
-                String professorContraseña = rs.getString("contraseña");
-                int professorDepartamento = rs.getInt("departamento");
-
-                JPanel inputPanel = new JPanel(new GridLayout(0, 2));
-                inputPanel.add(new JLabel("Nombre:"));
-                JTextField nameField = new JTextField(professorName);
-                inputPanel.add(nameField);
-                inputPanel.add(new JLabel("Apellidos:"));
-                JTextField apellidosField = new JTextField(professorApellidos);
-                inputPanel.add(apellidosField);
-                inputPanel.add(new JLabel("DNI:"));
-                JTextField dniField = new JTextField(professorDNI);
-                inputPanel.add(dniField);
-                inputPanel.add(new JLabel("Correo:"));
-                JTextField correoField = new JTextField(professorCorreo);
-                inputPanel.add(correoField);
-                inputPanel.add(new JLabel("Activo (1 = Sí, 0 = No):"));
-                JTextField activoField = new JTextField(String.valueOf(professorActivo));
-                inputPanel.add(activoField);
-                inputPanel.add(new JLabel("Perfil:"));
-                JTextField perfilField = new JTextField(professorPerfil);
-                inputPanel.add(perfilField);
-                inputPanel.add(new JLabel("Contraseña:"));
-                JTextField contraseñaField = new JTextField(professorContraseña);
-                inputPanel.add(contraseñaField);
-                inputPanel.add(new JLabel("Departamento:"));
-                JTextField departamentoField = new JTextField(String.valueOf(professorDepartamento));
-                inputPanel.add(departamentoField);
-
-                int option = JOptionPane.showConfirmDialog(this,
-                        inputPanel,
-                        "Editar Profesor: " + professorName + " " + professorApellidos,
-                        JOptionPane.OK_CANCEL_OPTION,
-                        JOptionPane.PLAIN_MESSAGE);
-
-                if (option == JOptionPane.OK_OPTION) {
-                    String updateQuery = "UPDATE profesor SET nombre = ?, apellidos = ?, dni = ?, correo = ?, "
-                            + "activo = ?, perfil = ?, contraseña = ?, departamento = ? WHERE id = ?";
-                    PreparedStatement updateStmt = conn.prepareStatement(updateQuery);
-                    updateStmt.setString(1, nameField.getText());
-                    updateStmt.setString(2, apellidosField.getText());
-                    updateStmt.setString(3, dniField.getText());
-                    updateStmt.setString(4, correoField.getText());
-                    updateStmt.setInt(5, Integer.parseInt(activoField.getText()));
-                    updateStmt.setString(6, perfilField.getText());
-                    updateStmt.setString(7, contraseñaField.getText());
-                    updateStmt.setInt(8, Integer.parseInt(departamentoField.getText()));
-                    updateStmt.setInt(9, professorId);
-
-                    updateStmt.executeUpdate();
-                    JOptionPane.showMessageDialog(this, "Profesor actualizado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-
-                    updateStmt.close();
-                }
+                int id = rs.getInt("id");
+                String nombre = rs.getString("nombre");
+                String apellidos = rs.getString("apellidos");
+                String profesorInfo = id + " - " + nombre + " " + apellidos;
+                profesorComboBox.addItem(profesorInfo);
             }
 
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al editar los profesores.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al obtener la lista de profesores.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
+    private void eliminarTodosProfesores() {
+        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de eliminar todos los profesores?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            try {
+                String query = "DELETE FROM profesor";
+                PreparedStatement stmt = conn.prepareStatement(query);
+
+                int rowsDeleted = stmt.executeUpdate();
+                if (rowsDeleted > 0) {
+                    JOptionPane.showMessageDialog(this, "Se han eliminado todos los profesores correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    // Limpiar combo box de profesores
+                    profesorComboBox.removeAllItems();
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar ningún profesor.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+                stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al eliminar todos los profesores.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
