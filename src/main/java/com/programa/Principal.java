@@ -3,7 +3,6 @@ package com.programa;
 import com.bd.AccesoBaseDatos;
 import com.datos.Usuario;
 import java.awt.Color;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -87,6 +86,7 @@ public class Principal extends javax.swing.JFrame {
         textoCancelar = new javax.swing.JLabel();
         textoLlenarTodoSolicitudCargar = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         panelCargaDatos = new javax.swing.JPanel();
         panelUsuario = new javax.swing.JPanel();
         fondoIzquierda = new javax.swing.JPanel();
@@ -237,6 +237,7 @@ public class Principal extends javax.swing.JFrame {
         imagenCargarSolicitud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/solicitud.png"))); // NOI18N
 
         textoCargarSolicitud.setForeground(new java.awt.Color(255, 255, 255));
+        textoCargarSolicitud.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoCargarSolicitud.setText("Cargar");
         textoCargarSolicitud.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
@@ -245,12 +246,12 @@ public class Principal extends javax.swing.JFrame {
         cargarSolicitudesLayout.setHorizontalGroup(
             cargarSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cargarSolicitudesLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(imagenCargarSolicitud)
-                .addContainerGap(21, Short.MAX_VALUE))
-            .addGroup(cargarSolicitudesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(textoCargarSolicitud, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(textoCargarSolicitud, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cargarSolicitudesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(imagenCargarSolicitud)
+                .addGap(19, 19, 19))
         );
         cargarSolicitudesLayout.setVerticalGroup(
             cargarSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,6 +277,7 @@ public class Principal extends javax.swing.JFrame {
         imagenVerSolicitud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/solicitud.png"))); // NOI18N
 
         textoVerSolicitud.setForeground(new java.awt.Color(255, 255, 255));
+        textoVerSolicitud.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoVerSolicitud.setText("Ver");
         textoVerSolicitud.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
@@ -284,19 +286,19 @@ public class Principal extends javax.swing.JFrame {
         verSolicitudesLayout.setHorizontalGroup(
             verSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(verSolicitudesLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(imagenVerSolicitud)
-                .addContainerGap(21, Short.MAX_VALUE))
-            .addGroup(verSolicitudesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(textoVerSolicitud, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(textoVerSolicitud, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, verSolicitudesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(imagenVerSolicitud)
+                .addGap(19, 19, 19))
         );
         verSolicitudesLayout.setVerticalGroup(
             verSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(verSolicitudesLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(imagenVerSolicitud, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textoVerSolicitud)
                 .addContainerGap())
         );
@@ -330,10 +332,10 @@ public class Principal extends javax.swing.JFrame {
         );
         verPanelLayout.setVerticalGroup(
             verPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        panelSolicitud.add(verPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
+        panelSolicitud.add(verPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
 
         cargarPanel.setBackground(new java.awt.Color(40, 40, 40));
         cargarPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -529,9 +531,12 @@ public class Principal extends javax.swing.JFrame {
                 jButton1MouseReleased(evt);
             }
         });
-        cargarPanel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 450, -1, -1));
+        cargarPanel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 460, -1, -1));
 
-        panelSolicitud.add(cargarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
+        jLabel1.setText("falta profesores responsables,profesores involucrados, meter varios grupos / cursos y la hora");
+        cargarPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 510, 20));
+
+        panelSolicitud.add(cargarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
 
         principal.add(panelSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
 
@@ -1086,6 +1091,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel imagenUsuario;
     private javax.swing.JLabel imagenVerSolicitud;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel mantenimiento;
     private javax.swing.JPanel minimizar;
     private javax.swing.JLabel minimizarTexto;
