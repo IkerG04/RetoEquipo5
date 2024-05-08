@@ -3,7 +3,6 @@
     padding: 0;
     box-sizing: border-box;
   }
-  
   body {
     font-family: "Poppins", sans-serif;
     min-height: 100vh;
@@ -11,18 +10,28 @@
     flex-direction: column;
     justify-content: space-between;
     margin: 0;
-    /* Asegura que no haya márgenes */
     overflow-x: hidden;
-    /* Evita el desplazamiento horizontal */
+  
   }
   
   .container {
     max-width: 50%;
     justify-content: center;
     margin: auto;
+
   }
-  
-  
+
+  /* header */
+  .logo{
+    position: absolute;
+    right: 10px;
+    z-index: 999;
+    
+   }
+    .logo > img{
+      width: 100px;
+      top: 0;
+    } 
   .navbar {
     width: 100%;
     box-shadow: 0 2px 4px rgba(36, 36, 36, 0.15);
@@ -124,7 +133,7 @@
     transition: transform 0.4s ease-in-out;
   }
   
-  .logo {
+  .titulo {
     position: absolute;
     top: 10%;
     right: 30%;

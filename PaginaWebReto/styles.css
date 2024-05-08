@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 /*header*/
+
 body {
     font-family: "Poppins", sans-serif;
     min-height: 100vh;
@@ -14,7 +15,17 @@ body {
     overflow-x: hidden;
    
 }
-
+.logo{
+    position: absolute;
+    width: 100px;
+    right: 10px;
+    z-index: 999;
+    bottom: 91%;
+   }
+    .logo > img{
+      width: 100px;
+      top: 0;
+    } 
 .container {
     background-color: #232936;
     max-width: 50%;
@@ -125,7 +136,7 @@ body {
     transition: transform 0.4s ease-in-out;
 }
 
-.logo {
+.titulo {
     
     position: absolute;
     top: 10%;
@@ -187,7 +198,7 @@ body {
 }
 
 /*body*/
-body, html {
+html {
     margin: 0;
     padding: 0;
     height: 100%;

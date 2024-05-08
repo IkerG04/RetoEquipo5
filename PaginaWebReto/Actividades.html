@@ -5,9 +5,14 @@
     <meta charset="UTF-8">
     <title>Gestión de Actividades Extraescolares</title>
     <link rel="stylesheet" href="styles2.css">
+    <link rel="icon" href="imagenes\logo blanco.png" type="image/x-icon">
 </head>
-
+<body>
 <header>
+
+  <div class="logo">
+    <img src="imagenes\logo blanco.png" alt="Logo">
+  </div>
         <nav>
           <div class="navbar">
             <div class="container nav-container">
@@ -19,10 +24,12 @@
                 </div>  
            
             <div>
-                <div class="logo">
+                <div class="titulo">
                     <h1>ACTIVIDADES</h1>
                 </div>
+                
             </div>
+           
               <div class="menu-items">
                 <li><a href="home.html">Home</a></li>
                 <li><a href="Actividades.html">Actividades</a></li>
@@ -34,147 +41,105 @@
         </nav>
 </header>
 
-<body>
-  <div class="calendar">
-    <div class="header">
-      <h1>Mayo 2024</h1>
-    </div>
-    <div class="days">
-      <div class="day">
-        <span class="excursion">Excursión: Museo de Historia</span>
-        <span class="profesor">Profesor: Dr. John Doe</span>
-        <span class="clase">Clase: Historia del Arte</span>
-      </div>
-      <div class="day">2</div>
-      <div class="day">3</div>
-      <div class="day">
-        <span class="excursion">Excursión: Parque Natural</span>
-        <span class="profesor">Profesor: Dra. Jane Smith</span>
-        <span class="clase">Clase: Biología</span>
-      </div>
-      <div class="day">5</div>
-      <div class="day">6</div>
-      <div class="day">7</div>
-      <div class="day">8</div>
-      <div class="day">
-        <span class="excursion">Excursión: Zoológico</span>
-        <span class="profesor">Profesor: Sr. Michael Johnson</span>
-        <span class="clase">Clase: Ciencias Naturales</span>
-      </div>
-      <div class="day">10</div>
-      <div class="day">11</div>
-      <div class="day">12</div>
-      <div class="day">13</div>
-      <div class="day">
-        <span class="excursion">Excursión: Galería de Arte</span>
-        <span class="profesor">Profesor: Sra. Emily Brown</span>
-        <span class="clase">Clase: Historia del Arte</span>
-      </div>
-      <div class="day">15</div>
-      <div class="day">16</div>
-      <div class="day">17</div>
-      <div class="day">18</div>
-      <div class="day">19</div>
-      <div class="day">20</div>
-      <div class="day">21</div>
-      <div class="day">22</div>
-      <div class="day">23</div>
-      <div class="day">24</div>
-      <div class="day">25</div>
-      <div class="day">26</div>
-      <div class="day">27</div>
-      <div class="day">28</div>
-      <div class="day">29</div>
-      <div class="day">30</div>
-      <div class="day">31</div>
-    </div>
-
-  </div>
-  <section>
-    <h2>Extraescolares</h2>
-    <table>
+<main>
+  <div class="container">
+    <h2>Excursiones</h2>
+    <table class="excursiones">
         <tr>
             <th>Actividad</th>
-            <th>Grupo de edad</th>
-            <th>Horario</th>
+            <th>Grupo de Edad</th>
+            <th>Fecha y Hora</th>
+            <th>Descripción</th>
+            <th>Estado</th>
         </tr>
-        <tr>
-            <td>Inglés Bilingüe</td>
-            <td>2º ESO</td>
-            <td>Martes y Jueves 14:40 a 15:30</td>
-        </tr>
-        <tr>
-            <td>Frances Bilingüe</td>
-            <td>1º ESO</td>
-            <td>Lunes y Miércoles 14:40 a 15:30</td>
-        </tr>
-        <tr>
-            <td>Fútbol</td>
-            <td>3º a 6º de Primaria</td>
-            <td>Miércoles 16:00 a 17:00</td>
-        </tr>
-        <tr>
-            <td>Baloncesto</td>
-            <td>1º a 4º de ESO</td>
-            <td>Viernes 15:00 a 16:00</td>
-        </tr>
-        <tr>
-            <td>Teatro</td>
+        <tr class="solicitada">
+            <td>Excursión al Museo de Historia Natural</td>
             <td>5º y 6º de Primaria</td>
-            <td>Jueves 17:00 a 18:00</td>
+            <td>15 de mayo, 10:00 AM</td>
+            <td>Visita guiada al museo para aprender sobre historia natural.</td>
+            <td>Solicitada</td>
         </tr>
+        <tr class="proceso">
+            <td>Excursión al Parque Acuático</td>
+            <td>3º y 4º de ESO</td>
+            <td>20 de mayo, 9:30 AM</td>
+            <td>Día de diversión en el parque acuático para refrescarse y disfrutar del sol.</td>
+            <td>En Proceso</td>
+        </tr>
+        <tr class="programada">
+            <td>Excursión al Zoológico</td>
+            <td>1º y 2º de Primaria</td>
+            <td>25 de mayo, 11:00 AM</td>
+            <td>Recorrido por el zoológico para conocer animales de todo el mundo.</td>
+            <td>Programada</td>
+        </tr>
+        <tr class="solicitada">
+            <td>Excursión al Parque Nacional</td>
+            <td>3º y 4º de Primaria</td>
+            <td>30 de mayo, 9:00 AM</td>
+            <td>Día de senderismo y naturaleza en el parque nacional.</td>
+            <td>Solicitada</td>
+        </tr>
+        <tr class="proceso">
+            <td>Excursión a la Granja</td>
+            <td>Infantil</td>
+            <td>5 de junio, 10:30 AM</td>
+            <td>Interacción con animales de la granja y actividades al aire libre.</td>
+            <td>En Proceso</td>
+        </tr>
+       
     </table>
-</section>
-<div class="extra-curricular">
-  <h2>Actividades Extraescolares</h2>
-  <div class="activity">
-    <div class="image">
-      <img src="imagenes\ingles.jpg" alt="Actividad de Inglés Bilingüe">
-    </div>
-    <div class="details">
-      <h3>Inglés Bilingüe</h3>
-      <p>Nuestra extraescolar de inglés bilingüe ofrece clases dinámicas, excursiones culturales y talleres temáticos para mejorar tus habilidades en inglés mientras exploras el mundo y te diviertes. ¡Únete a nosotros para una experiencia única de aprendizaje y descubrimiento!</p>
-    </div>
-  </div>
-  <div class="activity">
-    <div class="image">
-      <img src="imagenes\banderafrancia.jpg" alt="Actividad de Francés Bilingüe">
-    </div>
-    <div class="details">
-      <h3>Francés Bilingüe</h3>
-      <p>Nuestra extraescolar de francés bilingüe ofrece una inmersión completa en el idioma y la cultura francesa. Desde clases interactivas hasta actividades culturales y talleres creativos, te ayudaremos a desarrollar tus habilidades lingüísticas y a descubrir la riqueza de la lengua francesa.</p>
-    </div>
-  </div>
-  <div class="activity">
-    <div class="image">
-      <img src="imagenes\futbol.jpg" alt="Actividad de Fútbol">
-    </div>
-    <div class="details">
-      <h3>Fútbol</h3>
-      <p>Nuestra actividad de fútbol ofrece entrenamientos intensivos, partidos amistosos y competiciones emocionantes para jugadores de todos los niveles. Únete a nuestro equipo y mejora tus habilidades técnicas, tácticas y físicas mientras te diviertes jugando al fútbol.</p>
-    </div>
-  </div>
-  <div class="activity">
-    <div class="image">
-      <img src="imagenes\baloncesto.jpg" alt="Actividad de Baloncesto">
-    </div>
-    <div class="details">
-      <h3>Baloncesto</h3>
-      <p>Nuestra actividad de baloncesto ofrece entrenamientos especializados, partidos competitivos y oportunidades para mejorar tus habilidades individuales y de equipo. Únete a nuestro equipo y disfruta del emocionante juego del baloncesto mientras te superas a ti mismo y te diviertes con tus compañeros.</p>
-    </div>
-  </div>
-  <div class="activity">
-    <div class="image">
-      <img src="imagenes\teatro.jpg" alt="Actividad de Teatro">
-    </div>
-    <div class="details">
-      <h3>Teatro</h3>
-      <p>Nuestra actividad de teatro ofrece la oportunidad de explorar el mundo del arte escénico a través de juegos de improvisación, ensayos de obras teatrales y presentaciones públicas. Únete a nuestro grupo y descubre tu creatividad, desarrolla tu confianza y disfruta del emocionante mundo del teatro.</p>
-    </div>
-  </div>
+
+    <h2>Actividades Extraescolares</h2>
+    <table class="actividades">
+        <tr>
+            <th>Actividad</th>
+            <th>Grupo de Edad</th>
+            <th>Horario</th>
+            <th>Descripción</th>
+            <th>Estado</th>
+        </tr>
+  
+        <tr class="programada">
+            <td>Club de Ajedrez</td>
+            <td>3º a 6º de Primaria</td>
+            <td>Lunes y Miércoles, 16:00 - 17:00</td>
+            <td>Aprende estrategias y juega partidas de ajedrez con tus compañeros.</td>
+            <td>Programada</td>
+        </tr>
+        <tr class="solicitada">
+            <td>Club de Fotografía</td>
+            <td>1º a 4º de ESO</td>
+            <td>Martes, 15:00 - 16:30</td>
+            <td>Descubre el mundo de la fotografía y captura momentos especiales.</td>
+            <td>Solicitada</td>
+        </tr>
+        <tr class="proceso">
+            <td>Taller de Robótica</td>
+            <td>5º y 6º de Primaria</td>
+            <td>Jueves, 17:00 - 18:30</td>
+            <td>Construye y programa robots con LEGO Mindstorms y aprende sobre tecnología.</td>
+            <td>En Proceso</td>
+        </tr>
+        <tr class="solicitada">
+            <td>Club de Debate</td>
+            <td>3º a 4º de ESO</td>
+            <td>Viernes, 16:00 - 17:30</td>
+            <td>Participa en debates sobre temas de actualidad y mejora tus habilidades de argumentación.</td>
+            <td>Solicitada</td>
+        </tr>
+        <tr class="programada">
+            <td>Club de Teatro</td>
+            <td>1º y 2º de Bachillerato</td>
+            <td>Miércoles, 18:00 - 20:00</td>
+            <td>Practica la actuación, el guionismo y la dirección en nuestro club de teatro.</td>
+            <td>Programada</td>
+        </tr>
+    
+    </table>
 </div>
-</div>
-</body>
+</main>
+
 <footer>
   <div class="container">
 
@@ -193,5 +158,7 @@
   </div>
 
 </footer>
-
+</body>
 </html>
+
+
