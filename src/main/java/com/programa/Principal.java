@@ -7,10 +7,13 @@ import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import javax.swing.ButtonModel;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -80,7 +83,7 @@ public class Principal extends javax.swing.JFrame {
         solicitudCargarPrevistaOFF = new javax.swing.JRadioButton();
         botonCargar = new javax.swing.JPanel();
         textoCargar = new javax.swing.JLabel();
-        botonCargar1 = new javax.swing.JPanel();
+        botonCancelarCarga = new javax.swing.JPanel();
         textoCancelar = new javax.swing.JLabel();
         textoLlenarTodoSolicitudCargar = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -327,10 +330,10 @@ public class Principal extends javax.swing.JFrame {
         );
         verPanelLayout.setVerticalGroup(
             verPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 540, Short.MAX_VALUE)
         );
 
-        panelSolicitud.add(verPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
+        panelSolicitud.add(verPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
 
         cargarPanel.setBackground(new java.awt.Color(40, 40, 40));
         cargarPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -342,13 +345,15 @@ public class Principal extends javax.swing.JFrame {
 
         solicitudCargarTransporte.setBackground(new java.awt.Color(40, 40, 40));
         solicitudCargarTransporte.setForeground(new java.awt.Color(255, 255, 255));
+        solicitudCargarTransporte.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         solicitudCargarTransporte.setText("Medio de transporte");
-        cargarPanel.add(solicitudCargarTransporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(307, 97, -1, 20));
+        cargarPanel.add(solicitudCargarTransporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 97, 130, 20));
 
         solicitudCargarDepartamento.setBackground(new java.awt.Color(40, 40, 40));
         solicitudCargarDepartamento.setForeground(new java.awt.Color(255, 255, 255));
+        solicitudCargarDepartamento.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         solicitudCargarDepartamento.setText("Departamento");
-        cargarPanel.add(solicitudCargarDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 123, -1, 20));
+        cargarPanel.add(solicitudCargarDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 123, 120, 20));
 
         solicitudCargarDepartamentoTxt.setBackground(new java.awt.Color(51, 51, 51));
         solicitudCargarDepartamentoTxt.setForeground(new java.awt.Color(255, 255, 255));
@@ -362,13 +367,15 @@ public class Principal extends javax.swing.JFrame {
 
         solicitudCargarComentarios.setBackground(new java.awt.Color(40, 40, 40));
         solicitudCargarComentarios.setForeground(new java.awt.Color(255, 255, 255));
+        solicitudCargarComentarios.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         solicitudCargarComentarios.setText("Comentarios Adicionales");
-        cargarPanel.add(solicitudCargarComentarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 149, -1, 20));
+        cargarPanel.add(solicitudCargarComentarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 149, 140, 20));
 
         solicitudCargarAlojamiento.setBackground(new java.awt.Color(40, 40, 40));
         solicitudCargarAlojamiento.setForeground(new java.awt.Color(255, 255, 255));
+        solicitudCargarAlojamiento.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         solicitudCargarAlojamiento.setText("Alojamiento");
-        cargarPanel.add(solicitudCargarAlojamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(349, 177, -1, -1));
+        cargarPanel.add(solicitudCargarAlojamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(314, 177, 100, -1));
 
         solicitudCargarAlojamientoTxt.setBackground(new java.awt.Color(51, 51, 51));
         solicitudCargarAlojamientoTxt.setForeground(new java.awt.Color(255, 255, 255));
@@ -377,8 +384,9 @@ public class Principal extends javax.swing.JFrame {
 
         solicitudCargarAlumnos.setBackground(new java.awt.Color(40, 40, 40));
         solicitudCargarAlumnos.setForeground(new java.awt.Color(255, 255, 255));
+        solicitudCargarAlumnos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         solicitudCargarAlumnos.setText("Número de Alumnos");
-        cargarPanel.add(solicitudCargarAlumnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 203, -1, -1));
+        cargarPanel.add(solicitudCargarAlumnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 203, 140, -1));
 
         solicitudCargarAlumnosTxt.setBackground(new java.awt.Color(51, 51, 51));
         solicitudCargarAlumnosTxt.setForeground(new java.awt.Color(255, 255, 255));
@@ -392,8 +400,9 @@ public class Principal extends javax.swing.JFrame {
 
         solicitudCargarEstado.setBackground(new java.awt.Color(40, 40, 40));
         solicitudCargarEstado.setForeground(new java.awt.Color(255, 255, 255));
+        solicitudCargarEstado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         solicitudCargarEstado.setText("Estado");
-        cargarPanel.add(solicitudCargarEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(379, 229, -1, -1));
+        cargarPanel.add(solicitudCargarEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(324, 229, 90, -1));
 
         solicitudCargarGrupoTxt.setBackground(new java.awt.Color(51, 51, 51));
         solicitudCargarGrupoTxt.setForeground(new java.awt.Color(255, 255, 255));
@@ -402,8 +411,9 @@ public class Principal extends javax.swing.JFrame {
 
         solicitudCargarGrupo.setBackground(new java.awt.Color(40, 40, 40));
         solicitudCargarGrupo.setForeground(new java.awt.Color(255, 255, 255));
+        solicitudCargarGrupo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         solicitudCargarGrupo.setText("Grupo/Curso");
-        cargarPanel.add(solicitudCargarGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(345, 255, -1, -1));
+        cargarPanel.add(solicitudCargarGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 255, 140, -1));
 
         solicitudCargarFechaInicioTxt.setBackground(new java.awt.Color(51, 51, 51));
         solicitudCargarFechaInicioTxt.setForeground(new java.awt.Color(255, 255, 255));
@@ -412,8 +422,9 @@ public class Principal extends javax.swing.JFrame {
 
         solicitudCargarFechaInicio.setBackground(new java.awt.Color(40, 40, 40));
         solicitudCargarFechaInicio.setForeground(new java.awt.Color(255, 255, 255));
+        solicitudCargarFechaInicio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         solicitudCargarFechaInicio.setText("Fecha Inicio Actividad (YYYY-MM-DD)");
-        cargarPanel.add(solicitudCargarFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(211, 281, -1, -1));
+        cargarPanel.add(solicitudCargarFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 281, 230, -1));
 
         solicitudCargarFechaFinTxt.setBackground(new java.awt.Color(51, 51, 51));
         solicitudCargarFechaFinTxt.setForeground(new java.awt.Color(255, 255, 255));
@@ -422,18 +433,21 @@ public class Principal extends javax.swing.JFrame {
 
         solicitudCargarFechaFin.setBackground(new java.awt.Color(40, 40, 40));
         solicitudCargarFechaFin.setForeground(new java.awt.Color(255, 255, 255));
+        solicitudCargarFechaFin.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         solicitudCargarFechaFin.setText("Fecha Fin Actividad (YYYY-MM-DD)");
-        cargarPanel.add(solicitudCargarFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 307, -1, -1));
+        cargarPanel.add(solicitudCargarFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 307, 220, -1));
 
         solicitudCargarPrevista.setBackground(new java.awt.Color(40, 40, 40));
         solicitudCargarPrevista.setForeground(new java.awt.Color(255, 255, 255));
+        solicitudCargarPrevista.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         solicitudCargarPrevista.setText("Actividad Prevista");
-        cargarPanel.add(solicitudCargarPrevista, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 333, -1, -1));
+        cargarPanel.add(solicitudCargarPrevista, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 333, 120, -1));
 
         solicitudCargarTitulo.setBackground(new java.awt.Color(40, 40, 40));
         solicitudCargarTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        solicitudCargarTitulo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         solicitudCargarTitulo.setText("Título");
-        cargarPanel.add(solicitudCargarTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(384, 73, -1, -1));
+        cargarPanel.add(solicitudCargarTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(364, 73, 50, -1));
 
         solicitudCargarTituloTxt.setBackground(new java.awt.Color(51, 51, 51));
         solicitudCargarTituloTxt.setForeground(new java.awt.Color(255, 255, 255));
@@ -478,7 +492,7 @@ public class Principal extends javax.swing.JFrame {
 
         cargarPanel.add(botonCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 370, -1, -1));
 
-        botonCargar1.setBackground(new java.awt.Color(51, 51, 51));
+        botonCancelarCarga.setBackground(new java.awt.Color(51, 51, 51));
 
         textoCancelar.setBackground(new java.awt.Color(51, 51, 51));
         textoCancelar.setForeground(new java.awt.Color(255, 255, 255));
@@ -492,18 +506,18 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout botonCargar1Layout = new javax.swing.GroupLayout(botonCargar1);
-        botonCargar1.setLayout(botonCargar1Layout);
-        botonCargar1Layout.setHorizontalGroup(
-            botonCargar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout botonCancelarCargaLayout = new javax.swing.GroupLayout(botonCancelarCarga);
+        botonCancelarCarga.setLayout(botonCancelarCargaLayout);
+        botonCancelarCargaLayout.setHorizontalGroup(
+            botonCancelarCargaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(textoCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
         );
-        botonCargar1Layout.setVerticalGroup(
-            botonCargar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        botonCancelarCargaLayout.setVerticalGroup(
+            botonCancelarCargaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(textoCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
         );
 
-        cargarPanel.add(botonCargar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 370, 83, -1));
+        cargarPanel.add(botonCancelarCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 370, 83, -1));
 
         textoLlenarTodoSolicitudCargar.setBackground(new java.awt.Color(40, 40, 40));
         textoLlenarTodoSolicitudCargar.setForeground(new java.awt.Color(255, 0, 0));
@@ -517,7 +531,7 @@ public class Principal extends javax.swing.JFrame {
         });
         cargarPanel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 450, -1, -1));
 
-        panelSolicitud.add(cargarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
+        panelSolicitud.add(cargarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
 
         principal.add(panelSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
 
@@ -970,11 +984,19 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
 
-            // Insertar la nueva solicitud en la base de datos
-            insertarSolicitud(medioTransporte, departamento, comentarios, alojamiento, numeroAlumnos, estado,
-                    grupoCurso, fechaInicio, fechaFin, prevista, titulo);
+            // Ventana de confirmación
+            int resultado = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas cargar esta solicitud?", "Confirmación", JOptionPane.YES_NO_OPTION);
 
-            JOptionPane.showMessageDialog(this, "Solicitud creada exitosamente.", "Solicitud Creada", JOptionPane.INFORMATION_MESSAGE);
+            if (resultado == JOptionPane.YES_OPTION) {
+                // Insertar la nueva solicitud en la base de datos
+                insertarSolicitud(medioTransporte, departamento, comentarios, alojamiento, numeroAlumnos, estado,
+                        grupoCurso, fechaInicio, fechaFin, prevista, titulo);
+
+                JOptionPane.showMessageDialog(this, "Solicitud creada exitosamente.", "Solicitud Creada", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                // Operación cancelada
+                // Puedes agregar aquí cualquier código necesario en caso de cancelación
+            }
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Error: Ingrese números válidos en los campos numéricos.",
@@ -1000,23 +1022,54 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_textoCancelarMouseReleased
 
     private void jButton1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseReleased
-        solicitudCargarTransporteTxt.setText("1");
-        solicitudCargarDepartamentoTxt.setText("1");
-        solicitudCargarComentariosTxt.setText("a");
-        solicitudCargarAlojamientoTxt.setText("1");
-        solicitudCargarAlumnosTxt.setText("25");
-        solicitudCargarEstadoTxt.setText("Aceptado");
-        solicitudCargarGrupoTxt.setText("12345");
-        solicitudCargarFechaInicioTxt.setText("2024-05-01");
-        solicitudCargarFechaFinTxt.setText("2024-05-07");
-        solicitudCargarTituloTxt.setText("a");
+        Random rand = new Random();
+
+        // Números aleatorios de 0 a 50
+        solicitudCargarTransporteTxt.setText(String.valueOf(rand.nextInt(51)));
+        solicitudCargarDepartamentoTxt.setText(String.valueOf(rand.nextInt(51)));
+        solicitudCargarAlojamientoTxt.setText(String.valueOf(rand.nextInt(51)));
+        solicitudCargarAlumnosTxt.setText(String.valueOf(rand.nextInt(51)));
+
+        // Letras aleatorias de 'a' a 'z'
+        solicitudCargarComentariosTxt.setText(generarLetrasAleatorias(rand, 10)); // 10 letras
+        solicitudCargarTituloTxt.setText(generarLetrasAleatorias(rand, 5)); // 5 letras
+        solicitudCargarEstadoTxt.setText(generarLetrasAleatorias(rand, 8)); // 8 letras
+
+        // Grupo aleatorio de 0 a 99999
+        solicitudCargarGrupoTxt.setText(String.valueOf(rand.nextInt(100000)));
+
+        // Fechas aleatorias de 2000 hasta 2024
+        int yearInicio = rand.nextInt(25) + 2000; // 2000 - 2024
+        int yearFin = rand.nextInt(25) + 2000; // 2000 - 2024
+        int month = rand.nextInt(12) + 1; // 1 - 12
+        int day = rand.nextInt(28) + 1; // 1 - 28
+        solicitudCargarFechaInicioTxt.setText(LocalDate.of(yearInicio, month, day).toString());
+        solicitudCargarFechaFinTxt.setText(LocalDate.of(yearFin, month, day).toString());
+
+        // Establecer aleatoriamente si está prevista o no
+        if (rand.nextBoolean()) {
+            actividadPrevista.setSelected(solicitudCargarPrevistaON.getModel(), true);
+        } else {
+            actividadPrevista.setSelected(solicitudCargarPrevistaOFF.getModel(), true);
+        }
+        java.awt.event.MouseEvent fakeMouseEvent = new java.awt.event.MouseEvent(new JLabel(), 0, 0, 0, 0, 0, 0, false);
+        textoCargarMouseReleased(fakeMouseEvent);
+    }
+
+    private String generarLetrasAleatorias(Random rand, int longitud) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < longitud; i++) {
+            char randomChar = (char) (rand.nextInt(26) + 'a');
+            sb.append(randomChar);
+        }
+        return sb.toString();
     }//GEN-LAST:event_jButton1MouseReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actividad;
     private javax.swing.ButtonGroup actividadPrevista;
+    private javax.swing.JPanel botonCancelarCarga;
     private javax.swing.JPanel botonCargar;
-    private javax.swing.JPanel botonCargar1;
     private javax.swing.JPanel cargaDatos;
     private javax.swing.JPanel cargarPanel;
     private javax.swing.JPanel cargarSolicitudes;
