@@ -69,24 +69,29 @@ public class CargaDatos extends JFrame {
         try (Connection conn = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD); BufferedReader reader = new BufferedReader(new FileReader(file))) {
 
             String line;
-            reader.readLine(); // Omitir la primera línea (encabezados)
-
-            PreparedStatement pstmt = conn.prepareStatement(
-                    "INSERT INTO profesor (nombre, apellidos, dni, correo, departamento, contraseña, activo, perfil) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-
             while ((line = reader.readLine()) != null) {
                 String[] datos = line.split(",");
 
                 // Verificar que haya al menos 4 elementos en datos antes de acceder a ellos
                 if (datos.length >= 4) {
                     String apellidosNombre = datos[0].trim();
-                    String dni = datos[1].trim();
+                    String dni = datos[1].trim().substring(0, Math.min(datos[1].trim().length(), 9)); // Limitar a 9 caracteres para el DNI
                     String correo = datos[2].trim();
                     String departamento = datos[3].trim();
 
-                    // Limitar el campo dni a 9 caracteres máximo
-                    dni = dni.substring(0, Math.min(dni.length(), 9));
+                    // Separar apellidos y nombre si es necesario
+                    String[] apellidosNombreArray = apellidosNombre.split(",\\s*"); // Dividir por coma seguida opcionalmente de espacios
+                    String apellidos = "";
+                    String nombre = "";
+
+                    if (apellidosNombreArray.length > 1) {
+                        // Si hay al menos un apellido y un nombre separados por coma
+                        apellidos = apellidosNombreArray[0].trim(); // El primer elemento será el apellido
+                        nombre = apellidosNombreArray[1].trim(); // El segundo elemento será el nombre
+                    } else {
+                        // Si no se encontró una coma, tratamos la cadena completa como nombre
+                        nombre = apellidosNombre.trim();
+                    }
 
                     // Obtener o insertar el ID del departamento
                     int departamentoId = obtenerOInsertarDepartamentoId(departamento, conn, departamentoIdMap);
@@ -98,22 +103,26 @@ public class CargaDatos extends JFrame {
                     String perfil = obtenerPerfilAleatorio();
 
                     // Insertar en la base de datos
-                    pstmt.setString(1, extraerNombre(apellidosNombre));
-                    pstmt.setString(2, extraerApellidos(apellidosNombre));
-                    pstmt.setString(3, dni);
-                    pstmt.setString(4, correo);
-                    pstmt.setInt(5, departamentoId);
-                    pstmt.setString(6, password);
-                    pstmt.setBoolean(7, true); // activo por defecto es true
-                    pstmt.setString(8, perfil);
+                    PreparedStatement pstmt = conn.prepareStatement(
+                            "INSERT INTO profesor (apellidos, nombre, dni, correo, activo, perfil, contraseña, departamento) "
+                            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+
+                    pstmt.setString(1, apellidos);       // apellidos
+                    pstmt.setString(2, nombre);          // nombre
+                    pstmt.setString(3, dni);             // dni
+                    pstmt.setString(4, correo);          // correo
+                    pstmt.setBoolean(5, true);            // activo por defecto es true
+                    pstmt.setString(6, perfil);          // perfil
+                    pstmt.setString(7, password);        // contraseña
+                    pstmt.setInt(8, departamentoId);     // departamento
                     pstmt.executeUpdate();
+
+                    pstmt.close();
                 } else {
                     // Manejar el caso donde la línea no tiene suficientes campos
                     mostrarMensajeError("La línea del archivo CSV no tiene suficientes campos.");
                 }
             }
-
-            pstmt.close();
         }
     }
 
@@ -145,14 +154,6 @@ public class CargaDatos extends JFrame {
             pstmt.close();
             return departamentoId;
         }
-    } //Temporal
-
-    private String extraerNombre(String apellidosNombre) {
-        return apellidosNombre.split("\\s+")[1];
-    }
-
-    private String extraerApellidos(String apellidosNombre) {
-        return apellidosNombre.split("\\s+")[0];
     }
 
     private String generarPassword() {
@@ -169,7 +170,7 @@ public class CargaDatos extends JFrame {
     private String obtenerPerfilAleatorio() {
         String[] perfiles = {"SuperUsuario", "Administrador", "EquipoAdministrativo", "Profesor"};
         return perfiles[(int) (perfiles.length * Math.random())];
-    } //Temporal
+    }
 
     private void mostrarMensajeExito(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -188,8 +189,7 @@ public class CargaDatos extends JFrame {
             sb.append(caracteres.charAt(index));
         }
         return sb.toString();
-    }//Temporal
-
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
