@@ -458,12 +458,12 @@ public class Principal extends javax.swing.JFrame {
         actividadPrevista.add(solicitudCargarPrevistaON);
         solicitudCargarPrevistaON.setForeground(new java.awt.Color(255, 255, 255));
         solicitudCargarPrevistaON.setText("Prevista");
-        cargarPanel.add(solicitudCargarPrevistaON, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 331, -1, -1));
+        cargarPanel.add(solicitudCargarPrevistaON, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 330, -1, -1));
 
         actividadPrevista.add(solicitudCargarPrevistaOFF);
         solicitudCargarPrevistaOFF.setForeground(new java.awt.Color(255, 255, 255));
         solicitudCargarPrevistaOFF.setText("No Prevista");
-        cargarPanel.add(solicitudCargarPrevistaOFF, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 331, -1, -1));
+        cargarPanel.add(solicitudCargarPrevistaOFF, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 330, -1, -1));
 
         botonCargar.setBackground(new java.awt.Color(51, 51, 51));
 
