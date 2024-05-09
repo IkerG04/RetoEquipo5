@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `gestoractividadesextraescolares`.`solicitud` (
   `titulo` VARCHAR(15) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 33
+AUTO_INCREMENT = 38
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -91,13 +91,42 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
+-- Table `gestoractividadesextraescolares`.`profesor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gestoractividadesextraescolares`.`profesor` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `dni` VARCHAR(9) NOT NULL,
+  `correo` VARCHAR(45) NOT NULL,
+  `nombre` VARCHAR(45) NOT NULL,
+  `apellidos` VARCHAR(45) NOT NULL,
+  `activo` TINYINT NOT NULL,
+  `perfil` ENUM('SuperUsuario', 'Administrador', 'EquipoAdministrativo', 'Profesor') NOT NULL,
+  `contraseña` VARCHAR(45) NOT NULL,
+  `departamento` INT NOT NULL,
+  PRIMARY KEY (`id`, `correo`),
+  UNIQUE INDEX `correo_UNIQUE` (`correo` ASC) VISIBLE,
+  INDEX `index_correo` (`correo` ASC) VISIBLE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 6
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
 -- Table `gestoractividadesextraescolares`.`departamento`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gestoractividadesextraescolares`.`departamento` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `cod` CHAR(3) NOT NULL,
   `nombre` VARCHAR(15) NOT NULL,
-  PRIMARY KEY (`id`))
+  `jefe` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `jefe_UNIQUE` (`jefe` ASC) VISIBLE,
+  CONSTRAINT `fk_departamento_profesor1`
+    FOREIGN KEY (`jefe`)
+    REFERENCES `gestoractividadesextraescolares`.`profesor` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8mb4
@@ -199,32 +228,6 @@ CREATE TABLE IF NOT EXISTS `gestoractividadesextraescolares`.`listamediostranspo
     FOREIGN KEY (`idtransporte`)
     REFERENCES `gestoractividadesextraescolares`.`mediostransporte` (`id`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `gestoractividadesextraescolares`.`profesor`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gestoractividadesextraescolares`.`profesor` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `dni` VARCHAR(9) NOT NULL,
-  `correo` VARCHAR(45) NOT NULL,
-  `nombre` VARCHAR(45) NOT NULL,
-  `apellidos` VARCHAR(45) NOT NULL,
-  `activo` TINYINT NOT NULL,
-  `perfil` ENUM('SuperUsuario', 'Administrador', 'EquipoAdministrativo', 'Profesor') NOT NULL,
-  `contraseña` VARCHAR(45) NOT NULL,
-  `departamento` INT NOT NULL,
-  PRIMARY KEY (`id`, `correo`),
-  UNIQUE INDEX `departamento_UNIQUE` (`departamento` ASC) VISIBLE,
-  UNIQUE INDEX `correo_UNIQUE` (`correo` ASC) VISIBLE,
-  INDEX `index_correo` (`correo` ASC) VISIBLE,
-  CONSTRAINT `fk_profesor_departamento1`
-    FOREIGN KEY (`departamento`)
-    REFERENCES `gestoractividadesextraescolares`.`departamento` (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
