@@ -1,6 +1,7 @@
 # RetoEquipo5# 
 
-I
+Indice:
+[[_TOC_]]
 
 ## DIA 1(24/04/2024)
 
@@ -65,3 +66,7 @@ se a iniciado la creacion del servidor con windows server y se ah empezado el ja
 
 
 ## Dia 7 (07/05/2024)
+
+## Dia 8 (08/05/2024)
+
+## Dia 9 (09/05/2024)
