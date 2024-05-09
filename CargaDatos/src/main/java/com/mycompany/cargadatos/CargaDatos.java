@@ -68,52 +68,51 @@ public class CargaDatos extends JFrame {
 
     private void cargarProfesoresDesdeCSV(File file) throws IOException, SQLException {
         Map<String, Integer> departamentoIdMap = new HashMap<>();
+        boolean primeraLinea = true; // Variable para identificar la primera línea
 
         try (Connection conn = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD); BufferedReader reader = new BufferedReader(new FileReader(file))) {
 
             String line;
             while ((line = reader.readLine()) != null) {
+                if (primeraLinea) {
+                    primeraLinea = false; // Ignorar la primera línea
+                    continue;
+                }
+
                 String[] datos = splitCSVLine(line);
 
                 if (datos.length >= 4) { // Asegurarse de que haya al menos 4 campos en la línea
                     String apellidosNombre = datos[0].trim();
                     String dni = datos[1].trim().substring(0, Math.min(datos[1].trim().length(), 9));
                     String correo = datos[2].trim();
-                    String departamento = datos[3].trim();
+                    String departamentoNombre = datos[3].trim(); // Obtener el nombre del departamento del CSV
 
-                    // Separar apellidos y nombre utilizando coma como delimitador
-                    String[] apellidosNombreArray = apellidosNombre.split(",", 2); // Dividir en máximo 2 partes por la primera coma encontrada
+                    String[] apellidosNombreArray = apellidosNombre.split(",", 2);
+                    String apellidos = (apellidosNombreArray.length > 0) ? apellidosNombreArray[0].trim() : "";
+                    String nombre = (apellidosNombreArray.length > 1) ? apellidosNombreArray[1].trim() : apellidosNombre.trim();
 
-                    String apellidos = "";
-                    String nombre = "";
+                    // Obtener o insertar el ID del departamento
+                    int departamentoId = obtenerOInsertarDepartamentoId(departamentoNombre, conn, departamentoIdMap);
 
-                    if (apellidosNombreArray.length > 1) {
-                        // Si se encontró al menos una coma, separamos en apellidos y nombre
-                        apellidos = apellidosNombreArray[0].trim();
-                        nombre = apellidosNombreArray[1].trim();
-                    } else {
-                        // Si no se encontró coma, consideramos el campo como nombre completo
-                        nombre = apellidosNombre.trim();
-                    }
-
-                    int departamentoId = obtenerOInsertarDepartamentoId(departamento, conn, departamentoIdMap);
                     String password = generarPassword();
                     String perfil = obtenerPerfilAleatorio();
 
-                    PreparedStatement pstmt = conn.prepareStatement(
-                            "INSERT INTO profesor (apellidos, nombre, dni, correo, activo, perfil, contraseña, departamento) "
-                            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                    // Preparar la inserción del nuevo profesor
+                    String insertProfesorSQL = "INSERT INTO profesor (apellidos, nombre, dni, correo, activo, perfil, contraseña, departamento) "
+                            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
+                    PreparedStatement pstmt = conn.prepareStatement(insertProfesorSQL);
                     pstmt.setString(1, apellidos);
                     pstmt.setString(2, nombre);
                     pstmt.setString(3, dni);
                     pstmt.setString(4, correo);
-                    pstmt.setBoolean(5, true); // activo por defecto es true
+                    pstmt.setBoolean(5, true);
                     pstmt.setString(6, perfil);
                     pstmt.setString(7, password);
                     pstmt.setInt(8, departamentoId);
-                    pstmt.executeUpdate();
 
+                    // Ejecutar la inserción del nuevo profesor
+                    pstmt.executeUpdate();
                     pstmt.close();
                 } else {
                     mostrarMensajeError("La línea del archivo CSV no tiene suficientes campos.");
@@ -121,31 +120,26 @@ public class CargaDatos extends JFrame {
             }
         }
     }
-// Método para dividir una línea de CSV considerando solo comas como delimitadores
 
-    private String[] splitCSVLine(String line) {
-        return line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-    }
-
-    private int obtenerOInsertarDepartamentoId(String departamento, Connection conn, Map<String, Integer> departamentoIdMap)
-            throws SQLException {
-        if (departamentoIdMap.containsKey(departamento)) {
-            return departamentoIdMap.get(departamento);
+    private int obtenerOInsertarDepartamentoId(String departamentoNombre, Connection conn, Map<String, Integer> departamentoIdMap) throws SQLException {
+        if (departamentoIdMap.containsKey(departamentoNombre)) {
+            return departamentoIdMap.get(departamentoNombre);
         } else {
-            String cod = generarCodigoAleatorio();
+            // Si el departamento no está en el mapa, obtener su ID de la base de datos o insertar uno nuevo
+            String cod = generarCodigoUnico(conn);
 
             PreparedStatement pstmt = conn.prepareStatement(
                     "INSERT INTO departamento (cod, nombre) VALUES (?, ?)",
                     PreparedStatement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, cod);
-            pstmt.setString(2, departamento);
+            pstmt.setString(2, departamentoNombre);
             pstmt.executeUpdate();
 
             int departamentoId;
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     departamentoId = generatedKeys.getInt(1);
-                    departamentoIdMap.put(departamento, departamentoId);
+                    departamentoIdMap.put(departamentoNombre, departamentoId);
                 } else {
                     throw new SQLException("Error al obtener el ID del departamento.");
                 }
@@ -154,6 +148,50 @@ public class CargaDatos extends JFrame {
             pstmt.close();
             return departamentoId;
         }
+    }
+
+    // Método para dividir una línea de CSV considerando solo comas como delimitadores
+    private String[] splitCSVLine(String line) {
+        return line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+    }
+
+    private String generarCodigoUnico(Connection conn) throws SQLException {
+        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        Random random = new Random();
+        String cod;
+
+        do {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 2; i++) {
+                int index = random.nextInt(caracteres.length());
+                sb.append(caracteres.charAt(index));
+            }
+            cod = sb.toString();
+
+            // Verificar si el código generado ya existe en la base de datos
+            if (!codigoExiste(cod, conn)) {
+                break; // Salir del bucle si el código es único
+            }
+        } while (true);
+
+        return cod;
+    }
+
+    private boolean codigoExiste(String cod, Connection conn) throws SQLException {
+        PreparedStatement pstmt = conn.prepareStatement(
+                "SELECT COUNT(*) AS count FROM departamento WHERE cod = ?");
+        pstmt.setString(1, cod);
+        ResultSet rs = pstmt.executeQuery();
+
+        int count = 0;
+        if (rs.next()) {
+            count = rs.getInt("count");
+        }
+
+        rs.close();
+        pstmt.close();
+
+        return count > 0;
     }
 
     private String generarPassword() {
@@ -178,17 +216,6 @@ public class CargaDatos extends JFrame {
 
     private void mostrarMensajeError(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-    private String generarCodigoAleatorio() {
-        String caracteres = "1234567890";
-        StringBuilder sb = new StringBuilder();
-        Random random = new Random();
-        for (int i = 0; i < 2; i++) {
-            int index = random.nextInt(caracteres.length());
-            sb.append(caracteres.charAt(index));
-        }
-        return sb.toString();
     }
 
     @SuppressWarnings("unchecked")
