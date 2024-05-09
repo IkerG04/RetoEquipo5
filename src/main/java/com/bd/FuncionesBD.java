@@ -159,4 +159,60 @@ public class FuncionesBD {
         return "";
     }
 
+    public int numeroSolicitudes() {
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = AccesoBaseDatos.getInstance().getConn();
+
+            // Consulta para obtener el número de solicitudes
+            String sql = "SELECT COUNT(*) AS num_solicitudes FROM solicitud";
+            pstmt = conn.prepareStatement(sql);
+
+            rs = pstmt.executeQuery();
+
+            // Verificamos si hay resultados y devolvemos el resultado de COUNT(*)
+            if (rs.next()) {
+                return rs.getInt("num_solicitudes");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en la consulta: " + ex.getMessage());
+        }
+
+        // Si algo falla o no se encuentra ningún resultado, retornamos 0
+        return 0;
+
+    }
+
+    public String obtenerTituloSolicitud(int solicitud) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = AccesoBaseDatos.getInstance().getConn();
+
+            // Consulta para obtener el título de la solicitud
+            String sql = "SELECT titulo FROM solicitud WHERE id = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, solicitud); // Establecer el parámetro de la consulta
+
+            rs = pstmt.executeQuery();
+
+            // Verificar si hay resultados y devolver el título de la solicitud
+            if (rs.next()) {
+                return rs.getString("titulo");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en la consulta: " + ex.getMessage());
+
+            // Si algo falla o no se encuentra ningún resultado, retornamos una cadena vacía
+            return "";
+        }
+        return "";
+    }
+
 }
