@@ -29,7 +29,7 @@ public class Profesor extends JFrame {
         tableModel.addColumn("ID");
         tableModel.addColumn("DNI");
         tableModel.addColumn("Correo");
-        tableModel.addColumn("Nombre completo"); // Cambiar a una sola columna
+        tableModel.addColumn("Nombre completo");
         tableModel.addColumn("Activo");
         tableModel.addColumn("Perfil");
         tableModel.addColumn("Contraseña");
@@ -40,7 +40,7 @@ public class Profesor extends JFrame {
         JScrollPane scrollPane = new JScrollPane(profesoresTable);
 
         // Botones para operaciones CRUD
-        JButton addButton = new JButton("Agregar");
+        JButton addButton = new JButton("Editar");
         JButton deleteAllButton = new JButton("Eliminar Todos");
 
         // Panel para botones
@@ -53,22 +53,29 @@ public class Profesor extends JFrame {
         getContentPane().add(scrollPane, BorderLayout.CENTER);
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 
-        // Acción para botón Agregar
+        // Acción para botón Agregar/Editar
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Lógica para agregar un nuevo profesor
-                String dni = JOptionPane.showInputDialog(Profesor.this, "DNI del profesor:");
-                String correo = JOptionPane.showInputDialog(Profesor.this, "Correo del profesor:");
-                String nombreCompleto = JOptionPane.showInputDialog(Profesor.this, "Nombre completo del profesor:");
-                String activoStr = JOptionPane.showInputDialog(Profesor.this, "Activo (1 para sí, 0 para no):");
+                int selectedRow = profesoresTable.getSelectedRow();
+                if (selectedRow == -1) {
+                    JOptionPane.showMessageDialog(Profesor.this, "Por favor seleccione un profesor para editar.");
+                    return;
+                }
+
+                String idStr = tableModel.getValueAt(selectedRow, 0).toString();
+                String dni = JOptionPane.showInputDialog(Profesor.this, "Nuevo DNI del profesor:", tableModel.getValueAt(selectedRow, 1));
+                String correo = JOptionPane.showInputDialog(Profesor.this, "Nuevo Correo del profesor:", tableModel.getValueAt(selectedRow, 2));
+                String nombreCompleto = JOptionPane.showInputDialog(Profesor.this, "Nuevo Nombre completo del profesor:", tableModel.getValueAt(selectedRow, 3));
+                String activoStr = JOptionPane.showInputDialog(Profesor.this, "Activo (1 para sí, 0 para no):", tableModel.getValueAt(selectedRow, 4));
                 boolean activo = (activoStr != null && activoStr.equals("1"));
-                String perfil = JOptionPane.showInputDialog(Profesor.this, "Perfil del profesor (SuperUsuario, Administrador, EquipoAdministrativo, Profesor):");
-                String contraseña = JOptionPane.showInputDialog(Profesor.this, "Contraseña del profesor:");
-                String departamentoStr = JOptionPane.showInputDialog(Profesor.this, "ID del departamento:");
+                String perfil = JOptionPane.showInputDialog(Profesor.this, "Nuevo Perfil del profesor:", tableModel.getValueAt(selectedRow, 5));
+                String contraseña = JOptionPane.showInputDialog(Profesor.this, "Nueva Contraseña del profesor:", tableModel.getValueAt(selectedRow, 6));
+                String departamentoStr = JOptionPane.showInputDialog(Profesor.this, "Nuevo ID del departamento:", tableModel.getValueAt(selectedRow, 7));
 
                 if (dni != null && correo != null && nombreCompleto != null && perfil != null && contraseña != null && departamentoStr != null) {
+                    int id = Integer.parseInt(idStr);
                     int departamento = Integer.parseInt(departamentoStr);
-                    addProfesor(dni, correo, nombreCompleto, activo, perfil, contraseña, departamento);
+                    editProfesor(id, dni, correo, nombreCompleto, activo, perfil, contraseña, departamento);
                 }
             }
         });
@@ -114,18 +121,15 @@ public class Profesor extends JFrame {
         }
     }
 
-    private void addProfesor(String dni, String correo, String nombreCompleto, boolean activo, String perfil, String contraseña, int departamento) {
+    private void editProfesor(int id, String dni, String correo, String nombreCompleto, boolean activo, String perfil, String contraseña, int departamento) {
         try {
             // Dividir el nombre completo en nombre y apellidos
             String[] partesNombre = nombreCompleto.split("\\s+");
             String nombre = partesNombre[0];
-            String apellidos = "";
-            if (partesNombre.length > 1) {
-                apellidos = partesNombre[1];
-            }
+            String apellidos = (partesNombre.length > 1) ? partesNombre[1] : "";
 
-            // Consulta SQL para insertar un nuevo profesor
-            String sql = "INSERT INTO profesor (dni, correo, nombre, apellidos, activo, perfil, contraseña, departamento) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            // Consulta SQL para actualizar los datos del profesor
+            String sql = "UPDATE profesor SET dni=?, correo=?, nombre=?, apellidos=?, activo=?, perfil=?, contraseña=?, departamento=? WHERE id=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, dni);
             statement.setString(2, correo);
@@ -135,13 +139,14 @@ public class Profesor extends JFrame {
             statement.setString(6, perfil);
             statement.setString(7, contraseña);
             statement.setInt(8, departamento);
+            statement.setInt(9, id);
             statement.executeUpdate();
 
-            // Actualizar la tabla después de la inserción
+            // Actualizar la tabla después de la edición
             loadProfesores();
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al agregar profesor: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al editar profesor: " + e.getMessage());
         }
     }
 
