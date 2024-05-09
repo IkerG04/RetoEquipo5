@@ -4,6 +4,7 @@ Es muy conveniente comprobar el resultado de las consultas ejecutadas en la prop
  */
 package com.bd;
 
+import com.datos.Usuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -213,6 +214,10 @@ public class FuncionesBD {
             return "";
         }
         return "";
+    }
+
+    public String getNombreProfesor(Usuario user) {
+        return user.getNombre() + " " + user.getApellidos();
     }
 
 }

@@ -1,11 +1,13 @@
 package com.programa;
 
+import java.awt.*;
 import com.bd.AccesoBaseDatos;
 import com.bd.FuncionesBD;
 import com.datos.Usuario;
+import com.login.Login;
+import com.scrollBar.ScrollBarCustom;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -13,14 +15,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.JScrollBar;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -40,6 +40,7 @@ public class Principal extends javax.swing.JFrame {
         setVisible(true);
         activo = panelSolicitud;
         activoSolicitud = verPanel;
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -68,6 +69,7 @@ public class Principal extends javax.swing.JFrame {
         solicitudBusquedaTxt = new javax.swing.JTextField();
         solicitudBusquedaBotonVerTodo = new javax.swing.JButton();
         solicitudBusquedaBoton = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         cargarPanel = new javax.swing.JPanel();
         solicitudCargarTransporteTxt = new javax.swing.JTextField();
         solicitudCargarTransporte = new javax.swing.JLabel();
@@ -107,6 +109,8 @@ public class Principal extends javax.swing.JFrame {
         solicitudCargarHoraTxt = new javax.swing.JTextField();
         panelCargaDatos = new javax.swing.JPanel();
         panelUsuario = new javax.swing.JPanel();
+        nombreUsuario = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         fondoIzquierda = new javax.swing.JPanel();
         usuario = new javax.swing.JPanel();
         imagenUsuario = new javax.swing.JLabel();
@@ -243,7 +247,7 @@ public class Principal extends javax.swing.JFrame {
         panelSolicitud.setBackground(new java.awt.Color(40, 40, 40));
         panelSolicitud.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cargarSolicitudes.setBackground(new java.awt.Color(40, 40, 40));
+        cargarSolicitudes.setBackground(new java.awt.Color(51, 51, 51));
         cargarSolicitudes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cargarSolicitudes.setPreferredSize(new java.awt.Dimension(90, 80));
         cargarSolicitudes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -346,12 +350,28 @@ public class Principal extends javax.swing.JFrame {
         verPanelScroll.setBorder(null);
         verPanelScroll.setForeground(new java.awt.Color(255, 255, 255));
         verPanelScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        verPanelScroll.setColumnHeaderView(null);
         verPanelScroll.setOpaque(false);
+        verPanelScroll.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                verPanelScrollMouseWheelMoved(evt);
+            }
+        });
 
         verPanelScrollFrame.setBackground(new java.awt.Color(40, 40, 40));
         verPanelScrollFrame.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        solicitudBusquedaTxt.setBackground(new java.awt.Color(51, 51, 51));
+        solicitudBusquedaTxt.setForeground(new java.awt.Color(255, 255, 255));
+        solicitudBusquedaTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                solicitudBusquedaTxtKeyPressed(evt);
+            }
+        });
         verPanelScrollFrame.add(solicitudBusquedaTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 290, 30));
 
+        solicitudBusquedaBotonVerTodo.setBackground(new java.awt.Color(51, 51, 51));
+        solicitudBusquedaBotonVerTodo.setForeground(new java.awt.Color(255, 255, 255));
         solicitudBusquedaBotonVerTodo.setText("Ver todo");
         solicitudBusquedaBotonVerTodo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -360,6 +380,8 @@ public class Principal extends javax.swing.JFrame {
         });
         verPanelScrollFrame.add(solicitudBusquedaBotonVerTodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, -1, 30));
 
+        solicitudBusquedaBoton.setBackground(new java.awt.Color(51, 51, 51));
+        solicitudBusquedaBoton.setForeground(new java.awt.Color(255, 255, 255));
         solicitudBusquedaBoton.setText("Buscar");
         solicitudBusquedaBoton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -368,11 +390,15 @@ public class Principal extends javax.swing.JFrame {
         });
         verPanelScrollFrame.add(solicitudBusquedaBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, -1, 30));
 
+        jPanel1.setBackground(new java.awt.Color(40, 40, 40));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        verPanelScrollFrame.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 70));
+
         verPanelScroll.setViewportView(verPanelScrollFrame);
 
         verPanel.add(verPanelScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 540));
 
-        panelSolicitud.add(verPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, -1));
+        panelSolicitud.add(verPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
 
         cargarPanel.setBackground(new java.awt.Color(40, 40, 40));
         cargarPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -452,7 +478,7 @@ public class Principal extends javax.swing.JFrame {
         solicitudCargarGrupo.setForeground(new java.awt.Color(255, 255, 255));
         solicitudCargarGrupo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         solicitudCargarGrupo.setText("Grupos/Cursos (separados por comas)");
-        cargarPanel.add(solicitudCargarGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 255, 210, -1));
+        cargarPanel.add(solicitudCargarGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 255, 250, -1));
 
         solicitudCargarFechaInicioTxt.setBackground(new java.awt.Color(51, 51, 51));
         solicitudCargarFechaInicioTxt.setForeground(new java.awt.Color(255, 255, 255));
@@ -634,15 +660,45 @@ public class Principal extends javax.swing.JFrame {
 
         panelUsuario.setBackground(new java.awt.Color(40, 40, 40));
 
+        nombreUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        nombreUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nombreUsuario.setText("Profesor");
+        nombreUsuario.setMaximumSize(new java.awt.Dimension(100, 50));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/logoutBlanco.png"))); // NOI18N
+        jLabel2.setText("Cerrar Sesión");
+        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel2MouseReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelUsuarioLayout = new javax.swing.GroupLayout(panelUsuario);
         panelUsuario.setLayout(panelUsuarioLayout);
         panelUsuarioLayout.setHorizontalGroup(
             panelUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 940, Short.MAX_VALUE)
+            .addGroup(panelUsuarioLayout.createSequentialGroup()
+                .addGroup(panelUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelUsuarioLayout.createSequentialGroup()
+                        .addGap(426, 426, 426)
+                        .addComponent(nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelUsuarioLayout.createSequentialGroup()
+                        .addGap(390, 390, 390)
+                        .addComponent(jLabel2)))
+                .addContainerGap(416, Short.MAX_VALUE))
         );
         panelUsuarioLayout.setVerticalGroup(
             panelUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panelUsuarioLayout.createSequentialGroup()
+                .addGap(151, 151, 151)
+                .addComponent(nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(94, 94, 94)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         principal.add(panelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 0));
@@ -728,7 +784,7 @@ public class Principal extends javax.swing.JFrame {
 
         fondoIzquierda.add(cargaDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 274, 90, 80));
 
-        solicitud.setBackground(new java.awt.Color(40, 40, 40));
+        solicitud.setBackground(new java.awt.Color(51, 51, 51));
         solicitud.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         solicitud.setPreferredSize(new java.awt.Dimension(90, 80));
         solicitud.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -804,7 +860,7 @@ public class Principal extends javax.swing.JFrame {
 
         fondoIzquierda.add(mantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 96, 90, 80));
 
-        actividad.setBackground(new java.awt.Color(51, 51, 51));
+        actividad.setBackground(new java.awt.Color(40, 40, 40));
         actividad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         actividad.setPreferredSize(new java.awt.Dimension(90, 80));
         actividad.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -882,6 +938,7 @@ public class Principal extends javax.swing.JFrame {
             activo.setSize(940, 0);
         }
         panel.setSize(940, 540);
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();
     }
 
     private void abrirMenuSolicitud(JPanel panel) {
@@ -889,6 +946,7 @@ public class Principal extends javax.swing.JFrame {
             activoSolicitud.setSize(850, 0);
         }
         panel.setSize(850, 540);
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();
     }
 
     private void insertarSolicitud(int medioTransporte, int departamento, String comentarios, int alojamiento,
@@ -933,7 +991,6 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private void crearPanelesSolicitud(String textoBusqueda) {
-        System.out.println("Iniciando creación de paneles de solicitud...");
 
         // Guardar referencias a los componentes que no deseas borrar
         Component[] componentesNoBorrables = {solicitudBusquedaTxt, solicitudBusquedaBotonVerTodo, solicitudBusquedaBoton};
@@ -952,8 +1009,6 @@ public class Principal extends javax.swing.JFrame {
             }
         }
 
-        System.out.println("Componentes no deseados eliminados.");
-
         // Refrescar la interfaz gráfica para que los cambios sean visibles después de eliminar los componentes
         verPanelScrollFrame.revalidate();
         verPanelScrollFrame.repaint();
@@ -967,8 +1022,6 @@ public class Principal extends javax.swing.JFrame {
 
             // Verificar si el título de la solicitud coincide con el texto de búsqueda
             if (tituloSolicitud.toLowerCase().contains(textoBusqueda.toLowerCase())) {
-                System.out.println("Creando panel para la solicitud " + i + " - Título: " + tituloSolicitud);
-
                 JPanel solicitudPanel = new JPanel();
                 solicitudPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
                 verPanelScrollFrame.add(solicitudPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, ultimaPosicion, 750, 80));
@@ -984,11 +1037,14 @@ public class Principal extends javax.swing.JFrame {
             }
         }
 
+        JPanel solicitudRelleno = new javax.swing.JPanel();
+        solicitudRelleno.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        solicitudRelleno.setBackground(new Color(0, 0, 0, 0)); // Color transparente
+        verPanelScrollFrame.add(solicitudRelleno, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, ultimaPosicion - 20, 850, 20));
+
         // Refrescar la interfaz gráfica para que los cambios sean visibles después de agregar los nuevos paneles de solicitud
         verPanelScrollFrame.revalidate();
         verPanelScrollFrame.repaint();
-
-        System.out.println("Creación de paneles de solicitud finalizada.");
     }
 
     private void cargaDatosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargaDatosMousePressed
@@ -1044,6 +1100,8 @@ public class Principal extends javax.swing.JFrame {
         abrirMenu(panelUsuario);
         activo = panelUsuario;
         animacionEjecutada = true;
+
+        nombreUsuario.setText(funcionesBD.getNombreProfesor(user));
     }//GEN-LAST:event_usuarioMousePressed
 
     private void cerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarMouseEntered
@@ -1096,7 +1154,10 @@ public class Principal extends javax.swing.JFrame {
         verSolicitudes.setBackground(new Color(40, 40, 40));
         abrirMenuSolicitud(verPanel); // Pasar verPanel aquí
         crearPanelesSolicitud("");
-
+        verPanelScroll.setVerticalScrollBar(new ScrollBarCustom());
+        ScrollBarCustom sp = new ScrollBarCustom();
+        sp.setOrientation(JScrollBar.VERTICAL);
+        verPanelScroll.setVerticalScrollBar(sp);
     }//GEN-LAST:event_verSolicitudesMousePressed
 
     private void textoCargarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoCargarMouseReleased
@@ -1217,11 +1278,33 @@ public class Principal extends javax.swing.JFrame {
 
     private void solicitudBusquedaBotonVerTodoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_solicitudBusquedaBotonVerTodoMouseReleased
         crearPanelesSolicitud("");
+        solicitudBusquedaTxt.setText("");
     }//GEN-LAST:event_solicitudBusquedaBotonVerTodoMouseReleased
 
     private void solicitudBusquedaBotonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_solicitudBusquedaBotonMouseReleased
         crearPanelesSolicitud(solicitudBusquedaTxt.getText());
     }//GEN-LAST:event_solicitudBusquedaBotonMouseReleased
+
+    private void jLabel2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseReleased
+        Login login = new Login();
+        this.dispose();
+        login.setVisible(true);
+    }//GEN-LAST:event_jLabel2MouseReleased
+
+    private void solicitudBusquedaTxtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_solicitudBusquedaTxtKeyPressed
+
+    }//GEN-LAST:event_solicitudBusquedaTxtKeyPressed
+
+    private void verPanelScrollMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_verPanelScrollMouseWheelMoved
+        // Obtener la posición actual del scroll
+        int currentValue = verPanelScroll.getVerticalScrollBar().getValue();
+
+        // Calcular el desplazamiento
+        int units = evt.getUnitsToScroll();
+
+        // Establecer la nueva posición del scroll
+        verPanelScroll.getVerticalScrollBar().setValue(currentValue + units * 20); // Ajustar el valor "20" según la velocidad deseada
+    }//GEN-LAST:event_verPanelScrollMouseWheelMoved
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actividad;
@@ -1245,9 +1328,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel imagenVerSolicitud;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel mantenimiento;
     private javax.swing.JPanel minimizar;
     private javax.swing.JLabel minimizarTexto;
+    private javax.swing.JLabel nombreUsuario;
     private javax.swing.JPanel panelActividad;
     private javax.swing.JPanel panelCargaDatos;
     private javax.swing.JPanel panelMantenimiento;
