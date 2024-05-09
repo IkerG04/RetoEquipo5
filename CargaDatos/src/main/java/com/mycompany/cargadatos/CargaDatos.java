@@ -40,21 +40,24 @@ public class CargaDatos extends JFrame {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setDialogTitle("Seleccionar Archivo CSV de Profesores");
                 fileChooser.setMultiSelectionEnabled(false);
-                fileChooser.setFileFilter(new FileNameExtensionFilter("Archivo CSV de Profesores (*.csv)", "csv"));
+                fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos CSV (*.csv)", "csv"));
 
                 int returnValue = fileChooser.showOpenDialog(CargaDatos.this);
 
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = fileChooser.getSelectedFile();
-                    if (selectedFile.getName().equalsIgnoreCase("profesor.csv")) {
+                    String fileName = selectedFile.getName().toLowerCase(); // Obtener el nombre del archivo en minúsculas
+
+                    // Verificar si el archivo seleccionado es un archivo CSV
+                    if (fileName.endsWith(".csv")) {
                         try {
                             cargarProfesoresDesdeCSV(selectedFile);
-                            mostrarMensajeExito("Datos de profesores cargados exitosamente.");
+                            mostrarMensajeExito("Datos de profesores cargados exitosamente desde: " + fileName);
                         } catch (IOException | SQLException ex) {
                             mostrarMensajeError("Error al cargar el archivo CSV de profesores: " + ex.getMessage());
                         }
                     } else {
-                        mostrarMensajeError("Selecciona solo el archivo 'profesor.csv'.");
+                        mostrarMensajeError("Selecciona un archivo CSV válido.");
                     }
                 }
             }
@@ -70,60 +73,58 @@ public class CargaDatos extends JFrame {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] datos = line.split(",");
+                String[] datos = splitCSVLine(line);
 
-                // Verificar que haya al menos 4 elementos en datos antes de acceder a ellos
-                if (datos.length >= 4) {
+                if (datos.length >= 4) { // Asegurarse de que haya al menos 4 campos en la línea
                     String apellidosNombre = datos[0].trim();
-                    String dni = datos[1].trim().substring(0, Math.min(datos[1].trim().length(), 9)); // Limitar a 9 caracteres para el DNI
+                    String dni = datos[1].trim().substring(0, Math.min(datos[1].trim().length(), 9));
                     String correo = datos[2].trim();
                     String departamento = datos[3].trim();
 
-                    // Separar apellidos y nombre si es necesario
-                    String[] apellidosNombreArray = apellidosNombre.split(",\\s*"); // Dividir por coma seguida opcionalmente de espacios
+                    // Separar apellidos y nombre utilizando coma como delimitador
+                    String[] apellidosNombreArray = apellidosNombre.split(",", 2); // Dividir en máximo 2 partes por la primera coma encontrada
+
                     String apellidos = "";
                     String nombre = "";
 
                     if (apellidosNombreArray.length > 1) {
-                        // Si hay al menos un apellido y un nombre separados por coma
-                        apellidos = apellidosNombreArray[0].trim(); // El primer elemento será el apellido
-                        nombre = apellidosNombreArray[1].trim(); // El segundo elemento será el nombre
+                        // Si se encontró al menos una coma, separamos en apellidos y nombre
+                        apellidos = apellidosNombreArray[0].trim();
+                        nombre = apellidosNombreArray[1].trim();
                     } else {
-                        // Si no se encontró una coma, tratamos la cadena completa como nombre
+                        // Si no se encontró coma, consideramos el campo como nombre completo
                         nombre = apellidosNombre.trim();
                     }
 
-                    // Obtener o insertar el ID del departamento
                     int departamentoId = obtenerOInsertarDepartamentoId(departamento, conn, departamentoIdMap);
-
-                    // Generar contraseña aleatoria
                     String password = generarPassword();
-
-                    // Perfil aleatorio
                     String perfil = obtenerPerfilAleatorio();
 
-                    // Insertar en la base de datos
                     PreparedStatement pstmt = conn.prepareStatement(
                             "INSERT INTO profesor (apellidos, nombre, dni, correo, activo, perfil, contraseña, departamento) "
                             + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
-                    pstmt.setString(1, apellidos);       // apellidos
-                    pstmt.setString(2, nombre);          // nombre
-                    pstmt.setString(3, dni);             // dni
-                    pstmt.setString(4, correo);          // correo
-                    pstmt.setBoolean(5, true);            // activo por defecto es true
-                    pstmt.setString(6, perfil);          // perfil
-                    pstmt.setString(7, password);        // contraseña
-                    pstmt.setInt(8, departamentoId);     // departamento
+                    pstmt.setString(1, apellidos);
+                    pstmt.setString(2, nombre);
+                    pstmt.setString(3, dni);
+                    pstmt.setString(4, correo);
+                    pstmt.setBoolean(5, true); // activo por defecto es true
+                    pstmt.setString(6, perfil);
+                    pstmt.setString(7, password);
+                    pstmt.setInt(8, departamentoId);
                     pstmt.executeUpdate();
 
                     pstmt.close();
                 } else {
-                    // Manejar el caso donde la línea no tiene suficientes campos
                     mostrarMensajeError("La línea del archivo CSV no tiene suficientes campos.");
                 }
             }
         }
+    }
+// Método para dividir una línea de CSV considerando solo comas como delimitadores
+
+    private String[] splitCSVLine(String line) {
+        return line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
     }
 
     private int obtenerOInsertarDepartamentoId(String departamento, Connection conn, Map<String, Integer> departamentoIdMap)
@@ -131,7 +132,6 @@ public class CargaDatos extends JFrame {
         if (departamentoIdMap.containsKey(departamento)) {
             return departamentoIdMap.get(departamento);
         } else {
-            // Generar un código aleatorio para el departamento
             String cod = generarCodigoAleatorio();
 
             PreparedStatement pstmt = conn.prepareStatement(
@@ -190,6 +190,7 @@ public class CargaDatos extends JFrame {
         }
         return sb.toString();
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
