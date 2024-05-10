@@ -326,7 +326,7 @@ public class Principal extends javax.swing.JFrame {
 
         panelMantenimiento.add(fondoSolicitudIzquierda1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 540));
 
-        principal.add(panelMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
+        principal.add(panelMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 0));
 
         cerrar.setBackground(new java.awt.Color(51, 51, 51));
         cerrar.addMouseListener(new java.awt.event.MouseAdapter() {

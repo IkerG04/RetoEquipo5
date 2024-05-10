@@ -8,8 +8,8 @@ package com.programa;
  *
  * @author DAW129
  */
-
 class SolicitudData {
+
     private String professor;
     private String department;
     private String title;
@@ -25,8 +25,8 @@ class SolicitudData {
     private String comments;
 
     public SolicitudData(String professor, String department, String title, String planningDidactic,
-                         String transport, String startDate, String endDate, String group, int numStudents,
-                         boolean accommodation, String responsible, String participants, String comments) {
+            String transport, String startDate, String endDate, String group, int numStudents,
+            boolean accommodation, String responsible, String participants, String comments) {
         this.professor = professor;
         this.department = department;
         this.title = title;
@@ -44,10 +44,10 @@ class SolicitudData {
 
     @Override
     public String toString() {
-        return "SolicitudData{" +
-                "title='" + title + '\'' +
-                ", professor='" + professor + '\'' +
-                ", department='" + department + '\'' +
-                '}';
+        return "SolicitudData{"
+                + "title='" + title + '\''
+                + ", professor='" + professor + '\''
+                + ", department='" + department + '\''
+                + '}';
     }
 }
