@@ -31,7 +31,8 @@ public class Curso extends JFrame {
         // Configurar modelo de tabla
         tableModel = new DefaultTableModel();
         tableModel.addColumn("ID");
-        tableModel.addColumn("Nombre");
+        tableModel.addColumn("Etapa");
+        tableModel.addColumn("Descripción");
 
         // Crear tabla de cursos
         cursosTable = new JTable(tableModel);
@@ -71,12 +72,11 @@ public class Curso extends JFrame {
                 int selectedRow = cursosTable.getSelectedRow();
                 if (selectedRow != -1) {
                     int id = (int) cursosTable.getValueAt(selectedRow, 0);
-                    String nombreActual = (String) cursosTable.getValueAt(selectedRow, 1);
-                    String nuevoNombre = JOptionPane.showInputDialog(Curso.this,
-                            "Editar Nombre del Curso:", nombreActual);
-                    if (nuevoNombre != null && !nuevoNombre.isEmpty()) {
-                        editCurso(id, nuevoNombre);
-                    }
+                    String etapaActual = (String) cursosTable.getValueAt(selectedRow, 1);
+                    String descripcionActual = (String) cursosTable.getValueAt(selectedRow, 2);
+                    // Aquí puedes mostrar un diálogo para editar estos campos
+                    // y luego llamar a editCurso con los nuevos valores
+                    // editCurso(id, nuevaEtapa, nuevaDescripcion);
                 } else {
                     JOptionPane.showMessageDialog(Curso.this,
                             "Por favor, seleccione un curso para editar.",
@@ -92,15 +92,16 @@ public class Curso extends JFrame {
             tableModel.setRowCount(0);
 
             // Consulta SQL para obtener todos los cursos
-            String sql = "SELECT id, nombre FROM curso";
+            String sql = "SELECT id, etapa, descripcion FROM curso";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
             // Agregar filas a la tabla con los datos de los cursos
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                String nombre = resultSet.getString("nombre");
-                tableModel.addRow(new Object[]{id, nombre});
+                String etapa = resultSet.getString("etapa");
+                String descripcion = resultSet.getString("descripcion");
+                tableModel.addRow(new Object[]{id, etapa, descripcion});
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -123,13 +124,14 @@ public class Curso extends JFrame {
         }
     }
 
-    private void editCurso(int id, String nuevoNombre) {
+    private void editCurso(int id, String nuevaEtapa, String nuevaDescripcion) {
         try {
-            // Consulta SQL para actualizar el nombre del curso
-            String sql = "UPDATE curso SET nombre = ? WHERE id = ?";
+            // Consulta SQL para actualizar la etapa y descripción del curso
+            String sql = "UPDATE curso SET etapa = ?, descripcion = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, nuevoNombre);
-            statement.setInt(2, id);
+            statement.setString(1, nuevaEtapa);
+            statement.setString(2, nuevaDescripcion);
+            statement.setInt(3, id);
             statement.executeUpdate();
 
             // Actualizar la tabla después de la edición
