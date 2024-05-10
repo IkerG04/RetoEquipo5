@@ -50,6 +50,19 @@ public class Principal extends javax.swing.JFrame {
         actividadPrevista = new javax.swing.ButtonGroup();
         principal = new javax.swing.JPanel();
         panelMantenimiento = new javax.swing.JPanel();
+        verSolicitudes1 = new javax.swing.JPanel();
+        imagenVerSolicitud1 = new javax.swing.JLabel();
+        textoVerSolicitud1 = new javax.swing.JLabel();
+        cargarSolicitudes1 = new javax.swing.JPanel();
+        imagenCargarSolicitud1 = new javax.swing.JLabel();
+        textoCargarSolicitud1 = new javax.swing.JLabel();
+        cargarSolicitudes2 = new javax.swing.JPanel();
+        imagenCargarSolicitud2 = new javax.swing.JLabel();
+        textoCargarSolicitud2 = new javax.swing.JLabel();
+        verSolicitudes2 = new javax.swing.JPanel();
+        imagenVerSolicitud2 = new javax.swing.JLabel();
+        textoVerSolicitud2 = new javax.swing.JLabel();
+        fondoSolicitudIzquierda1 = new javax.swing.JPanel();
         cerrar = new javax.swing.JPanel();
         cerrarTexto = new javax.swing.JLabel();
         minimizar = new javax.swing.JPanel();
@@ -134,20 +147,186 @@ public class Principal extends javax.swing.JFrame {
         principal.setBackground(new java.awt.Color(51, 51, 51));
         principal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelMantenimiento.setBackground(new java.awt.Color(51, 255, 51));
+        panelMantenimiento.setBackground(new java.awt.Color(40, 40, 40));
+        panelMantenimiento.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout panelMantenimientoLayout = new javax.swing.GroupLayout(panelMantenimiento);
-        panelMantenimiento.setLayout(panelMantenimientoLayout);
-        panelMantenimientoLayout.setHorizontalGroup(
-            panelMantenimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 940, Short.MAX_VALUE)
+        verSolicitudes1.setBackground(new java.awt.Color(51, 51, 51));
+        verSolicitudes1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        verSolicitudes1.setPreferredSize(new java.awt.Dimension(90, 80));
+        verSolicitudes1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                verSolicitudes1MousePressed(evt);
+            }
+        });
+
+        imagenVerSolicitud1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/solicitud.png"))); // NOI18N
+
+        textoVerSolicitud1.setForeground(new java.awt.Color(255, 255, 255));
+        textoVerSolicitud1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoVerSolicitud1.setText("Cursos");
+        textoVerSolicitud1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout verSolicitudes1Layout = new javax.swing.GroupLayout(verSolicitudes1);
+        verSolicitudes1.setLayout(verSolicitudes1Layout);
+        verSolicitudes1Layout.setHorizontalGroup(
+            verSolicitudes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(verSolicitudes1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(textoVerSolicitud1, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, verSolicitudes1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(imagenVerSolicitud1)
+                .addGap(19, 19, 19))
         );
-        panelMantenimientoLayout.setVerticalGroup(
-            panelMantenimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        verSolicitudes1Layout.setVerticalGroup(
+            verSolicitudes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(verSolicitudes1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(imagenVerSolicitud1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoVerSolicitud1)
+                .addContainerGap())
         );
 
-        principal.add(panelMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 0));
+        panelMantenimiento.add(verSolicitudes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 133, 91, -1));
+
+        cargarSolicitudes1.setBackground(new java.awt.Color(51, 51, 51));
+        cargarSolicitudes1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cargarSolicitudes1.setPreferredSize(new java.awt.Dimension(90, 80));
+        cargarSolicitudes1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                cargarSolicitudes1MousePressed(evt);
+            }
+        });
+
+        imagenCargarSolicitud1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/solicitud.png"))); // NOI18N
+
+        textoCargarSolicitud1.setForeground(new java.awt.Color(255, 255, 255));
+        textoCargarSolicitud1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoCargarSolicitud1.setText("Grupos");
+        textoCargarSolicitud1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout cargarSolicitudes1Layout = new javax.swing.GroupLayout(cargarSolicitudes1);
+        cargarSolicitudes1.setLayout(cargarSolicitudes1Layout);
+        cargarSolicitudes1Layout.setHorizontalGroup(
+            cargarSolicitudes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cargarSolicitudes1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(textoCargarSolicitud1, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cargarSolicitudes1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(imagenCargarSolicitud1)
+                .addGap(19, 19, 19))
+        );
+        cargarSolicitudes1Layout.setVerticalGroup(
+            cargarSolicitudes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cargarSolicitudes1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(imagenCargarSolicitud1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(textoCargarSolicitud1)
+                .addContainerGap())
+        );
+
+        panelMantenimiento.add(cargarSolicitudes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 223, 91, 80));
+
+        cargarSolicitudes2.setBackground(new java.awt.Color(51, 51, 51));
+        cargarSolicitudes2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cargarSolicitudes2.setPreferredSize(new java.awt.Dimension(90, 80));
+        cargarSolicitudes2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                cargarSolicitudes2MousePressed(evt);
+            }
+        });
+
+        imagenCargarSolicitud2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/solicitud.png"))); // NOI18N
+
+        textoCargarSolicitud2.setForeground(new java.awt.Color(255, 255, 255));
+        textoCargarSolicitud2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoCargarSolicitud2.setText("Departamentos");
+        textoCargarSolicitud2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout cargarSolicitudes2Layout = new javax.swing.GroupLayout(cargarSolicitudes2);
+        cargarSolicitudes2.setLayout(cargarSolicitudes2Layout);
+        cargarSolicitudes2Layout.setHorizontalGroup(
+            cargarSolicitudes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cargarSolicitudes2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(imagenCargarSolicitud2)
+                .addGap(19, 19, 19))
+            .addGroup(cargarSolicitudes2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(textoCargarSolicitud2, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+        );
+        cargarSolicitudes2Layout.setVerticalGroup(
+            cargarSolicitudes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cargarSolicitudes2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(imagenCargarSolicitud2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoCargarSolicitud2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelMantenimiento.add(cargarSolicitudes2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 313, 91, -1));
+
+        verSolicitudes2.setBackground(new java.awt.Color(51, 51, 51));
+        verSolicitudes2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        verSolicitudes2.setPreferredSize(new java.awt.Dimension(90, 80));
+        verSolicitudes2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                verSolicitudes2MousePressed(evt);
+            }
+        });
+
+        imagenVerSolicitud2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/solicitud.png"))); // NOI18N
+
+        textoVerSolicitud2.setForeground(new java.awt.Color(255, 255, 255));
+        textoVerSolicitud2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoVerSolicitud2.setText("Profesores");
+        textoVerSolicitud2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout verSolicitudes2Layout = new javax.swing.GroupLayout(verSolicitudes2);
+        verSolicitudes2.setLayout(verSolicitudes2Layout);
+        verSolicitudes2Layout.setHorizontalGroup(
+            verSolicitudes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(verSolicitudes2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(textoVerSolicitud2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, verSolicitudes2Layout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(imagenVerSolicitud2)
+                .addGap(19, 19, 19))
+        );
+        verSolicitudes2Layout.setVerticalGroup(
+            verSolicitudes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(verSolicitudes2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(imagenVerSolicitud2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoVerSolicitud2)
+                .addContainerGap())
+        );
+
+        panelMantenimiento.add(verSolicitudes2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 43, 91, -1));
+
+        fondoSolicitudIzquierda1.setBackground(new java.awt.Color(51, 51, 51));
+        fondoSolicitudIzquierda1.setPreferredSize(new java.awt.Dimension(91, 160));
+
+        javax.swing.GroupLayout fondoSolicitudIzquierda1Layout = new javax.swing.GroupLayout(fondoSolicitudIzquierda1);
+        fondoSolicitudIzquierda1.setLayout(fondoSolicitudIzquierda1Layout);
+        fondoSolicitudIzquierda1Layout.setHorizontalGroup(
+            fondoSolicitudIzquierda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 91, Short.MAX_VALUE)
+        );
+        fondoSolicitudIzquierda1Layout.setVerticalGroup(
+            fondoSolicitudIzquierda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 540, Short.MAX_VALUE)
+        );
+
+        panelMantenimiento.add(fondoSolicitudIzquierda1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 540));
+
+        principal.add(panelMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
 
         cerrar.setBackground(new java.awt.Color(51, 51, 51));
         cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -398,7 +577,7 @@ public class Principal extends javax.swing.JFrame {
 
         verPanel.add(verPanelScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 540));
 
-        panelSolicitud.add(verPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
+        panelSolicitud.add(verPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
 
         cargarPanel.setBackground(new java.awt.Color(40, 40, 40));
         cargarPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -641,7 +820,7 @@ public class Principal extends javax.swing.JFrame {
 
         panelSolicitud.add(cargarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
 
-        principal.add(panelSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
+        principal.add(panelSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 0));
 
         panelCargaDatos.setBackground(new java.awt.Color(0, 255, 204));
 
@@ -822,7 +1001,7 @@ public class Principal extends javax.swing.JFrame {
 
         fondoIzquierda.add(solicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 182, 90, 80));
 
-        mantenimiento.setBackground(new java.awt.Color(51, 51, 51));
+        mantenimiento.setBackground(new java.awt.Color(40, 40, 40));
         mantenimiento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mantenimiento.setPreferredSize(new java.awt.Dimension(90, 80));
         mantenimiento.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -860,7 +1039,7 @@ public class Principal extends javax.swing.JFrame {
 
         fondoIzquierda.add(mantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 96, 90, 80));
 
-        actividad.setBackground(new java.awt.Color(40, 40, 40));
+        actividad.setBackground(new java.awt.Color(51, 51, 51));
         actividad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         actividad.setPreferredSize(new java.awt.Dimension(90, 80));
         actividad.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1306,6 +1485,22 @@ public class Principal extends javax.swing.JFrame {
         verPanelScroll.getVerticalScrollBar().setValue(currentValue + units * 20); // Ajustar el valor "20" según la velocidad deseada
     }//GEN-LAST:event_verPanelScrollMouseWheelMoved
 
+    private void verSolicitudes1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verSolicitudes1MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_verSolicitudes1MousePressed
+
+    private void cargarSolicitudes1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargarSolicitudes1MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cargarSolicitudes1MousePressed
+
+    private void cargarSolicitudes2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargarSolicitudes2MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cargarSolicitudes2MousePressed
+
+    private void verSolicitudes2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verSolicitudes2MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_verSolicitudes2MousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actividad;
     private javax.swing.ButtonGroup actividadPrevista;
@@ -1314,18 +1509,25 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel cargaDatos;
     private javax.swing.JPanel cargarPanel;
     private javax.swing.JPanel cargarSolicitudes;
+    private javax.swing.JPanel cargarSolicitudes1;
+    private javax.swing.JPanel cargarSolicitudes2;
     private javax.swing.JPanel cerrar;
     private javax.swing.JLabel cerrarTexto;
     private javax.swing.JPanel fondoIzquierda;
     private javax.swing.JPanel fondoSolicitudIzquierda;
+    private javax.swing.JPanel fondoSolicitudIzquierda1;
     private javax.swing.JLabel icono1;
     private javax.swing.JLabel imagenActividad;
     private javax.swing.JLabel imagenCargaDatos;
     private javax.swing.JLabel imagenCargarSolicitud;
+    private javax.swing.JLabel imagenCargarSolicitud1;
+    private javax.swing.JLabel imagenCargarSolicitud2;
     private javax.swing.JLabel imagenMantenimiento;
     private javax.swing.JLabel imagenSolicitud;
     private javax.swing.JLabel imagenUsuario;
     private javax.swing.JLabel imagenVerSolicitud;
+    private javax.swing.JLabel imagenVerSolicitud1;
+    private javax.swing.JLabel imagenVerSolicitud2;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -1378,15 +1580,21 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel textoCargaDatos;
     private javax.swing.JLabel textoCargar;
     private javax.swing.JLabel textoCargarSolicitud;
+    private javax.swing.JLabel textoCargarSolicitud1;
+    private javax.swing.JLabel textoCargarSolicitud2;
     private javax.swing.JLabel textoLlenarTodoSolicitudCargar;
     private javax.swing.JLabel textoMantenimiento;
     private javax.swing.JLabel textoSolicitud;
     private javax.swing.JLabel textoUsuario;
     private javax.swing.JLabel textoVerSolicitud;
+    private javax.swing.JLabel textoVerSolicitud1;
+    private javax.swing.JLabel textoVerSolicitud2;
     private javax.swing.JPanel usuario;
     private javax.swing.JPanel verPanel;
     private javax.swing.JScrollPane verPanelScroll;
     private javax.swing.JPanel verPanelScrollFrame;
     private javax.swing.JPanel verSolicitudes;
+    private javax.swing.JPanel verSolicitudes1;
+    private javax.swing.JPanel verSolicitudes2;
     // End of variables declaration//GEN-END:variables
 }
