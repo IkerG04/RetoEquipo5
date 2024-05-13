@@ -7,6 +7,8 @@ package com.programa;
 import com.bd.AccesoBaseDatos;
 import com.bd.FuncionesBD;
 import com.datos.Curso;
+import com.datos.Departamento;
+import com.datos.Grupo;
 import com.datos.Profesor;
 import java.util.ArrayList;
 import javax.swing.JPanel;
@@ -107,4 +109,81 @@ public class MantenimientosBasicos {
         cursoPanel.repaint();
         System.out.println("Carga de datos de cursos completada.");
     }
+
+    public void mantenimientoGrupos(JTable tablaGrupos, JPanel grupoPanel) {
+        System.out.println("Iniciando carga de datos de grupos...");
+
+        // Consulta SQL para obtener todos los grupos
+        ArrayList<Grupo> listaGrupos = funcionesBD.obtenerListaGrupos();
+
+        // Limpiar la tabla antes de cargar nuevos datos
+        DefaultTableModel tablaModelo = (DefaultTableModel) tablaGrupos.getModel();
+        tablaModelo.setRowCount(0); // Limpiar la tabla
+
+        // Verificar si se obtuvieron datos de algún grupo
+        if (!listaGrupos.isEmpty()) {
+            System.out.println("Se obtuvieron datos de grupos. Cargando en la tabla...");
+
+            // Iterar sobre la lista de grupos y agregar una fila por cada uno
+            for (Grupo grupo : listaGrupos) {
+                System.out.println("Agregando grupo a la tabla: " + grupo.getCodgrupo());
+                tablaModelo.addRow(new Object[]{
+                    grupo.getId(),
+                    grupo.getCodgrupo(),
+                    grupo.getCurso(),
+                    grupo.getNumAlumnos(),
+                    grupo.isActivo()
+                });
+            }
+        } else {
+            // Si no se encuentran datos de grupos, puedes mostrar un mensaje o realizar otra acción
+            System.out.println("No se encontraron datos de grupos.");
+        }
+
+        // Validar y repintar el contenedor que contiene la tabla
+        grupoPanel.revalidate();
+        grupoPanel.repaint();
+        System.out.println("Carga de datos de grupos completada.");
+    }
+
+    public void mantenimientoDepartamentos(JTable tablaDepartamentos, JPanel departamentoPanel) {
+        System.out.println("Iniciando carga de datos de departamentos...");
+
+        // Consulta SQL para obtener todos los departamentos
+        ArrayList<Departamento> listaDepartamentos = funcionesBD.obtenerListaDepartamentos();
+
+        // Crear un nuevo DefaultTableModel con los datos de los departamentos
+        DefaultTableModel tablaModelo = new DefaultTableModel();
+        tablaModelo.setColumnIdentifiers(new Object[]{"ID", "Código", "Nombre"});
+
+        // Verificar si se obtuvieron datos de algún departamento
+        if (!listaDepartamentos.isEmpty()) {
+            System.out.println("Se obtuvieron datos de departamentos. Cargando en la tabla...");
+
+            // Iterar sobre la lista de departamentos y agregar una fila por cada uno
+            for (Departamento departamento : listaDepartamentos) {
+                System.out.println("Agregando departamento a la tabla: " + departamento.getNombre());
+                tablaModelo.addRow(new Object[]{
+                    departamento.getId(),
+                    departamento.getCod(),
+                    departamento.getNombre()
+                });
+            }
+        } else {
+            // Si no se encuentran datos de departamentos, mostrar un mensaje o realizar otra acción
+            System.out.println("No se encontraron datos de departamentos.");
+
+            // Limpiar la tabla si no hay datos de departamentos
+            tablaModelo.setRowCount(0);
+        }
+
+        // Asignar el modelo de la tabla al JTable correspondiente
+        tablaDepartamentos.setModel(tablaModelo);
+
+        // Validar y repintar el contenedor que contiene la tabla
+        departamentoPanel.revalidate();
+        departamentoPanel.repaint();
+        System.out.println("Carga de datos de departamentos completada.");
+    }
+
 }

@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 public class Principal extends javax.swing.JFrame {
@@ -213,7 +214,7 @@ public class Principal extends javax.swing.JFrame {
 
         panelMantenimiento.add(mantenimientoCursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 133, 91, -1));
 
-        mantenimientoGrupos.setBackground(new java.awt.Color(51, 51, 51));
+        mantenimientoGrupos.setBackground(new java.awt.Color(40, 40, 40));
         mantenimientoGrupos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mantenimientoGrupos.setPreferredSize(new java.awt.Dimension(90, 80));
         mantenimientoGrupos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -293,7 +294,7 @@ public class Principal extends javax.swing.JFrame {
 
         panelMantenimiento.add(mantenimientoDepartamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 313, 91, -1));
 
-        mantenimientoProfesores.setBackground(new java.awt.Color(40, 40, 40));
+        mantenimientoProfesores.setBackground(new java.awt.Color(51, 51, 51));
         mantenimientoProfesores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mantenimientoProfesores.setPreferredSize(new java.awt.Dimension(90, 80));
         mantenimientoProfesores.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -476,6 +477,8 @@ public class Principal extends javax.swing.JFrame {
 
         panelMantenimiento.add(cursosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
 
+        gruposPanel.setBackground(new java.awt.Color(40, 40, 40));
+
         editarGrupos.setText("Editar");
         editarGrupos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -548,6 +551,8 @@ public class Principal extends javax.swing.JFrame {
 
         panelMantenimiento.add(gruposPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
 
+        departamentosPanel.setBackground(new java.awt.Color(40, 40, 40));
+
         editarDepartamentos.setText("Editar");
         editarDepartamentos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -606,7 +611,7 @@ public class Principal extends javax.swing.JFrame {
         );
         departamentosPanelLayout.setVerticalGroup(
             departamentosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 473, Short.MAX_VALUE)
+            .addGap(0, 540, Short.MAX_VALUE)
             .addGroup(departamentosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(departamentosPanelLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -618,7 +623,7 @@ public class Principal extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        panelMantenimiento.add(departamentosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
+        panelMantenimiento.add(departamentosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
 
         principal.add(panelMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
 
@@ -1776,11 +1781,16 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_mantenimientoCursosMousePressed
 
     private void mantenimientoGruposMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoGruposMousePressed
-        // TODO add your handling code here:
+        MantenimientosBasicos mantenimientosBasicos = new MantenimientosBasicos();
+        mantenimientosBasicos.mantenimientoGrupos(tablaGrupos, gruposPanel);
     }//GEN-LAST:event_mantenimientoGruposMousePressed
 
     private void mantenimientoDepartamentosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoDepartamentosMousePressed
-        // TODO add your handling code here:
+        // Crear una instancia de MantenimientosBasicos para acceder a los métodos relacionados con los departamentos
+        MantenimientosBasicos mantenimientosBasicos = new MantenimientosBasicos();
+
+        // Llamar al método que carga los datos de los departamentos en la tabla
+        mantenimientosBasicos.mantenimientoDepartamentos(tablaDepartamentos, departamentosPanel);
     }//GEN-LAST:event_mantenimientoDepartamentosMousePressed
 
     private void mantenimientoProfesoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoProfesoresMousePressed
@@ -1881,19 +1891,88 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminarCursosMousePressed
 
     private void editarGruposMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarGruposMousePressed
-        // TODO add your handling code here:
+        int selectedRow = tablaGrupos.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione un grupo para editar.");
+            return;
+        }
+        DefaultTableModel tableModel = (DefaultTableModel) tablaGrupos.getModel();
+        // Verificar si el modelo de tabla no está vacío y si la fila seleccionada es válida
+        if (tableModel != null && selectedRow >= 0 && selectedRow < tableModel.getRowCount()) {
+            String idStr = tableModel.getValueAt(selectedRow, 0).toString();
+            String nuevoCodGrupo = JOptionPane.showInputDialog(this, "Nuevo Código de Grupo:", tableModel.getValueAt(selectedRow, 1));
+            String nuevoCursoStr = JOptionPane.showInputDialog(this, "Nuevo Curso:", tableModel.getValueAt(selectedRow, 2));
+            String nuevoNumAlumnosStr = JOptionPane.showInputDialog(this, "Nuevo Número de Alumnos:", tableModel.getValueAt(selectedRow, 3));
+            String nuevoActivoStr = JOptionPane.showInputDialog(this, "Nuevo Estado del Grupo (1 para activo, 0 para inactivo):", tableModel.getValueAt(selectedRow, 4));
+
+            if (nuevoCodGrupo != null && nuevoCursoStr != null && nuevoNumAlumnosStr != null && nuevoActivoStr != null) {
+                int id = Integer.parseInt(idStr);
+                int nuevoCurso = Integer.parseInt(nuevoCursoStr);
+                int nuevoNumAlumnos = Integer.parseInt(nuevoNumAlumnosStr);
+                boolean nuevoActivo = nuevoActivoStr.equals("1");
+                funcionesBD.actualizarDatosGrupo(id, nuevoCodGrupo, nuevoCurso, nuevoNumAlumnos, nuevoActivo);
+            }
+        } else {
+            // Manejar el caso en el que el modelo de tabla está vacío o la fila seleccionada no es válida
+            JOptionPane.showMessageDialog(this, "No se puede editar la fila seleccionada.");
+        }
+        mantenimientoGruposMousePressed(null); // Actualiza la tabla de grupos después de la edición
     }//GEN-LAST:event_editarGruposMousePressed
 
     private void eliminarGruposMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarGruposMousePressed
-        // TODO add your handling code here:
+        int selectedRow = tablaGrupos.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione un grupo para eliminar.");
+            return;
+        }
+        DefaultTableModel tableModel = (DefaultTableModel) tablaGrupos.getModel();
+        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar el grupo seleccionado?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            int id = (int) tableModel.getValueAt(selectedRow, 0); // Suponiendo que el ID del grupo está en la columna 0
+            funcionesBD.eliminarGrupo(id);
+            // Remover la fila seleccionada del modelo de la tabla
+            JOptionPane.showMessageDialog(this, "Grupo eliminado correctamente.");
+            mantenimientoGruposMousePressed(null); // Actualiza la tabla de grupos después de la edición
+        }
     }//GEN-LAST:event_eliminarGruposMousePressed
 
     private void editarDepartamentosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarDepartamentosMousePressed
-        // TODO add your handling code here:
+        int selectedRow = tablaDepartamentos.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione un departamento para editar.");
+            return;
+        }
+        DefaultTableModel tableModel = (DefaultTableModel) tablaDepartamentos.getModel();
+        // Verificar si el modelo de tabla no está vacío y si la fila seleccionada es válida
+        if (tableModel != null && selectedRow >= 0 && selectedRow < tableModel.getRowCount()) {
+            String idStr = tableModel.getValueAt(selectedRow, 0).toString();
+            String nuevoCodigo = JOptionPane.showInputDialog(this, "Nuevo Código del departamento:", tableModel.getValueAt(selectedRow, 1));
+            String nuevoNombre = JOptionPane.showInputDialog(this, "Nuevo Nombre del departamento:", tableModel.getValueAt(selectedRow, 2));
+
+            if (nuevoCodigo != null && nuevoNombre != null) {
+                int id = Integer.parseInt(idStr);
+                funcionesBD.actualizarDatosDepartamento(id, nuevoCodigo, nuevoNombre);
+            }
+        } else {
+            // Manejar el caso en el que el modelo de tabla está vacío o la fila seleccionada no es válida
+            JOptionPane.showMessageDialog(this, "No se puede editar la fila seleccionada.");
+        }
     }//GEN-LAST:event_editarDepartamentosMousePressed
 
     private void eliminarDepartamentosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarDepartamentosMousePressed
-        // TODO add your handling code here:
+        int selectedRow = tablaDepartamentos.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione un departamento para eliminar.");
+            return;
+        }
+        DefaultTableModel tableModel = (DefaultTableModel) tablaDepartamentos.getModel();
+        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar el departamento seleccionado?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            int id = (int) tableModel.getValueAt(selectedRow, 0); // Suponiendo que el ID del departamento está en la columna 0
+            funcionesBD.eliminarDepartamento(id);
+            MantenimientosBasicos mantenimientosBasicos = new MantenimientosBasicos();
+            mantenimientosBasicos.mantenimientoDepartamentos(tablaDepartamentos, departamentosPanel); // Cambio del nombre del panel
+        }
     }//GEN-LAST:event_eliminarDepartamentosMousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

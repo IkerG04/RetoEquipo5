@@ -5,6 +5,8 @@ Es muy conveniente comprobar el resultado de las consultas ejecutadas en la prop
 package com.bd;
 
 import com.datos.Curso;
+import com.datos.Departamento;
+import com.datos.Grupo;
 import com.datos.Profesor;
 import com.datos.Usuario;
 import java.sql.ResultSet;
@@ -400,6 +402,130 @@ public class FuncionesBD {
             statement.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Error al eliminar el curso: " + ex.getMessage());
+        }
+    }
+
+    public ArrayList<Grupo> obtenerListaGrupos() {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<Grupo> listaGrupos = new ArrayList<>();
+
+        try {
+            conn = AccesoBaseDatos.getInstance().getConn();
+
+            // Consulta para obtener todos los grupos
+            String sql = "SELECT * FROM grupos";
+            pstmt = conn.prepareStatement(sql);
+
+            rs = pstmt.executeQuery();
+
+            // Iterar sobre los resultados y crear objetos Grupo
+            while (rs.next()) {
+                int id = rs.getInt("idgrupo");
+                String codgrupo = rs.getString("codgrupo");
+                int curso = rs.getInt("curso");
+                int numAlumnos = rs.getInt("numeroalumnos");
+                boolean activo = rs.getBoolean("activo");
+
+                // Agregar el grupo a la lista
+                listaGrupos.add(new Grupo(id, codgrupo, curso, numAlumnos, activo));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en la consulta: " + ex.getMessage());
+        }
+        return listaGrupos;
+    }
+
+    public void actualizarDatosGrupo(int id, String codgrupo, int curso, int numAlumnos, boolean activo) {
+        try {
+            Connection conn = AccesoBaseDatos.getInstance().getConn();
+
+            // Consulta SQL para actualizar los datos del grupo
+            String sql = "UPDATE grupo SET codgrupo=?, curso=?, numAlumnos=?, activo=? WHERE id=?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, codgrupo);
+            statement.setInt(2, curso);
+            statement.setInt(3, numAlumnos);
+            statement.setBoolean(4, activo);
+            statement.setInt(5, id);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar datos del grupo: " + ex.getMessage());
+        }
+    }
+
+    public void eliminarGrupo(int idGrupo) {
+        try {
+            Connection conn = AccesoBaseDatos.getInstance().getConn();
+
+            // Consulta SQL para eliminar un grupo por su ID
+            String sql = "DELETE FROM grupos WHERE idgrupo=?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, idGrupo);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error al eliminar el grupo: " + ex.getMessage());
+        }
+    }
+
+    public ArrayList<Departamento> obtenerListaDepartamentos() {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<Departamento> listaDepartamentos = new ArrayList<>();
+
+        try {
+            conn = AccesoBaseDatos.getInstance().getConn();
+
+            // Consulta para obtener todos los departamento
+            String sql = "SELECT * FROM departamento";
+            pstmt = conn.prepareStatement(sql);
+
+            rs = pstmt.executeQuery();
+
+            // Iterar sobre los resultados y crear objetos Departamento
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String cod = rs.getString("cod");
+                String nombre = rs.getString("nombre");
+
+                // Agregar el departamento a la lista
+                listaDepartamentos.add(new Departamento(id, cod, nombre));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en la consulta: " + ex.getMessage());
+        }
+        return listaDepartamentos;
+    }
+
+    public void actualizarDatosDepartamento(int id, String cod, String nombre) {
+        try {
+            Connection conn = AccesoBaseDatos.getInstance().getConn();
+
+            // Consulta SQL para actualizar los datos del departamento
+            String sql = "UPDATE departamento SET cod=?, nombre=? WHERE id=?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, cod);
+            statement.setString(2, nombre);
+            statement.setInt(3, id);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar datos del departamento: " + ex.getMessage());
+        }
+    }
+
+    public void eliminarDepartamento(int idDepartamento) {
+        try {
+            Connection conn = AccesoBaseDatos.getInstance().getConn();
+
+            // Consulta SQL para eliminar un departamento por su ID
+            String sql = "DELETE FROM departamento WHERE id=?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, idDepartamento);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error al eliminar el departamento: " + ex.getMessage());
         }
     }
 }
