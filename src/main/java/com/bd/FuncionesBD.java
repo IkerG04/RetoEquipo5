@@ -4,6 +4,7 @@ Es muy conveniente comprobar el resultado de las consultas ejecutadas en la prop
  */
 package com.bd;
 
+import com.datos.Curso;
 import com.datos.Profesor;
 import com.datos.Usuario;
 import java.sql.ResultSet;
@@ -222,6 +223,7 @@ public class FuncionesBD {
         return user.getNombre() + " " + user.getApellidos();
     }
 
+    //Profesores
     public int numeroProfesores() {
 
         Connection conn = null;
@@ -285,4 +287,118 @@ public class FuncionesBD {
         return listaProfesores;
     }
 
+    public void actualizarDatosProfesor(int id, String dni, String correo, String nombre, String apellidos, boolean activo, String perfil, String contraseña, int departamento) {
+        try {
+            Connection conn = AccesoBaseDatos.getInstance().getConn();
+
+            // Consulta SQL para actualizar los datos del profesor
+            String sql = "UPDATE profesor SET dni=?, correo=?, nombre=?, apellidos=?, activo=?, perfil=?, contraseña=?, departamento=? WHERE id=?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, dni);
+            statement.setString(2, correo);
+            statement.setString(3, nombre);
+            statement.setString(4, apellidos);
+            statement.setBoolean(5, activo);
+            statement.setString(6, perfil);
+            statement.setString(7, contraseña);
+            statement.setInt(8, departamento);
+            statement.setInt(9, id);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar datos del profesor: " + ex.getMessage());
+        }
+    }
+
+    public void eliminarProfesor(int idProfesor) {
+        try {
+            Connection conn = AccesoBaseDatos.getInstance().getConn();
+
+            // Consulta SQL para eliminar un profesor por su ID
+            String sql = "DELETE FROM profesor WHERE id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, idProfesor);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error al eliminar el profesor: " + ex.getMessage());
+        }
+    }
+
+    public ArrayList<Curso> obtenerListaCursos() {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<Curso> listaCursos = new ArrayList<>();
+
+        try {
+            conn = AccesoBaseDatos.getInstance().getConn();
+
+            // Consulta para obtener todos los cursos
+            String sql = "SELECT * FROM curso";
+            pstmt = conn.prepareStatement(sql);
+
+            rs = pstmt.executeQuery();
+
+            // Iterar sobre los resultados y crear objetos Curso
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String etapa = rs.getString("etapa");
+                String descripcion = rs.getString("descripcion");
+                String codigoCurso = rs.getString("codcurso");
+                boolean activo = rs.getBoolean("activo");
+
+                // Agregar el curso a la lista
+                listaCursos.add(new Curso(id, etapa, descripcion, codigoCurso, activo));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en la consulta: " + ex.getMessage());
+        } finally {
+            // Cerrar recursos
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    System.out.println("Error al cerrar ResultSet: " + e.getMessage());
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    System.out.println("Error al cerrar PreparedStatement: " + e.getMessage());
+                }
+            }
+        }
+        return listaCursos;
+    }
+
+    public void modificarDatosCurso(int id, String nuevaEtapa, String nuevaDescripcion, String nuevoEstado) {
+        try {
+            Connection conn = AccesoBaseDatos.getInstance().getConn();
+
+            // Consulta SQL para actualizar la etapa, descripción y estado del curso
+            String sql = "UPDATE curso SET etapa=?, descripcion=?, activo=? WHERE id=?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, nuevaEtapa);
+            statement.setString(2, nuevaDescripcion);
+            statement.setString(3, nuevoEstado);
+            statement.setInt(4, id);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error al modificar datos del curso: " + ex.getMessage());
+        }
+    }
+
+    public void eliminarCurso(int idCurso) {
+        try {
+            Connection conn = AccesoBaseDatos.getInstance().getConn();
+
+            // Consulta SQL para eliminar un curso por su ID
+            String sql = "DELETE FROM curso WHERE id=?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, idCurso);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error al eliminar el curso: " + ex.getMessage());
+        }
+    }
 }

@@ -3,7 +3,6 @@ package com.programa;
 import java.awt.*;
 import com.bd.AccesoBaseDatos;
 import com.bd.FuncionesBD;
-import com.datos.Profesor;
 import com.datos.Usuario;
 import com.login.Login;
 import com.extra.ScrollBarCustom;
@@ -11,22 +10,18 @@ import java.awt.Color;
 import java.awt.Component;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.swing.ButtonModel;
-import javax.swing.DefaultCellEditor;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -34,6 +29,7 @@ public class Principal extends javax.swing.JFrame {
     private Usuario user;
     private JPanel activo;
     private JPanel activoSolicitud;
+    private JPanel activoMantenimiento;
     int xMouse, yMouse;
     private List<SolicitudData> solicitudes = new ArrayList<>(); // Lista para almacenar las solicitudes
     private Connection connection;
@@ -72,9 +68,14 @@ public class Principal extends javax.swing.JFrame {
         fondoMantenimientoIzquierda = new javax.swing.JPanel();
         profesorPanel = new javax.swing.JPanel();
         editarProfesores = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        eliminarProfesor = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaProfesores = new javax.swing.JTable();
+        cursosPanel = new javax.swing.JPanel();
+        editarCursos = new javax.swing.JButton();
+        eliminarCursos = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaCursos = new javax.swing.JTable();
         cerrar = new javax.swing.JPanel();
         cerrarTexto = new javax.swing.JLabel();
         minimizar = new javax.swing.JPanel();
@@ -349,8 +350,13 @@ public class Principal extends javax.swing.JFrame {
         });
         profesorPanel.add(editarProfesores, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 480, -1, -1));
 
-        jButton3.setText("Eliminar Todos");
-        profesorPanel.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 480, -1, -1));
+        eliminarProfesor.setText("Eliminar");
+        eliminarProfesor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                eliminarProfesorMousePressed(evt);
+            }
+        });
+        profesorPanel.add(eliminarProfesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 480, -1, -1));
 
         tablaProfesores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -376,10 +382,89 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tablaProfesores);
+        if (tablaProfesores.getColumnModel().getColumnCount() > 0) {
+            tablaProfesores.getColumnModel().getColumn(5).setHeaderValue("PERFIL");
+            tablaProfesores.getColumnModel().getColumn(6).setHeaderValue("CONTRASEÑA");
+            tablaProfesores.getColumnModel().getColumn(7).setHeaderValue("DEPARTAMENTO");
+        }
 
         profesorPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 640, -1));
 
-        panelMantenimiento.add(profesorPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
+        panelMantenimiento.add(profesorPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
+
+        cursosPanel.setBackground(new java.awt.Color(40, 40, 40));
+
+        editarCursos.setText("Editar");
+        editarCursos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                editarCursosMousePressed(evt);
+            }
+        });
+
+        eliminarCursos.setText("Eliminar");
+        eliminarCursos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                eliminarCursosMousePressed(evt);
+            }
+        });
+
+        tablaCursos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "CODIGO DEL CURSO", "DESCRIPCION", "ETAPA", "ACTIVO"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tablaCursos);
+
+        javax.swing.GroupLayout cursosPanelLayout = new javax.swing.GroupLayout(cursosPanel);
+        cursosPanel.setLayout(cursosPanelLayout);
+        cursosPanelLayout.setHorizontalGroup(
+            cursosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 850, Short.MAX_VALUE)
+            .addGroup(cursosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cursosPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(cursosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(cursosPanelLayout.createSequentialGroup()
+                            .addGap(250, 250, 250)
+                            .addComponent(editarCursos)
+                            .addGap(18, 18, 18)
+                            .addComponent(eliminarCursos)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        cursosPanelLayout.setVerticalGroup(
+            cursosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 540, Short.MAX_VALUE)
+            .addGroup(cursosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cursosPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(23, 23, 23)
+                    .addGroup(cursosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(editarCursos)
+                        .addComponent(eliminarCursos))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        panelMantenimiento.add(cursosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
 
         principal.add(panelMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
 
@@ -1167,6 +1252,15 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void editProfesor(int id, String dni, String correo, String nombreCompleto, boolean activo, String perfil, String contraseña, int departamento) {
+        String[] partesNombre = nombreCompleto.split("\\s+");
+        String nombre = partesNombre[0];
+        String apellidos = (partesNombre.length > 1) ? partesNombre[1] : "";
+
+        funcionesBD.actualizarDatosProfesor(id, dni, correo, nombre, apellidos, activo, perfil, contraseña, departamento);
+        mantenimientoProfesoresMousePressed(null);
+    }
+
     private void abrirMenu(JPanel panel) {
         if (activo != null) {
             activo.setSize(940, 0);
@@ -1175,9 +1269,27 @@ public class Principal extends javax.swing.JFrame {
         KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();
     }
 
+    private void cambiarEstado(JPanel panel, Color colorCarga, Color colorMantenimiento, Color colorSolicitud, Color colorActividad, Color colorUsuario) {
+        cargaDatos.setBackground(colorCarga);
+        mantenimiento.setBackground(colorMantenimiento);
+        solicitud.setBackground(colorSolicitud);
+        actividad.setBackground(colorActividad);
+        usuario.setBackground(colorUsuario);
+        abrirMenu(panel);
+        animacionEjecutada = true;
+    }
+
     private void abrirMenuSolicitud(JPanel panel) {
         if (activo != null) {
             activoSolicitud.setSize(850, 0);
+        }
+        panel.setSize(850, 540);
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();
+    }
+
+    private void abrirMenuMantenimiento(JPanel panel) {
+        if (activo != null) {
+            activoMantenimiento.setSize(850, 0);
         }
         panel.setSize(850, 540);
         KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();
@@ -1282,59 +1394,23 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private void cargaDatosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargaDatosMousePressed
-        cargaDatos.setBackground(new Color(40, 40, 40));
-        mantenimiento.setBackground(new Color(51, 51, 51));
-        solicitud.setBackground(new Color(51, 51, 51));
-        actividad.setBackground(new Color(51, 51, 51));
-        usuario.setBackground(new Color(51, 51, 51));
-        abrirMenu(panelCargaDatos);
-        activo = panelCargaDatos;
-        animacionEjecutada = true;
+        cambiarEstado(panelCargaDatos, new Color(40, 40, 40), new Color(51, 51, 51), new Color(51, 51, 51), new Color(51, 51, 51), new Color(51, 51, 51));
     }//GEN-LAST:event_cargaDatosMousePressed
 
     private void mantenimientoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoMousePressed
-        cargaDatos.setBackground(new Color(51, 51, 51));
-        mantenimiento.setBackground(new Color(40, 40, 40));
-        solicitud.setBackground(new Color(51, 51, 51));
-        actividad.setBackground(new Color(51, 51, 51));
-        usuario.setBackground(new Color(51, 51, 51));
-        abrirMenu(panelMantenimiento);
-        activo = panelMantenimiento;
-        animacionEjecutada = true;
+        cambiarEstado(panelMantenimiento, new Color(51, 51, 51), new Color(40, 40, 40), new Color(51, 51, 51), new Color(51, 51, 51), new Color(51, 51, 51));
     }//GEN-LAST:event_mantenimientoMousePressed
 
     private void solicitudMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_solicitudMousePressed
-        cargaDatos.setBackground(new Color(51, 51, 51));
-        mantenimiento.setBackground(new Color(51, 51, 51));
-        solicitud.setBackground(new Color(40, 40, 40));
-        actividad.setBackground(new Color(51, 51, 51));
-        usuario.setBackground(new Color(51, 51, 51));
-        abrirMenu(panelSolicitud);
-        activo = panelSolicitud;
-        animacionEjecutada = true;
+        cambiarEstado(panelSolicitud, new Color(51, 51, 51), new Color(51, 51, 51), new Color(40, 40, 40), new Color(51, 51, 51), new Color(51, 51, 51));
     }//GEN-LAST:event_solicitudMousePressed
 
     private void actividadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actividadMousePressed
-        cargaDatos.setBackground(new Color(51, 51, 51));
-        mantenimiento.setBackground(new Color(51, 51, 51));
-        solicitud.setBackground(new Color(51, 51, 51));
-        actividad.setBackground(new Color(40, 40, 40));
-        usuario.setBackground(new Color(51, 51, 51));
-        abrirMenu(panelActividad);
-        activo = panelActividad;
-        animacionEjecutada = true;
+        cambiarEstado(panelActividad, new Color(51, 51, 51), new Color(51, 51, 51), new Color(51, 51, 51), new Color(40, 40, 40), new Color(51, 51, 51));
     }//GEN-LAST:event_actividadMousePressed
 
     private void usuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usuarioMousePressed
-        cargaDatos.setBackground(new Color(51, 51, 51));
-        mantenimiento.setBackground(new Color(51, 51, 51));
-        solicitud.setBackground(new Color(51, 51, 51));
-        actividad.setBackground(new Color(51, 51, 51));
-        usuario.setBackground(new Color(40, 40, 40));
-        abrirMenu(panelUsuario);
-        activo = panelUsuario;
-        animacionEjecutada = true;
-
+        cambiarEstado(panelUsuario, new Color(51, 51, 51), new Color(51, 51, 51), new Color(51, 51, 51), new Color(51, 51, 51), new Color(40, 40, 40));
         nombreUsuario.setText(funcionesBD.getNombreProfesor(user));
     }//GEN-LAST:event_usuarioMousePressed
 
@@ -1541,7 +1617,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_verPanelScrollMouseWheelMoved
 
     private void mantenimientoCursosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoCursosMousePressed
-        // TODO add your handling code here:
+        MantenimientosBasicos mantenimientosBasicos = new MantenimientosBasicos();
+        mantenimientosBasicos.mantenimientoCursos(tablaCursos, cursosPanel);
     }//GEN-LAST:event_mantenimientoCursosMousePressed
 
     private void mantenimientoGruposMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoGruposMousePressed
@@ -1553,78 +1630,99 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_mantenimientoDepartamentosMousePressed
 
     private void mantenimientoProfesoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoProfesoresMousePressed
-        System.out.println("Iniciando carga de datos de profesores...");
-
-// Consulta SQL para obtener todos los profesores
-        ArrayList<Profesor> listaProfesores = funcionesBD.obtenerListaProfesores();
-
-// Crear un nuevo DefaultTableModel con los datos de los profesores
-        DefaultTableModel tablaProfesoresModelo = new DefaultTableModel();
-        tablaProfesoresModelo.setColumnIdentifiers(new Object[]{"ID", "DNI", "Correo", "Nombre Completo", "Activo", "Perfil", "Contraseña", "Departamento"});
-
-// Verificar si se obtuvieron datos de algún profesor
-        if (!listaProfesores.isEmpty()) {
-            System.out.println("Se obtuvieron datos de profesores. Cargando en la tabla...");
-
-            // Iterar sobre la lista de profesores y agregar una fila por cada uno
-            for (Profesor profesor : listaProfesores) {
-                System.out.println("Agregando profesor a la tabla: " + profesor.getNombreCompleto());
-                tablaProfesoresModelo.addRow(new Object[]{
-                    profesor.getId(),
-                    profesor.getDni(),
-                    profesor.getCorreo(),
-                    profesor.getNombreCompleto(),
-                    profesor.getActivo(),
-                    profesor.getPerfil(),
-                    profesor.getPass(),
-                    profesor.getDepartamento()
-                });
-            }
-        } else {
-            // Si no se encuentran datos de profesores, puedes mostrar un mensaje o realizar otra acción
-            System.out.println("No se encontraron datos de profesores.");
-
-            // Limpiar la tabla si no hay datos de profesores
-            tablaProfesoresModelo.setRowCount(0);
-        }
-
-// Asignar el modelo de la tabla al JTable correspondiente
-        tablaProfesores.setModel(tablaProfesoresModelo);
-
-// Validar y repintar el contenedor que contiene la tabla
-        profesorPanel.revalidate();
-        profesorPanel.repaint();
-        System.out.println("Carga de datos de profesores completada.");
-
+        MantenimientosBasicos mantenimientosBasicos = new MantenimientosBasicos();
+        mantenimientosBasicos.mantenimientoProfesores(tablaProfesores, profesorPanel);
     }//GEN-LAST:event_mantenimientoProfesoresMousePressed
 
     private void editarProfesoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarProfesoresMousePressed
-        // Obtener el índice de la fila seleccionada
         int selectedRow = tablaProfesores.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione un profesor para editar.");
+            return;
+        }
+        TableModel tableModel = tablaProfesores.getModel();
+        // Verificar si el modelo de tabla no está vacío y si la fila seleccionada es válida
+        if (tableModel != null && selectedRow >= 0 && selectedRow < tableModel.getRowCount()) {
+            String idStr = tableModel.getValueAt(selectedRow, 0).toString();
+            String dni = JOptionPane.showInputDialog(this, "Nuevo DNI del profesor:", tableModel.getValueAt(selectedRow, 1));
+            String correo = JOptionPane.showInputDialog(this, "Nuevo Correo del profesor:", tableModel.getValueAt(selectedRow, 2));
+            String nombreCompleto = JOptionPane.showInputDialog(this, "Nuevo Nombre completo del profesor:", tableModel.getValueAt(selectedRow, 3));
+            String activoStr = JOptionPane.showInputDialog(this, "Activo (1 para sí, 0 para no):", tableModel.getValueAt(selectedRow, 4));
+            boolean activo = (activoStr != null && activoStr.equals("1"));
+            String perfil = JOptionPane.showInputDialog(this, "Nuevo Perfil del profesor:", tableModel.getValueAt(selectedRow, 5));
+            String contraseña = JOptionPane.showInputDialog(this, "Nueva Contraseña del profesor:", tableModel.getValueAt(selectedRow, 6));
+            String departamentoStr = JOptionPane.showInputDialog(this, "Nuevo ID del departamento:", tableModel.getValueAt(selectedRow, 7));
 
-        // Verificar si se ha seleccionado alguna fila
-        if (selectedRow != -1) {
-            // Verificar si los campos están actualmente en modo de edición
-            boolean editable = tablaProfesores.isEditing();
-
-            // Alternar entre el modo de edición y no edición de los campos
-            if (editable) {
-                // Si los campos están actualmente en modo de edición, finalizar la edición
-                tablaProfesores.getCellEditor().stopCellEditing();
-            } else {
-                // Si los campos no están actualmente en modo de edición, iniciar la edición
-                int columnToEdit = 0; // Puedes cambiar este valor para editar una columna específica
-                tablaProfesores.editCellAt(selectedRow, columnToEdit);
-                Component editor = tablaProfesores.getEditorComponent();
-                if (editor != null) {
-                    editor.requestFocusInWindow();
-                }
+            if (dni != null && correo != null && nombreCompleto != null && perfil != null && contraseña != null && departamentoStr != null) {
+                int id = Integer.parseInt(idStr);
+                int departamento = Integer.parseInt(departamentoStr);
+                editProfesor(id, dni, correo, nombreCompleto, activo, perfil, contraseña, departamento);
             }
         } else {
-            // Si no se ha seleccionado ninguna fila, puedes mostrar un mensaje indicando al usuario que seleccione una fila antes de intentar modificarla
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila para modificar.");
+            // Manejar el caso en el que el modelo de tabla está vacío o la fila seleccionada no es válida
+            JOptionPane.showMessageDialog(this, "No se puede editar la fila seleccionada.");
         }
     }//GEN-LAST:event_editarProfesoresMousePressed
+
+    private void eliminarProfesorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarProfesorMousePressed
+        int selectedRow = tablaProfesores.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione un profesor para eliminar.");
+            return;
+        }
+        TableModel tableModel = tablaProfesores.getModel();
+        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar el profesor seleccionado?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            int id = (int) tableModel.getValueAt(selectedRow, 0); // Suponiendo que el ID del profesor está en la columna 0
+            funcionesBD.eliminarProfesor(id);
+            mantenimientoProfesoresMousePressed(null);
+        }
+    }//GEN-LAST:event_eliminarProfesorMousePressed
+
+    private void editarCursosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarCursosMousePressed
+        int selectedRow = tablaCursos.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione un curso para editar.");
+            return;
+        }
+        TableModel tableModel = tablaCursos.getModel();
+// Verificar si el modelo de tabla no está vacío y si la fila seleccionada es válida
+        if (tableModel != null && selectedRow >= 0 && selectedRow < tableModel.getRowCount()) {
+            String idStr = tableModel.getValueAt(selectedRow, 0).toString();
+            String nuevaEtapa = JOptionPane.showInputDialog(this, "Nueva Etapa del curso:", tableModel.getValueAt(selectedRow, 1));
+            String nuevaDescripcion = JOptionPane.showInputDialog(this, "Nueva Descripción del curso:", tableModel.getValueAt(selectedRow, 2));
+            String nuevoActivo = JOptionPane.showInputDialog(this, "Nuevo Estado del curso (1 para activo, 0 para inactivo):", tableModel.getValueAt(selectedRow, 3));
+
+            if (nuevaEtapa != null && nuevaDescripcion != null && nuevoActivo != null) {
+                int id = Integer.parseInt(idStr);
+                String nuevoActivoStr = nuevoActivo.equals("1") ? "Activo" : "Inactivo";
+                funcionesBD.modificarDatosCurso(id, nuevaEtapa, nuevaDescripcion, nuevoActivoStr);
+            }
+        } else {
+            // Manejar el caso en el que el modelo de tabla está vacío o la fila seleccionada no es válida
+            JOptionPane.showMessageDialog(this, "No se puede editar la fila seleccionada.");
+        }
+        mantenimientoCursosMousePressed(null);
+    }//GEN-LAST:event_editarCursosMousePressed
+
+    private void eliminarCursosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarCursosMousePressed
+        int selectedRow = tablaCursos.getSelectedRow();
+        if (selectedRow != -1) {
+            int id = (int) tablaCursos.getValueAt(selectedRow, 0);
+            // Aquí puedes mostrar un mensaje de confirmación antes de eliminar el curso
+            int confirmacion = JOptionPane.showConfirmDialog(this,
+                    "¿Está seguro que desea eliminar este curso?", "Confirmar Eliminación",
+                    JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                funcionesBD.eliminarCurso(id);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Por favor, seleccione un curso para eliminar.",
+                    "Eliminar Curso", JOptionPane.WARNING_MESSAGE);
+        }
+        mantenimientoCursosMousePressed(null);
+    }//GEN-LAST:event_eliminarCursosMousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actividad;
@@ -1636,7 +1734,11 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel cargarSolicitudes;
     private javax.swing.JPanel cerrar;
     private javax.swing.JLabel cerrarTexto;
+    private javax.swing.JPanel cursosPanel;
+    private javax.swing.JButton editarCursos;
     private javax.swing.JButton editarProfesores;
+    private javax.swing.JButton eliminarCursos;
+    private javax.swing.JButton eliminarProfesor;
     private javax.swing.JPanel fondoIzquierda;
     private javax.swing.JPanel fondoMantenimientoIzquierda;
     private javax.swing.JPanel fondoSolicitudIzquierda;
@@ -1653,11 +1755,11 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel imagenVerSolicitud1;
     private javax.swing.JLabel imagenVerSolicitud2;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel mantenimiento;
     private javax.swing.JPanel mantenimientoCursos;
     private javax.swing.JPanel mantenimientoDepartamentos;
@@ -1706,6 +1808,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField solicitudCargarTituloTxt;
     private javax.swing.JLabel solicitudCargarTransporte;
     private javax.swing.JTextField solicitudCargarTransporteTxt;
+    private javax.swing.JTable tablaCursos;
     private javax.swing.JTable tablaProfesores;
     private javax.swing.JLabel textoActividad;
     private javax.swing.JLabel textoCancelar;

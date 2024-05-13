@@ -1,219 +1,110 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.programa;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import com.bd.AccesoBaseDatos;
+import com.bd.FuncionesBD;
+import com.datos.Curso;
+import com.datos.Profesor;
+import java.util.ArrayList;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
-public class MantenimientosBasicos extends JFrame {
+/**
+ *
+ * @author DAW104
+ */
+public class MantenimientosBasicos {
 
-    private JFrame principal; // Referencia al JFrame principal
+    FuncionesBD funcionesBD = new FuncionesBD();
+    private DefaultTableModel tablaModelo = new DefaultTableModel();
 
-    public MantenimientosBasicos(JFrame principal) {
-        super("Mantenimiento Básico");
+    public void mantenimientoProfesores(JTable tablaProfesores, JPanel profesorPanel) {
+        System.out.println("Iniciando carga de datos de profesores...");
 
-        this.principal = principal; // Asignar la referencia al JFrame principal
+        // Consulta SQL para obtener todos los profesores
+        ArrayList<Profesor> listaProfesores = funcionesBD.obtenerListaProfesores();
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 300);
-        setLocationRelativeTo(null);
+        // Crear un nuevo DefaultTableModel con los datos de los profesores
+        tablaModelo.setColumnIdentifiers(new Object[]{"ID", "DNI", "Correo", "Nombre Completo", "Activo", "Perfil", "Contraseña", "Departamento"});
 
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 2, 10, 10)); // Panel para botones con espacio vertical
+        // Verificar si se obtuvieron datos de algún profesor
+        if (!listaProfesores.isEmpty()) {
+            System.out.println("Se obtuvieron datos de profesores. Cargando en la tabla...");
 
-        JButton professorsButton = new JButton("Profesores");
-        JButton coursesButton = new JButton("Cursos");
-        JButton groupsButton = new JButton("Grupos");
-        JButton departmentsButton = new JButton("Departamentos");
-        JButton backButton = new JButton("Volver");
-
-        // Estilo de botones
-        Font buttonFont = new Font("Arial", Font.BOLD, 14);
-        professorsButton.setFont(buttonFont);
-        coursesButton.setFont(buttonFont);
-        groupsButton.setFont(buttonFont);
-        departmentsButton.setFont(buttonFont);
-        backButton.setFont(buttonFont);
-
-        Color buttonColor = new Color(255, 204, 153);
-        professorsButton.setBackground(buttonColor);
-        coursesButton.setBackground(buttonColor);
-        groupsButton.setBackground(buttonColor);
-        departmentsButton.setBackground(buttonColor);
-        backButton.setBackground(buttonColor);
-
-        // Añadir botones al panel de botones
-        buttonPanel.add(professorsButton);
-        buttonPanel.add(coursesButton);
-        buttonPanel.add(groupsButton);
-        buttonPanel.add(departmentsButton);
-
-        mainPanel.add(buttonPanel, BorderLayout.CENTER);
-        mainPanel.add(backButton, BorderLayout.SOUTH);
-
-        // Manejar eventos de botones
-        professorsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showActionSelectionDialog("Profesores");
+            // Iterar sobre la lista de profesores y agregar una fila por cada uno
+            for (Profesor profesor : listaProfesores) {
+                System.out.println("Agregando profesor a la tabla: " + profesor.getNombreCompleto());
+                tablaModelo.addRow(new Object[]{
+                    profesor.getId(),
+                    profesor.getDni(),
+                    profesor.getCorreo(),
+                    profesor.getNombreCompleto(),
+                    profesor.getActivo(),
+                    profesor.getPerfil(),
+                    profesor.getPass(),
+                    profesor.getDepartamento()
+                });
             }
-        });
+        } else {
+            // Si no se encuentran datos de profesores, puedes mostrar un mensaje o realizar otra acción
+            System.out.println("No se encontraron datos de profesores.");
 
-        coursesButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showActionSelectionDialog("Cursos");
-            }
-        });
-
-        groupsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showActionSelectionDialog("Grupos");
-            }
-        });
-
-        departmentsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showActionSelectionDialog("Departamentos");
-            }
-        });
-
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Hacer visible el JFrame principal y cerrar el actual
-                principal.setVisible(true);
-                dispose();
-            }
-        });
-
-        getContentPane().add(mainPanel);
-    }
-
-    private void showActionSelectionDialog(String entityType) {
-        String[] options = {"Editar", "Eliminar"};
-        int choice = JOptionPane.showOptionDialog(this,
-                "¿Qué acción deseas realizar para " + entityType + "?",
-                "Selección de Acción",
-                JOptionPane.DEFAULT_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                options[0]);
-
-        if (choice == 0) {
-            showMaintenanceDialog(entityType, "Editar");
-        } else if (choice == 1) {
-            int confirmOption = JOptionPane.showConfirmDialog(this,
-                    "¿Estás seguro de eliminar la información de " + entityType + "?",
-                    "Confirmación de Eliminación",
-                    JOptionPane.YES_NO_OPTION);
-
-            if (confirmOption == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(this,
-                        "Información de " + entityType + " eliminada exitosamente.",
-                        "Eliminación Exitosa",
-                        JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "Operación de eliminación cancelada.",
-                        "Operación Cancelada",
-                        JOptionPane.WARNING_MESSAGE);
-            }
-        }
-    }
-
-    private void showMaintenanceDialog(String entityType, String action) {
-        String[] currentData = fetchCurrentData(entityType);
-
-        if (currentData == null) {
-            JOptionPane.showMessageDialog(this,
-                    "No se encontraron datos de " + entityType + ".",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
+            // Limpiar la tabla si no hay datos de profesores
+            tablaModelo.setRowCount(0);
         }
 
-        JPanel inputPanel = new JPanel(new GridLayout(currentData.length, 2));
+        // Asignar el modelo de la tabla al JTable correspondiente
+        tablaProfesores.setModel(tablaModelo);
 
-        JTextField[] textFields = new JTextField[currentData.length];
-        for (int i = 0; i < currentData.length; i++) {
-            inputPanel.add(new JLabel(entityType + " " + (i + 1) + ":"));
-            textFields[i] = new JTextField(currentData[i]);
-            inputPanel.add(textFields[i]);
-        }
+        // Validar y repintar el contenedor que contiene la tabla
+        profesorPanel.revalidate();
+        profesorPanel.repaint();
+        System.out.println("Carga de datos de profesores completada.");
+    }
 
-        int option = JOptionPane.showConfirmDialog(this,
-                inputPanel,
-                action + " " + entityType,
-                JOptionPane.OK_CANCEL_OPTION,
-                JOptionPane.PLAIN_MESSAGE);
+    public void mantenimientoCursos(JTable tablaCursos, JPanel cursoPanel) {
+        System.out.println("Iniciando carga de datos de cursos...");
 
-        if (option == JOptionPane.OK_OPTION) {
-            String[] newData = new String[currentData.length];
-            for (int i = 0; i < textFields.length; i++) {
-                newData[i] = textFields[i].getText();
+        // Consulta SQL para obtener todos los cursos
+        ArrayList<Curso> listaCursos = funcionesBD.obtenerListaCursos();
+
+        // Crear un nuevo DefaultTableModel con los datos de los cursos
+        DefaultTableModel tablaModelo = new DefaultTableModel();
+        tablaModelo.setColumnIdentifiers(new Object[]{"ID", "Etapa", "Descripción", "Código del Curso", "Activo"});
+
+        // Verificar si se obtuvieron datos de algún curso
+        if (!listaCursos.isEmpty()) {
+            System.out.println("Se obtuvieron datos de cursos. Cargando en la tabla...");
+
+            // Iterar sobre la lista de cursos y agregar una fila por cada uno
+            for (Curso curso : listaCursos) {
+                System.out.println("Agregando curso a la tabla: " + curso.getEtapa());
+                tablaModelo.addRow(new Object[]{
+                    curso.getId(),
+                    curso.getEtapa(),
+                    curso.getDescripcion(),
+                    curso.getCodcurso(),
+                    curso.isActivo()
+                });
             }
+        } else {
+            // Si no se encuentran datos de cursos, puedes mostrar un mensaje o realizar otra acción
+            System.out.println("No se encontraron datos de cursos.");
 
-            boolean changesSaved = saveChanges(entityType, newData);
-
-            if (changesSaved) {
-                JOptionPane.showMessageDialog(this,
-                        "Cambios guardados exitosamente.",
-                        "Éxito",
-                        JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "Error al guardar los cambios. Inténtalo de nuevo.",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            }
+            // Limpiar la tabla si no hay datos de cursos
+            tablaModelo.setRowCount(0);
         }
+
+        // Asignar el modelo de la tabla al JTable correspondiente
+        tablaCursos.setModel(tablaModelo);
+
+        // Validar y repintar el contenedor que contiene la tabla
+        cursoPanel.revalidate();
+        cursoPanel.repaint();
+        System.out.println("Carga de datos de cursos completada.");
     }
-
-    private String[] fetchCurrentData(String entityType) {
-        if (entityType.equals("Profesores")) {
-            return new String[]{"Juan Pérez", "María Gómez", "Carlos Ruiz"};
-        } else if (entityType.equals("Cursos")) {
-            return new String[]{"Matemáticas", "Historia", "Inglés"};
-        } else if (entityType.equals("Grupos")) {
-            return new String[]{"Grupo A", "Grupo B", "Grupo C"};
-        } else if (entityType.equals("Departamentos")) {
-            return new String[]{"Informática", "Matemáticas", "Ciencias Sociales"};
-        }
-        return null;
-    }
-
-    private boolean saveChanges(String entityType, String[] newData) {
-        System.out.println("Guardando cambios para " + entityType + ": " + String.join(", ", newData));
-        return true; // Simulación de éxito
-    }
-
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * @param args the command line arguments
-     */
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
 }
