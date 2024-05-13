@@ -1,4 +1,4 @@
-package com.scrollBar;
+package com.extra;
 
 import java.awt.Color;
 import java.awt.Dimension;

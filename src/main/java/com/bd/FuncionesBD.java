@@ -4,12 +4,14 @@ Es muy conveniente comprobar el resultado de las consultas ejecutadas en la prop
  */
 package com.bd;
 
+import com.datos.Profesor;
 import com.datos.Usuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 
 /**
  *
@@ -218,6 +220,69 @@ public class FuncionesBD {
 
     public String getNombreProfesor(Usuario user) {
         return user.getNombre() + " " + user.getApellidos();
+    }
+
+    public int numeroProfesores() {
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = AccesoBaseDatos.getInstance().getConn();
+
+            // Consulta para obtener el número de solicitudes
+            String sql = "SELECT COUNT(*) AS num_profesores FROM profesor";
+            pstmt = conn.prepareStatement(sql);
+
+            rs = pstmt.executeQuery();
+
+            // Verificamos si hay resultados y devolvemos el resultado de COUNT(*)
+            if (rs.next()) {
+                return rs.getInt("num_solicitudes");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en la consulta: " + ex.getMessage());
+        }
+
+        // Si algo falla o no se encuentra ningún resultado, retornamos 0
+        return 0;
+
+    }
+
+    public ArrayList<Profesor> obtenerListaProfesores() {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<Profesor> listaProfesores = new ArrayList<>();
+
+        try {
+            conn = AccesoBaseDatos.getInstance().getConn();
+
+            // Consulta para obtener todos los profesores
+            String sql = "SELECT * FROM profesor";
+            pstmt = conn.prepareStatement(sql);
+
+            rs = pstmt.executeQuery();
+
+            // Iterar sobre los resultados y crear objetos Profesor
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String dni = rs.getString("dni");
+                String correo = rs.getString("correo");
+                String nombreCompleto = rs.getString("nombre") + " " + rs.getString("apellidos");
+                boolean activo = rs.getBoolean("activo");
+                String perfil = rs.getString("perfil");
+                String pass = rs.getString("contraseña");
+                int departamento = rs.getInt("departamento");
+
+                // Agregar el profesor a la lista
+                listaProfesores.add(new Profesor(id, dni, correo, nombreCompleto, activo, perfil, pass, departamento));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en la consulta: " + ex.getMessage());
+        }
+        return listaProfesores;
     }
 
 }

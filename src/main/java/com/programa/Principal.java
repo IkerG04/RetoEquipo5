@@ -3,24 +3,30 @@ package com.programa;
 import java.awt.*;
 import com.bd.AccesoBaseDatos;
 import com.bd.FuncionesBD;
+import com.datos.Profesor;
 import com.datos.Usuario;
 import com.login.Login;
-import com.scrollBar.ScrollBarCustom;
+import com.extra.ScrollBarCustom;
 import java.awt.Color;
 import java.awt.Component;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.swing.ButtonModel;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -41,6 +47,7 @@ public class Principal extends javax.swing.JFrame {
         activo = panelSolicitud;
         activoSolicitud = verPanel;
         setLocationRelativeTo(null);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -50,19 +57,24 @@ public class Principal extends javax.swing.JFrame {
         actividadPrevista = new javax.swing.ButtonGroup();
         principal = new javax.swing.JPanel();
         panelMantenimiento = new javax.swing.JPanel();
-        verSolicitudes1 = new javax.swing.JPanel();
+        mantenimientoCursos = new javax.swing.JPanel();
         imagenVerSolicitud1 = new javax.swing.JLabel();
         textoVerSolicitud1 = new javax.swing.JLabel();
-        cargarSolicitudes1 = new javax.swing.JPanel();
+        mantenimientoGrupos = new javax.swing.JPanel();
         imagenCargarSolicitud1 = new javax.swing.JLabel();
         textoCargarSolicitud1 = new javax.swing.JLabel();
-        cargarSolicitudes2 = new javax.swing.JPanel();
+        mantenimientoDepartamentos = new javax.swing.JPanel();
         imagenCargarSolicitud2 = new javax.swing.JLabel();
         textoCargarSolicitud2 = new javax.swing.JLabel();
-        verSolicitudes2 = new javax.swing.JPanel();
+        mantenimientoProfesores = new javax.swing.JPanel();
         imagenVerSolicitud2 = new javax.swing.JLabel();
         textoVerSolicitud2 = new javax.swing.JLabel();
-        fondoSolicitudIzquierda1 = new javax.swing.JPanel();
+        fondoMantenimientoIzquierda = new javax.swing.JPanel();
+        profesorPanel = new javax.swing.JPanel();
+        editarProfesores = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaProfesores = new javax.swing.JTable();
         cerrar = new javax.swing.JPanel();
         cerrarTexto = new javax.swing.JLabel();
         minimizar = new javax.swing.JPanel();
@@ -150,12 +162,12 @@ public class Principal extends javax.swing.JFrame {
         panelMantenimiento.setBackground(new java.awt.Color(40, 40, 40));
         panelMantenimiento.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        verSolicitudes1.setBackground(new java.awt.Color(51, 51, 51));
-        verSolicitudes1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        verSolicitudes1.setPreferredSize(new java.awt.Dimension(90, 80));
-        verSolicitudes1.addMouseListener(new java.awt.event.MouseAdapter() {
+        mantenimientoCursos.setBackground(new java.awt.Color(51, 51, 51));
+        mantenimientoCursos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mantenimientoCursos.setPreferredSize(new java.awt.Dimension(90, 80));
+        mantenimientoCursos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                verSolicitudes1MousePressed(evt);
+                mantenimientoCursosMousePressed(evt);
             }
         });
 
@@ -166,21 +178,21 @@ public class Principal extends javax.swing.JFrame {
         textoVerSolicitud1.setText("Cursos");
         textoVerSolicitud1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        javax.swing.GroupLayout verSolicitudes1Layout = new javax.swing.GroupLayout(verSolicitudes1);
-        verSolicitudes1.setLayout(verSolicitudes1Layout);
-        verSolicitudes1Layout.setHorizontalGroup(
-            verSolicitudes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(verSolicitudes1Layout.createSequentialGroup()
+        javax.swing.GroupLayout mantenimientoCursosLayout = new javax.swing.GroupLayout(mantenimientoCursos);
+        mantenimientoCursos.setLayout(mantenimientoCursosLayout);
+        mantenimientoCursosLayout.setHorizontalGroup(
+            mantenimientoCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mantenimientoCursosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(textoVerSolicitud1, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, verSolicitudes1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mantenimientoCursosLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(imagenVerSolicitud1)
                 .addGap(19, 19, 19))
         );
-        verSolicitudes1Layout.setVerticalGroup(
-            verSolicitudes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(verSolicitudes1Layout.createSequentialGroup()
+        mantenimientoCursosLayout.setVerticalGroup(
+            mantenimientoCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mantenimientoCursosLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(imagenVerSolicitud1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -188,14 +200,14 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        panelMantenimiento.add(verSolicitudes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 133, 91, -1));
+        panelMantenimiento.add(mantenimientoCursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 133, 91, -1));
 
-        cargarSolicitudes1.setBackground(new java.awt.Color(51, 51, 51));
-        cargarSolicitudes1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cargarSolicitudes1.setPreferredSize(new java.awt.Dimension(90, 80));
-        cargarSolicitudes1.addMouseListener(new java.awt.event.MouseAdapter() {
+        mantenimientoGrupos.setBackground(new java.awt.Color(51, 51, 51));
+        mantenimientoGrupos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mantenimientoGrupos.setPreferredSize(new java.awt.Dimension(90, 80));
+        mantenimientoGrupos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                cargarSolicitudes1MousePressed(evt);
+                mantenimientoGruposMousePressed(evt);
             }
         });
 
@@ -206,21 +218,21 @@ public class Principal extends javax.swing.JFrame {
         textoCargarSolicitud1.setText("Grupos");
         textoCargarSolicitud1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        javax.swing.GroupLayout cargarSolicitudes1Layout = new javax.swing.GroupLayout(cargarSolicitudes1);
-        cargarSolicitudes1.setLayout(cargarSolicitudes1Layout);
-        cargarSolicitudes1Layout.setHorizontalGroup(
-            cargarSolicitudes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cargarSolicitudes1Layout.createSequentialGroup()
+        javax.swing.GroupLayout mantenimientoGruposLayout = new javax.swing.GroupLayout(mantenimientoGrupos);
+        mantenimientoGrupos.setLayout(mantenimientoGruposLayout);
+        mantenimientoGruposLayout.setHorizontalGroup(
+            mantenimientoGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mantenimientoGruposLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(textoCargarSolicitud1, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cargarSolicitudes1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mantenimientoGruposLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(imagenCargarSolicitud1)
                 .addGap(19, 19, 19))
         );
-        cargarSolicitudes1Layout.setVerticalGroup(
-            cargarSolicitudes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cargarSolicitudes1Layout.createSequentialGroup()
+        mantenimientoGruposLayout.setVerticalGroup(
+            mantenimientoGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mantenimientoGruposLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(imagenCargarSolicitud1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -228,14 +240,14 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        panelMantenimiento.add(cargarSolicitudes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 223, 91, 80));
+        panelMantenimiento.add(mantenimientoGrupos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 223, 91, 80));
 
-        cargarSolicitudes2.setBackground(new java.awt.Color(51, 51, 51));
-        cargarSolicitudes2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cargarSolicitudes2.setPreferredSize(new java.awt.Dimension(90, 80));
-        cargarSolicitudes2.addMouseListener(new java.awt.event.MouseAdapter() {
+        mantenimientoDepartamentos.setBackground(new java.awt.Color(51, 51, 51));
+        mantenimientoDepartamentos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mantenimientoDepartamentos.setPreferredSize(new java.awt.Dimension(90, 80));
+        mantenimientoDepartamentos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                cargarSolicitudes2MousePressed(evt);
+                mantenimientoDepartamentosMousePressed(evt);
             }
         });
 
@@ -246,21 +258,21 @@ public class Principal extends javax.swing.JFrame {
         textoCargarSolicitud2.setText("Departamentos");
         textoCargarSolicitud2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        javax.swing.GroupLayout cargarSolicitudes2Layout = new javax.swing.GroupLayout(cargarSolicitudes2);
-        cargarSolicitudes2.setLayout(cargarSolicitudes2Layout);
-        cargarSolicitudes2Layout.setHorizontalGroup(
-            cargarSolicitudes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cargarSolicitudes2Layout.createSequentialGroup()
+        javax.swing.GroupLayout mantenimientoDepartamentosLayout = new javax.swing.GroupLayout(mantenimientoDepartamentos);
+        mantenimientoDepartamentos.setLayout(mantenimientoDepartamentosLayout);
+        mantenimientoDepartamentosLayout.setHorizontalGroup(
+            mantenimientoDepartamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mantenimientoDepartamentosLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(imagenCargarSolicitud2)
                 .addGap(19, 19, 19))
-            .addGroup(cargarSolicitudes2Layout.createSequentialGroup()
+            .addGroup(mantenimientoDepartamentosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(textoCargarSolicitud2, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
         );
-        cargarSolicitudes2Layout.setVerticalGroup(
-            cargarSolicitudes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cargarSolicitudes2Layout.createSequentialGroup()
+        mantenimientoDepartamentosLayout.setVerticalGroup(
+            mantenimientoDepartamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mantenimientoDepartamentosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(imagenCargarSolicitud2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -268,14 +280,14 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelMantenimiento.add(cargarSolicitudes2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 313, 91, -1));
+        panelMantenimiento.add(mantenimientoDepartamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 313, 91, -1));
 
-        verSolicitudes2.setBackground(new java.awt.Color(51, 51, 51));
-        verSolicitudes2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        verSolicitudes2.setPreferredSize(new java.awt.Dimension(90, 80));
-        verSolicitudes2.addMouseListener(new java.awt.event.MouseAdapter() {
+        mantenimientoProfesores.setBackground(new java.awt.Color(40, 40, 40));
+        mantenimientoProfesores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mantenimientoProfesores.setPreferredSize(new java.awt.Dimension(90, 80));
+        mantenimientoProfesores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                verSolicitudes2MousePressed(evt);
+                mantenimientoProfesoresMousePressed(evt);
             }
         });
 
@@ -286,21 +298,21 @@ public class Principal extends javax.swing.JFrame {
         textoVerSolicitud2.setText("Profesores");
         textoVerSolicitud2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        javax.swing.GroupLayout verSolicitudes2Layout = new javax.swing.GroupLayout(verSolicitudes2);
-        verSolicitudes2.setLayout(verSolicitudes2Layout);
-        verSolicitudes2Layout.setHorizontalGroup(
-            verSolicitudes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(verSolicitudes2Layout.createSequentialGroup()
+        javax.swing.GroupLayout mantenimientoProfesoresLayout = new javax.swing.GroupLayout(mantenimientoProfesores);
+        mantenimientoProfesores.setLayout(mantenimientoProfesoresLayout);
+        mantenimientoProfesoresLayout.setHorizontalGroup(
+            mantenimientoProfesoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mantenimientoProfesoresLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(textoVerSolicitud2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, verSolicitudes2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mantenimientoProfesoresLayout.createSequentialGroup()
                 .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(imagenVerSolicitud2)
                 .addGap(19, 19, 19))
         );
-        verSolicitudes2Layout.setVerticalGroup(
-            verSolicitudes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(verSolicitudes2Layout.createSequentialGroup()
+        mantenimientoProfesoresLayout.setVerticalGroup(
+            mantenimientoProfesoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mantenimientoProfesoresLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(imagenVerSolicitud2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -308,25 +320,68 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        panelMantenimiento.add(verSolicitudes2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 43, 91, -1));
+        panelMantenimiento.add(mantenimientoProfesores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 43, 91, -1));
 
-        fondoSolicitudIzquierda1.setBackground(new java.awt.Color(51, 51, 51));
-        fondoSolicitudIzquierda1.setPreferredSize(new java.awt.Dimension(91, 160));
+        fondoMantenimientoIzquierda.setBackground(new java.awt.Color(51, 51, 51));
+        fondoMantenimientoIzquierda.setPreferredSize(new java.awt.Dimension(91, 160));
 
-        javax.swing.GroupLayout fondoSolicitudIzquierda1Layout = new javax.swing.GroupLayout(fondoSolicitudIzquierda1);
-        fondoSolicitudIzquierda1.setLayout(fondoSolicitudIzquierda1Layout);
-        fondoSolicitudIzquierda1Layout.setHorizontalGroup(
-            fondoSolicitudIzquierda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout fondoMantenimientoIzquierdaLayout = new javax.swing.GroupLayout(fondoMantenimientoIzquierda);
+        fondoMantenimientoIzquierda.setLayout(fondoMantenimientoIzquierdaLayout);
+        fondoMantenimientoIzquierdaLayout.setHorizontalGroup(
+            fondoMantenimientoIzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 91, Short.MAX_VALUE)
         );
-        fondoSolicitudIzquierda1Layout.setVerticalGroup(
-            fondoSolicitudIzquierda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        fondoMantenimientoIzquierdaLayout.setVerticalGroup(
+            fondoMantenimientoIzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 540, Short.MAX_VALUE)
         );
 
-        panelMantenimiento.add(fondoSolicitudIzquierda1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 540));
+        panelMantenimiento.add(fondoMantenimientoIzquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 540));
 
-        principal.add(panelMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 0));
+        profesorPanel.setBackground(new java.awt.Color(40, 40, 40));
+        profesorPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        editarProfesores.setText("Editar");
+        editarProfesores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                editarProfesoresMousePressed(evt);
+            }
+        });
+        profesorPanel.add(editarProfesores, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 480, -1, -1));
+
+        jButton3.setText("Eliminar Todos");
+        profesorPanel.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 480, -1, -1));
+
+        tablaProfesores.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "DNI", "CORREO", "NOMBRE COMPLETO", "ACTIVO", "PERFIL", "CONTRASEÑA", "DEPARTAMENTO"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablaProfesores);
+
+        profesorPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 640, -1));
+
+        panelMantenimiento.add(profesorPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
+
+        principal.add(panelMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
 
         cerrar.setBackground(new java.awt.Color(51, 51, 51));
         cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1485,21 +1540,91 @@ public class Principal extends javax.swing.JFrame {
         verPanelScroll.getVerticalScrollBar().setValue(currentValue + units * 20); // Ajustar el valor "20" según la velocidad deseada
     }//GEN-LAST:event_verPanelScrollMouseWheelMoved
 
-    private void verSolicitudes1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verSolicitudes1MousePressed
+    private void mantenimientoCursosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoCursosMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_verSolicitudes1MousePressed
+    }//GEN-LAST:event_mantenimientoCursosMousePressed
 
-    private void cargarSolicitudes1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargarSolicitudes1MousePressed
+    private void mantenimientoGruposMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoGruposMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cargarSolicitudes1MousePressed
+    }//GEN-LAST:event_mantenimientoGruposMousePressed
 
-    private void cargarSolicitudes2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargarSolicitudes2MousePressed
+    private void mantenimientoDepartamentosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoDepartamentosMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cargarSolicitudes2MousePressed
+    }//GEN-LAST:event_mantenimientoDepartamentosMousePressed
 
-    private void verSolicitudes2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verSolicitudes2MousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_verSolicitudes2MousePressed
+    private void mantenimientoProfesoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoProfesoresMousePressed
+        System.out.println("Iniciando carga de datos de profesores...");
+
+// Consulta SQL para obtener todos los profesores
+        ArrayList<Profesor> listaProfesores = funcionesBD.obtenerListaProfesores();
+
+// Crear un nuevo DefaultTableModel con los datos de los profesores
+        DefaultTableModel tablaProfesoresModelo = new DefaultTableModel();
+        tablaProfesoresModelo.setColumnIdentifiers(new Object[]{"ID", "DNI", "Correo", "Nombre Completo", "Activo", "Perfil", "Contraseña", "Departamento"});
+
+// Verificar si se obtuvieron datos de algún profesor
+        if (!listaProfesores.isEmpty()) {
+            System.out.println("Se obtuvieron datos de profesores. Cargando en la tabla...");
+
+            // Iterar sobre la lista de profesores y agregar una fila por cada uno
+            for (Profesor profesor : listaProfesores) {
+                System.out.println("Agregando profesor a la tabla: " + profesor.getNombreCompleto());
+                tablaProfesoresModelo.addRow(new Object[]{
+                    profesor.getId(),
+                    profesor.getDni(),
+                    profesor.getCorreo(),
+                    profesor.getNombreCompleto(),
+                    profesor.getActivo(),
+                    profesor.getPerfil(),
+                    profesor.getPass(),
+                    profesor.getDepartamento()
+                });
+            }
+        } else {
+            // Si no se encuentran datos de profesores, puedes mostrar un mensaje o realizar otra acción
+            System.out.println("No se encontraron datos de profesores.");
+
+            // Limpiar la tabla si no hay datos de profesores
+            tablaProfesoresModelo.setRowCount(0);
+        }
+
+// Asignar el modelo de la tabla al JTable correspondiente
+        tablaProfesores.setModel(tablaProfesoresModelo);
+
+// Validar y repintar el contenedor que contiene la tabla
+        profesorPanel.revalidate();
+        profesorPanel.repaint();
+        System.out.println("Carga de datos de profesores completada.");
+
+    }//GEN-LAST:event_mantenimientoProfesoresMousePressed
+
+    private void editarProfesoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarProfesoresMousePressed
+        // Obtener el índice de la fila seleccionada
+        int selectedRow = tablaProfesores.getSelectedRow();
+
+        // Verificar si se ha seleccionado alguna fila
+        if (selectedRow != -1) {
+            // Verificar si los campos están actualmente en modo de edición
+            boolean editable = tablaProfesores.isEditing();
+
+            // Alternar entre el modo de edición y no edición de los campos
+            if (editable) {
+                // Si los campos están actualmente en modo de edición, finalizar la edición
+                tablaProfesores.getCellEditor().stopCellEditing();
+            } else {
+                // Si los campos no están actualmente en modo de edición, iniciar la edición
+                int columnToEdit = 0; // Puedes cambiar este valor para editar una columna específica
+                tablaProfesores.editCellAt(selectedRow, columnToEdit);
+                Component editor = tablaProfesores.getEditorComponent();
+                if (editor != null) {
+                    editor.requestFocusInWindow();
+                }
+            }
+        } else {
+            // Si no se ha seleccionado ninguna fila, puedes mostrar un mensaje indicando al usuario que seleccione una fila antes de intentar modificarla
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila para modificar.");
+        }
+    }//GEN-LAST:event_editarProfesoresMousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actividad;
@@ -1509,13 +1634,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel cargaDatos;
     private javax.swing.JPanel cargarPanel;
     private javax.swing.JPanel cargarSolicitudes;
-    private javax.swing.JPanel cargarSolicitudes1;
-    private javax.swing.JPanel cargarSolicitudes2;
     private javax.swing.JPanel cerrar;
     private javax.swing.JLabel cerrarTexto;
+    private javax.swing.JButton editarProfesores;
     private javax.swing.JPanel fondoIzquierda;
+    private javax.swing.JPanel fondoMantenimientoIzquierda;
     private javax.swing.JPanel fondoSolicitudIzquierda;
-    private javax.swing.JPanel fondoSolicitudIzquierda1;
     private javax.swing.JLabel icono1;
     private javax.swing.JLabel imagenActividad;
     private javax.swing.JLabel imagenCargaDatos;
@@ -1529,10 +1653,16 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel imagenVerSolicitud1;
     private javax.swing.JLabel imagenVerSolicitud2;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel mantenimiento;
+    private javax.swing.JPanel mantenimientoCursos;
+    private javax.swing.JPanel mantenimientoDepartamentos;
+    private javax.swing.JPanel mantenimientoGrupos;
+    private javax.swing.JPanel mantenimientoProfesores;
     private javax.swing.JPanel minimizar;
     private javax.swing.JLabel minimizarTexto;
     private javax.swing.JLabel nombreUsuario;
@@ -1542,6 +1672,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel panelSolicitud;
     private javax.swing.JPanel panelUsuario;
     private javax.swing.JPanel principal;
+    private javax.swing.JPanel profesorPanel;
     private javax.swing.JPanel solicitud;
     private javax.swing.JButton solicitudBusquedaBoton;
     private javax.swing.JButton solicitudBusquedaBotonVerTodo;
@@ -1575,6 +1706,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField solicitudCargarTituloTxt;
     private javax.swing.JLabel solicitudCargarTransporte;
     private javax.swing.JTextField solicitudCargarTransporteTxt;
+    private javax.swing.JTable tablaProfesores;
     private javax.swing.JLabel textoActividad;
     private javax.swing.JLabel textoCancelar;
     private javax.swing.JLabel textoCargaDatos;
@@ -1594,7 +1726,5 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane verPanelScroll;
     private javax.swing.JPanel verPanelScrollFrame;
     private javax.swing.JPanel verSolicitudes;
-    private javax.swing.JPanel verSolicitudes1;
-    private javax.swing.JPanel verSolicitudes2;
     // End of variables declaration//GEN-END:variables
 }
