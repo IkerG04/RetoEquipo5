@@ -76,6 +76,16 @@ public class Principal extends javax.swing.JFrame {
         eliminarCursos = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaCursos = new javax.swing.JTable();
+        gruposPanel = new javax.swing.JPanel();
+        editarGrupos = new javax.swing.JButton();
+        eliminarGrupos = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tablaGrupos = new javax.swing.JTable();
+        departamentosPanel = new javax.swing.JPanel();
+        editarDepartamentos = new javax.swing.JButton();
+        eliminarDepartamentos = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tablaDepartamentos = new javax.swing.JTable();
         cerrar = new javax.swing.JPanel();
         cerrarTexto = new javax.swing.JLabel();
         minimizar = new javax.swing.JPanel();
@@ -452,7 +462,7 @@ public class Principal extends javax.swing.JFrame {
         );
         cursosPanelLayout.setVerticalGroup(
             cursosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+            .addGap(0, 473, Short.MAX_VALUE)
             .addGroup(cursosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(cursosPanelLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -464,7 +474,151 @@ public class Principal extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        panelMantenimiento.add(cursosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
+        panelMantenimiento.add(cursosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
+
+        editarGrupos.setText("Editar");
+        editarGrupos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                editarGruposMousePressed(evt);
+            }
+        });
+
+        eliminarGrupos.setText("Eliminar");
+        eliminarGrupos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                eliminarGruposMousePressed(evt);
+            }
+        });
+
+        tablaGrupos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "CODIGO DEL GRUPO", "CURSO", "NUMERO DE ALUMNOS", "ACTIVO"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tablaGrupos);
+
+        javax.swing.GroupLayout gruposPanelLayout = new javax.swing.GroupLayout(gruposPanel);
+        gruposPanel.setLayout(gruposPanelLayout);
+        gruposPanelLayout.setHorizontalGroup(
+            gruposPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 850, Short.MAX_VALUE)
+            .addGroup(gruposPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(gruposPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(gruposPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(gruposPanelLayout.createSequentialGroup()
+                            .addGap(250, 250, 250)
+                            .addComponent(editarGrupos)
+                            .addGap(18, 18, 18)
+                            .addComponent(eliminarGrupos)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        gruposPanelLayout.setVerticalGroup(
+            gruposPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 473, Short.MAX_VALUE)
+            .addGroup(gruposPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(gruposPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(23, 23, 23)
+                    .addGroup(gruposPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(editarGrupos)
+                        .addComponent(eliminarGrupos))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        panelMantenimiento.add(gruposPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
+
+        editarDepartamentos.setText("Editar");
+        editarDepartamentos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                editarDepartamentosMousePressed(evt);
+            }
+        });
+
+        eliminarDepartamentos.setText("Eliminar");
+        eliminarDepartamentos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                eliminarDepartamentosMousePressed(evt);
+            }
+        });
+
+        tablaDepartamentos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "CODIGO DEL DEPARTAMENTO", "NOMBRE"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(tablaDepartamentos);
+
+        javax.swing.GroupLayout departamentosPanelLayout = new javax.swing.GroupLayout(departamentosPanel);
+        departamentosPanel.setLayout(departamentosPanelLayout);
+        departamentosPanelLayout.setHorizontalGroup(
+            departamentosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 850, Short.MAX_VALUE)
+            .addGroup(departamentosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(departamentosPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(departamentosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(departamentosPanelLayout.createSequentialGroup()
+                            .addGap(250, 250, 250)
+                            .addComponent(editarDepartamentos)
+                            .addGap(18, 18, 18)
+                            .addComponent(eliminarDepartamentos)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        departamentosPanelLayout.setVerticalGroup(
+            departamentosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 473, Short.MAX_VALUE)
+            .addGroup(departamentosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(departamentosPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(23, 23, 23)
+                    .addGroup(departamentosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(editarDepartamentos)
+                        .addComponent(eliminarDepartamentos))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        panelMantenimiento.add(departamentosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
 
         principal.add(panelMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
 
@@ -1686,17 +1840,19 @@ public class Principal extends javax.swing.JFrame {
             return;
         }
         TableModel tableModel = tablaCursos.getModel();
-// Verificar si el modelo de tabla no está vacío y si la fila seleccionada es válida
+        // Verificar si el modelo de tabla no está vacío y si la fila seleccionada es válida
         if (tableModel != null && selectedRow >= 0 && selectedRow < tableModel.getRowCount()) {
             String idStr = tableModel.getValueAt(selectedRow, 0).toString();
-            String nuevaEtapa = JOptionPane.showInputDialog(this, "Nueva Etapa del curso:", tableModel.getValueAt(selectedRow, 1));
-            String nuevaDescripcion = JOptionPane.showInputDialog(this, "Nueva Descripción del curso:", tableModel.getValueAt(selectedRow, 2));
-            String nuevoActivo = JOptionPane.showInputDialog(this, "Nuevo Estado del curso (1 para activo, 0 para inactivo):", tableModel.getValueAt(selectedRow, 3));
+            String nuevoCodCurso = tableModel.getValueAt(selectedRow, 1).toString(); // Suponiendo que el código de curso está en la columna 1
+            String nuevaEtapa = JOptionPane.showInputDialog(this, "Nueva Etapa del curso:", tableModel.getValueAt(selectedRow, 2));
+            String nuevaDescripcion = JOptionPane.showInputDialog(this, "Nueva Descripción del curso:", tableModel.getValueAt(selectedRow, 3));
+            String nuevoActivoStr = JOptionPane.showInputDialog(this, "Nuevo Estado del curso (1 para activo, 0 para inactivo):", tableModel.getValueAt(selectedRow, 4));
 
-            if (nuevaEtapa != null && nuevaDescripcion != null && nuevoActivo != null) {
+            if (nuevaEtapa != null && nuevaDescripcion != null && nuevoActivoStr != null) {
                 int id = Integer.parseInt(idStr);
-                String nuevoActivoStr = nuevoActivo.equals("1") ? "Activo" : "Inactivo";
-                funcionesBD.modificarDatosCurso(id, nuevaEtapa, nuevaDescripcion, nuevoActivoStr);
+                boolean activo = nuevoActivoStr.equals("1");
+                funcionesBD.modificarDatosCurso(id, nuevoCodCurso, nuevaEtapa, nuevaDescripcion, activo);
+                mantenimientoCursosMousePressed(null);
             }
         } else {
             // Manejar el caso en el que el modelo de tabla está vacío o la fila seleccionada no es válida
@@ -1724,6 +1880,22 @@ public class Principal extends javax.swing.JFrame {
         mantenimientoCursosMousePressed(null);
     }//GEN-LAST:event_eliminarCursosMousePressed
 
+    private void editarGruposMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarGruposMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editarGruposMousePressed
+
+    private void eliminarGruposMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarGruposMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminarGruposMousePressed
+
+    private void editarDepartamentosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarDepartamentosMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editarDepartamentosMousePressed
+
+    private void eliminarDepartamentosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarDepartamentosMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminarDepartamentosMousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actividad;
     private javax.swing.ButtonGroup actividadPrevista;
@@ -1735,13 +1907,19 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel cerrar;
     private javax.swing.JLabel cerrarTexto;
     private javax.swing.JPanel cursosPanel;
+    private javax.swing.JPanel departamentosPanel;
     private javax.swing.JButton editarCursos;
+    private javax.swing.JButton editarDepartamentos;
+    private javax.swing.JButton editarGrupos;
     private javax.swing.JButton editarProfesores;
     private javax.swing.JButton eliminarCursos;
+    private javax.swing.JButton eliminarDepartamentos;
+    private javax.swing.JButton eliminarGrupos;
     private javax.swing.JButton eliminarProfesor;
     private javax.swing.JPanel fondoIzquierda;
     private javax.swing.JPanel fondoMantenimientoIzquierda;
     private javax.swing.JPanel fondoSolicitudIzquierda;
+    private javax.swing.JPanel gruposPanel;
     private javax.swing.JLabel icono1;
     private javax.swing.JLabel imagenActividad;
     private javax.swing.JLabel imagenCargaDatos;
@@ -1760,6 +1938,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JPanel mantenimiento;
     private javax.swing.JPanel mantenimientoCursos;
     private javax.swing.JPanel mantenimientoDepartamentos;
@@ -1809,6 +1989,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel solicitudCargarTransporte;
     private javax.swing.JTextField solicitudCargarTransporteTxt;
     private javax.swing.JTable tablaCursos;
+    private javax.swing.JTable tablaDepartamentos;
+    private javax.swing.JTable tablaGrupos;
     private javax.swing.JTable tablaProfesores;
     private javax.swing.JLabel textoActividad;
     private javax.swing.JLabel textoCancelar;

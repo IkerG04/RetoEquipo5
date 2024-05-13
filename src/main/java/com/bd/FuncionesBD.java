@@ -371,17 +371,18 @@ public class FuncionesBD {
         return listaCursos;
     }
 
-    public void modificarDatosCurso(int id, String nuevaEtapa, String nuevaDescripcion, String nuevoEstado) {
+    public void modificarDatosCurso(int id, String nuevaCodCurso, String nuevaEtapa, String nuevaDescripcion, boolean activo) {
         try {
             Connection conn = AccesoBaseDatos.getInstance().getConn();
 
-            // Consulta SQL para actualizar la etapa, descripción y estado del curso
-            String sql = "UPDATE curso SET etapa=?, descripcion=?, activo=? WHERE id=?";
+            // Consulta SQL para actualizar el código de curso, etapa, descripción y estado del curso
+            String sql = "UPDATE curso SET codcurso=?, etapa=?, descripcion=?, activo=? WHERE id=?";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, nuevaEtapa);
-            statement.setString(2, nuevaDescripcion);
-            statement.setString(3, nuevoEstado);
-            statement.setInt(4, id);
+            statement.setString(1, nuevaCodCurso);
+            statement.setString(2, nuevaEtapa);
+            statement.setString(3, nuevaDescripcion);
+            statement.setBoolean(4, activo);
+            statement.setInt(5, id);
             statement.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Error al modificar datos del curso: " + ex.getMessage());
