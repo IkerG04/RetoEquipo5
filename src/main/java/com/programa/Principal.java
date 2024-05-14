@@ -9,19 +9,30 @@ import com.login.Login;
 import com.extra.ScrollBarCustom;
 import java.awt.Color;
 import java.awt.Component;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import javax.swing.ButtonModel;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -36,6 +47,9 @@ public class Principal extends javax.swing.JFrame {
     private List<SolicitudData> solicitudes = new ArrayList<>(); // Lista para almacenar las solicitudes
     private Connection connection;
     private FuncionesBD funcionesBD = new FuncionesBD();
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/gestoractividadesextraescolares";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "mysql";
 
     public Principal(Usuario user) {
         setUndecorated(true);
@@ -46,7 +60,6 @@ public class Principal extends javax.swing.JFrame {
         activoMantenimiento = gruposPanel;
         activoSolicitud = verPanel;
         setLocationRelativeTo(null);
-
         JPanel[] paneles = {panelActividad, panelMantenimiento, panelSolicitud, panelCargaDatos, panelUsuario};
         for (JPanel p : paneles) {
             p.setSize(940, 540);
@@ -115,7 +128,6 @@ public class Principal extends javax.swing.JFrame {
         solicitudBusquedaBoton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         cargarPanel = new javax.swing.JPanel();
-        solicitudCargarTransporteTxt = new javax.swing.JTextField();
         solicitudCargarTransporte = new javax.swing.JLabel();
         solicitudCargarDepartamento = new javax.swing.JLabel();
         solicitudCargarDepartamentoTxt = new javax.swing.JTextField();
@@ -135,7 +147,7 @@ public class Principal extends javax.swing.JFrame {
         solicitudCargarFechaFin = new javax.swing.JLabel();
         solicitudCargarPrevista = new javax.swing.JLabel();
         solicitudCargarTitulo = new javax.swing.JLabel();
-        solicitudCargarTituloTxt = new javax.swing.JTextField();
+        solicitudCargarTransporteTxt = new javax.swing.JTextField();
         solicitudCargarPrevistaON = new javax.swing.JRadioButton();
         solicitudCargarPrevistaOFF = new javax.swing.JRadioButton();
         botonCargar = new javax.swing.JPanel();
@@ -151,7 +163,9 @@ public class Principal extends javax.swing.JFrame {
         solicitudCargarProfesorResponsable = new javax.swing.JLabel();
         solicitudCargarHora = new javax.swing.JLabel();
         solicitudCargarHoraTxt = new javax.swing.JTextField();
+        solicitudCargarTituloTxt1 = new javax.swing.JTextField();
         panelCargaDatos = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
         panelUsuario = new javax.swing.JPanel();
         nombreUsuario = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -632,7 +646,7 @@ public class Principal extends javax.swing.JFrame {
 
         panelMantenimiento.add(departamentosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
 
-        principal.add(panelMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
+        principal.add(panelMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 0));
 
         cerrar.setBackground(new java.awt.Color(51, 51, 51));
         cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -714,7 +728,7 @@ public class Principal extends javax.swing.JFrame {
 
         principal.add(minimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 0, 40, 40));
 
-        panelActividad.setBackground(new java.awt.Color(255, 0, 0));
+        panelActividad.setBackground(new java.awt.Color(40, 40, 40));
 
         javax.swing.GroupLayout panelActividadLayout = new javax.swing.GroupLayout(panelActividad);
         panelActividad.setLayout(panelActividadLayout);
@@ -883,15 +897,10 @@ public class Principal extends javax.swing.JFrame {
 
         verPanel.add(verPanelScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 540));
 
-        panelSolicitud.add(verPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
+        panelSolicitud.add(verPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
 
         cargarPanel.setBackground(new java.awt.Color(40, 40, 40));
         cargarPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        solicitudCargarTransporteTxt.setBackground(new java.awt.Color(51, 51, 51));
-        solicitudCargarTransporteTxt.setForeground(new java.awt.Color(255, 255, 255));
-        solicitudCargarTransporteTxt.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        cargarPanel.add(solicitudCargarTransporteTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 97, 187, -1));
 
         solicitudCargarTransporte.setBackground(new java.awt.Color(40, 40, 40));
         solicitudCargarTransporte.setForeground(new java.awt.Color(255, 255, 255));
@@ -999,11 +1008,11 @@ public class Principal extends javax.swing.JFrame {
         solicitudCargarTitulo.setText("Título");
         cargarPanel.add(solicitudCargarTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(364, 73, 50, -1));
 
-        solicitudCargarTituloTxt.setBackground(new java.awt.Color(51, 51, 51));
-        solicitudCargarTituloTxt.setForeground(new java.awt.Color(255, 255, 255));
-        solicitudCargarTituloTxt.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        solicitudCargarTituloTxt.setNextFocusableComponent(solicitudCargarTransporteTxt);
-        cargarPanel.add(solicitudCargarTituloTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 71, 187, -1));
+        solicitudCargarTransporteTxt.setBackground(new java.awt.Color(51, 51, 51));
+        solicitudCargarTransporteTxt.setForeground(new java.awt.Color(255, 255, 255));
+        solicitudCargarTransporteTxt.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        solicitudCargarTransporteTxt.setNextFocusableComponent(solicitudCargarTransporteTxt);
+        cargarPanel.add(solicitudCargarTransporteTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 187, -1));
 
         actividadPrevista.add(solicitudCargarPrevistaON);
         solicitudCargarPrevistaON.setForeground(new java.awt.Color(255, 255, 255));
@@ -1124,24 +1133,48 @@ public class Principal extends javax.swing.JFrame {
         solicitudCargarHoraTxt.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         cargarPanel.add(solicitudCargarHoraTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 382, 187, 20));
 
+        solicitudCargarTituloTxt1.setBackground(new java.awt.Color(51, 51, 51));
+        solicitudCargarTituloTxt1.setForeground(new java.awt.Color(255, 255, 255));
+        solicitudCargarTituloTxt1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        solicitudCargarTituloTxt1.setNextFocusableComponent(solicitudCargarTransporteTxt);
+        cargarPanel.add(solicitudCargarTituloTxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 71, 187, -1));
+
         panelSolicitud.add(cargarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
 
-        principal.add(panelSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
+        principal.add(panelSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 0));
 
-        panelCargaDatos.setBackground(new java.awt.Color(0, 255, 204));
+        panelCargaDatos.setBackground(new java.awt.Color(40, 40, 40));
+
+        jButton2.setText("CargarDatos");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton2MousePressed(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelCargaDatosLayout = new javax.swing.GroupLayout(panelCargaDatos);
         panelCargaDatos.setLayout(panelCargaDatosLayout);
         panelCargaDatosLayout.setHorizontalGroup(
             panelCargaDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 940, Short.MAX_VALUE)
+            .addGroup(panelCargaDatosLayout.createSequentialGroup()
+                .addGap(351, 351, 351)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(384, Short.MAX_VALUE))
         );
         panelCargaDatosLayout.setVerticalGroup(
             panelCargaDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panelCargaDatosLayout.createSequentialGroup()
+                .addGap(216, 216, 216)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        principal.add(panelCargaDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
+        principal.add(panelCargaDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 0));
 
         panelUsuario.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -1186,7 +1219,7 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        principal.add(panelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
+        principal.add(panelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 0));
 
         fondoIzquierda.setBackground(new java.awt.Color(51, 51, 51));
         fondoIzquierda.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1667,7 +1700,7 @@ public class Principal extends javax.swing.JFrame {
             Integer grupoCurso = solicitudCargarGrupoTxt.getText().isEmpty() ? null : Integer.parseInt(solicitudCargarGrupoTxt.getText());
             String fechaInicio = solicitudCargarFechaInicioTxt.getText();
             String fechaFin = solicitudCargarFechaFinTxt.getText();
-            String titulo = solicitudCargarTituloTxt.getText();
+            String titulo = solicitudCargarTransporteTxt.getText();
             String profesorResponsable = solicitudCargarProfesorResponsableTxt.getText();
             String profesoresInvolucrados = solicitudCargarProfesoresInvolucrados.getText();
             String hora = solicitudCargarHora.getText();
@@ -1711,7 +1744,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_textoCargarMouseReleased
 
     private void textoCancelarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoCancelarMouseReleased
-        solicitudCargarTituloTxt.setText("");
+        solicitudCargarTransporteTxt.setText("");
         solicitudCargarTransporteTxt.setText("");
         solicitudCargarDepartamentoTxt.setText("");
         solicitudCargarComentariosTxt.setText("");
@@ -1735,7 +1768,7 @@ public class Principal extends javax.swing.JFrame {
 
         // Letras aleatorias de 'a' a 'z'
         solicitudCargarComentariosTxt.setText(generarLetrasAleatorias(rand, 10)); // 10 letras
-        solicitudCargarTituloTxt.setText(generarLetrasAleatorias(rand, 5)); // 5 letras
+        solicitudCargarTransporteTxt.setText(generarLetrasAleatorias(rand, 5)); // 5 letras
         solicitudCargarEstadoTxt.setText(generarLetrasAleatorias(rand, 8)); // 8 letras
 
         // Grupo aleatorio de 0 a 99999
@@ -2003,6 +2036,188 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_eliminarDepartamentosMousePressed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void cargarProfesoresDesdeCSV(File file) throws IOException, SQLException {
+        Map<String, Integer> departamentoIdMap = new HashMap<>();
+        boolean primeraLinea = true; // Variable para identificar la primera línea
+
+        try (Connection conn = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD); BufferedReader reader = new BufferedReader(new FileReader(file))) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (primeraLinea) {
+                    primeraLinea = false; // Ignorar la primera línea
+                    continue;
+                }
+
+                String[] datos = splitCSVLine(line);
+
+                if (datos.length >= 4) { // Asegurarse de que haya al menos 4 campos en la línea
+                    String apellidosNombre = datos[0].trim();
+                    String dni = datos[1].trim().substring(0, Math.min(datos[1].trim().length(), 9));
+                    String correo = datos[2].trim();
+                    String departamentoNombre = datos[3].trim(); // Obtener el nombre del departamento del CSV
+
+                    String[] apellidosNombreArray = apellidosNombre.split(",", 2);
+                    String apellidos = (apellidosNombreArray.length > 0) ? apellidosNombreArray[0].trim() : "";
+                    String nombre = (apellidosNombreArray.length > 1) ? apellidosNombreArray[1].trim() : apellidosNombre.trim();
+
+                    // Obtener o insertar el ID del departamento
+                    int departamentoId = obtenerOInsertarDepartamentoId(departamentoNombre, conn, departamentoIdMap);
+
+                    String password = generarPassword();
+                    String perfil = obtenerPerfilAleatorio();
+
+                    // Preparar la inserción del nuevo profesor
+                    String insertProfesorSQL = "INSERT INTO profesor (apellidos, nombre, dni, correo, activo, perfil, contraseña, departamento) "
+                            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+                    PreparedStatement pstmt = conn.prepareStatement(insertProfesorSQL);
+                    pstmt.setString(1, apellidos);
+                    pstmt.setString(2, nombre);
+                    pstmt.setString(3, dni);
+                    pstmt.setString(4, correo);
+                    pstmt.setBoolean(5, true);
+                    pstmt.setString(6, perfil);
+                    pstmt.setString(7, password);
+                    pstmt.setInt(8, departamentoId);
+
+                    // Ejecutar la inserción del nuevo profesor
+                    pstmt.executeUpdate();
+                    pstmt.close();
+                } else {
+                    mostrarMensajeError("La línea del archivo CSV no tiene suficientes campos.");
+                }
+            }
+        }
+    }
+
+    private int obtenerOInsertarDepartamentoId(String departamentoNombre, Connection conn, Map<String, Integer> departamentoIdMap) throws SQLException {
+        if (departamentoIdMap.containsKey(departamentoNombre)) {
+            return departamentoIdMap.get(departamentoNombre);
+        } else {
+            // Si el departamento no está en el mapa, obtener su ID de la base de datos o insertar uno nuevo
+            String cod = generarCodigoUnico(conn);
+
+            PreparedStatement pstmt = conn.prepareStatement(
+                    "INSERT INTO departamento (cod, nombre) VALUES (?, ?)",
+                    PreparedStatement.RETURN_GENERATED_KEYS);
+            pstmt.setString(1, cod);
+            pstmt.setString(2, departamentoNombre);
+            pstmt.executeUpdate();
+
+            int departamentoId;
+            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    departamentoId = generatedKeys.getInt(1);
+                    departamentoIdMap.put(departamentoNombre, departamentoId);
+                } else {
+                    throw new SQLException("Error al obtener el ID del departamento.");
+                }
+            }
+
+            pstmt.close();
+            return departamentoId;
+        }
+    }
+
+    // Método para dividir una línea de CSV considerando solo comas como delimitadores
+    private String[] splitCSVLine(String line) {
+        return line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+    }
+
+    private String generarCodigoUnico(Connection conn) throws SQLException {
+        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        Random random = new Random();
+        String cod;
+
+        do {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 2; i++) {
+                int index = random.nextInt(caracteres.length());
+                sb.append(caracteres.charAt(index));
+            }
+            cod = sb.toString();
+
+            // Verificar si el código generado ya existe en la base de datos
+            if (!codigoExiste(cod, conn)) {
+                break; // Salir del bucle si el código es único
+            }
+        } while (true);
+
+        return cod;
+    }
+
+    private boolean codigoExiste(String cod, Connection conn) throws SQLException {
+        PreparedStatement pstmt = conn.prepareStatement(
+                "SELECT COUNT(*) AS count FROM departamento WHERE cod = ?");
+        pstmt.setString(1, cod);
+        ResultSet rs = pstmt.executeQuery();
+
+        int count = 0;
+        if (rs.next()) {
+            count = rs.getInt("count");
+        }
+
+        rs.close();
+        pstmt.close();
+
+        return count > 0;
+    }
+
+    private String generarPassword() {
+        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 8; i++) {
+            int index = random.nextInt(caracteres.length());
+            sb.append(caracteres.charAt(index));
+        }
+        return sb.toString();
+    }
+
+    private String obtenerPerfilAleatorio() {
+        String[] perfiles = {"SuperUsuario", "Administrador", "EquipoAdministrativo", "Profesor"};
+        return perfiles[(int) (perfiles.length * Math.random())];
+    }
+
+    private void mostrarMensajeExito(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void mostrarMensajeError(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Seleccionar Archivo CSV de Profesores");
+        fileChooser.setMultiSelectionEnabled(false);
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos CSV (*.csv)", "csv"));
+
+        int returnValue = fileChooser.showOpenDialog(Principal.this);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            String fileName = selectedFile.getName().toLowerCase(); // Obtener el nombre del archivo en minúsculas
+
+            // Verificar si el archivo seleccionado es un archivo CSV
+            if (fileName.endsWith(".csv")) {
+                try {
+                    cargarProfesoresDesdeCSV(selectedFile);
+                    mostrarMensajeExito("Datos de profesores cargados exitosamente desde: " + fileName);
+                } catch (IOException | SQLException ex) {
+                    mostrarMensajeError("Error al cargar el archivo CSV de profesores: " + ex.getMessage());
+                }
+            } else {
+                mostrarMensajeError("Selecciona un archivo CSV válido.");
+            }
+        }
+    }//GEN-LAST:event_jButton2MousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actividad;
     private javax.swing.ButtonGroup actividadPrevista;
@@ -2040,6 +2255,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel imagenVerSolicitud1;
     private javax.swing.JLabel imagenVerSolicitud2;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -2092,7 +2308,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel solicitudCargarProfesoresInvolucrados;
     private javax.swing.JTextField solicitudCargarProfesoresInvolucradosTxt;
     private javax.swing.JLabel solicitudCargarTitulo;
-    private javax.swing.JTextField solicitudCargarTituloTxt;
+    private javax.swing.JTextField solicitudCargarTituloTxt1;
     private javax.swing.JLabel solicitudCargarTransporte;
     private javax.swing.JTextField solicitudCargarTransporteTxt;
     private javax.swing.JTable tablaCursos;

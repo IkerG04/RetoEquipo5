@@ -4,7 +4,9 @@
  */
 package com.login;
 
+import java.awt.Font;
 import java.io.File;
+import javax.swing.UIManager;
 
 /**
  *
@@ -38,8 +40,6 @@ public class Main {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
