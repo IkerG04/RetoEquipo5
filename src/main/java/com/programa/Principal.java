@@ -654,7 +654,7 @@ public class Principal extends javax.swing.JFrame {
 
         panelMantenimiento.add(departamentosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
 
-        principal.add(panelMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 0));
+        principal.add(panelMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
 
         cerrar.setBackground(new java.awt.Color(51, 51, 51));
         cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -790,7 +790,7 @@ public class Principal extends javax.swing.JFrame {
 
         verPanelScroll1.setViewportView(verPanelScrollFrame1);
 
-        panelActividades.add(verPanelScroll1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 540));
+        panelActividades.add(verPanelScroll1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 540));
 
         javax.swing.GroupLayout panelActividadLayout = new javax.swing.GroupLayout(panelActividad);
         panelActividad.setLayout(panelActividadLayout);
@@ -798,18 +798,18 @@ public class Principal extends javax.swing.JFrame {
             panelActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 940, Short.MAX_VALUE)
             .addGroup(panelActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panelActividades, javax.swing.GroupLayout.DEFAULT_SIZE, 940, Short.MAX_VALUE))
+                .addComponent(panelActividades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelActividadLayout.setVerticalGroup(
             panelActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 552, Short.MAX_VALUE)
+            .addGap(0, 546, Short.MAX_VALUE)
             .addGroup(panelActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelActividadLayout.createSequentialGroup()
                     .addComponent(panelActividades, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 6, Short.MAX_VALUE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        principal.add(panelActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, -1));
+        principal.add(panelActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
 
         panelSolicitud.setBackground(new java.awt.Color(40, 40, 40));
         panelSolicitud.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1207,9 +1207,9 @@ public class Principal extends javax.swing.JFrame {
         solicitudCargarTituloTxt1.setNextFocusableComponent(solicitudCargarTransporteTxt);
         cargarPanel.add(solicitudCargarTituloTxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 71, 187, -1));
 
-        panelSolicitud.add(cargarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
+        panelSolicitud.add(cargarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
 
-        principal.add(panelSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 0));
+        principal.add(panelSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
 
         panelCargaDatos.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -1242,7 +1242,7 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        principal.add(panelCargaDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 0));
+        principal.add(panelCargaDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
 
         panelUsuario.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -1287,7 +1287,7 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        principal.add(panelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 0));
+        principal.add(panelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
 
         fondoIzquierda.setBackground(new java.awt.Color(51, 51, 51));
         fondoIzquierda.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1624,11 +1624,13 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private void crearPanelesSolicitud(String textoBusqueda) {
-        // Guardar referencias a los componentes que no deseas borrar
-        Component[] componentesNoBorrables = {solicitudBusquedaTxt1, solicitudBusquedaBotonVerTodo1, solicitudBusquedaBoton1};
+        System.out.println("Iniciando creación de paneles de solicitud...");
 
-        // Limpiar el verPanelScrollFrame antes de crear los nuevos paneles
-        for (Component componente : verPanelScrollFrame1.getComponents()) {
+        // Guardar referencias a los componentes que no deseas borrar
+        Component[] componentesNoBorrables = {solicitudBusquedaTxt, solicitudBusquedaBotonVerTodo, solicitudBusquedaBoton};
+
+        // Limpiar el verPanelScrollFrame1 antes de crear los nuevos paneles
+        for (Component componente : verPanelScrollFrame.getComponents()) {
             boolean borrar = true;
             for (Component noBorrable : componentesNoBorrables) {
                 if (componente == noBorrable) {
@@ -1637,15 +1639,15 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
             if (borrar) {
-                verPanelScrollFrame1.remove(componente);
+                verPanelScrollFrame.remove(componente);
             }
         }
 
         // Calcular la posición vertical inicial
         int ultimaPosicion = 80;
-
         // Iterar sobre todas las solicitudes y crear los paneles que coincidan con la búsqueda
         List<Solicitud> solicitudes = funcionesBD.obtenerTodasLasSolicitudes();
+        System.out.println("Número de solicitudes obtenidas: " + solicitudes.size());
         for (Solicitud solicitud : solicitudes) {
             String tituloSolicitud = solicitud.getTitulo();
 
@@ -1653,9 +1655,10 @@ public class Principal extends javax.swing.JFrame {
                 String estadoSolicitud = solicitud.getEstado();
 
                 if (estadoSolicitud != null && estadoSolicitud.equals("Pendiente")) {
+                    System.out.println("Creando panel para solicitud: " + solicitud.getId());
                     JPanel solicitudPanel = new JPanel();
                     solicitudPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-                    verPanelScrollFrame1.add(solicitudPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, ultimaPosicion, 750, 80));
+                    verPanelScrollFrame.add(solicitudPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, ultimaPosicion, 750, 80));
 
                     // Crear el JLabel para el título de la solicitud
                     JLabel tituloLabel = new JLabel(tituloSolicitud);
@@ -1673,11 +1676,13 @@ public class Principal extends javax.swing.JFrame {
         JPanel solicitudRelleno = new JPanel();
         solicitudRelleno.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         solicitudRelleno.setBackground(new Color(0, 0, 0, 0)); // Color transparente
-        verPanelScrollFrame1.add(solicitudRelleno, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, ultimaPosicion - 20, 850, 20));
+        verPanelScrollFrame.add(solicitudRelleno, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, ultimaPosicion - 20, 850, 20));
 
         // Refrescar la interfaz gráfica para que los cambios sean visibles después de agregar los nuevos paneles de solicitud
-        verPanelScrollFrame1.revalidate();
-        verPanelScrollFrame1.repaint();
+        verPanelScrollFrame.revalidate();
+        verPanelScrollFrame.repaint();
+
+        System.out.println("Creación de paneles de solicitud completada.");
     }
 
     private void crearPanelesActividad(String textoBusqueda) {
