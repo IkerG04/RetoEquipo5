@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `gestoractividadesextraescolares`.`solicitud` (
   `comentariosadicionales` VARCHAR(45) NULL DEFAULT NULL,
   `alojamiento` TINYINT NOT NULL,
   `numeroalumnos` INT NOT NULL,
-  `estado` VARCHAR(45) NOT NULL,
+  `estado` TINYINT NOT NULL,
   `grupocurso` INT NULL DEFAULT NULL,
   `fechainicioactividad` DATE NOT NULL,
   `fechafinactividad` DATE NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `gestoractividadesextraescolares`.`solicitud` (
   `titulo` VARCHAR(15) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 40
+AUTO_INCREMENT = 42
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `gestoractividadesextraescolares`.`departamento` (
   `nombre` VARCHAR(15) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 24
+AUTO_INCREMENT = 41
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -225,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `gestoractividadesextraescolares`.`profesor` (
   UNIQUE INDEX `correo_UNIQUE` (`correo` ASC) VISIBLE,
   INDEX `index_correo` (`correo` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 22
+AUTO_INCREMENT = 53
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
