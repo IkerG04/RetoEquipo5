@@ -3,6 +3,7 @@ package com.programa;
 import java.awt.*;
 import com.bd.AccesoBaseDatos;
 import com.bd.FuncionesBD;
+import com.datos.Paneles;
 import com.datos.Usuario;
 import com.login.Login;
 import com.extra.ScrollBarCustom;
@@ -29,8 +30,8 @@ public class Principal extends javax.swing.JFrame {
     private boolean animacionEjecutada = false;
     private Usuario user;
     private JPanel activo;
-    private JPanel activoSolicitud;
     private JPanel activoMantenimiento;
+    private JPanel activoSolicitud;
     int xMouse, yMouse;
     private List<SolicitudData> solicitudes = new ArrayList<>(); // Lista para almacenar las solicitudes
     private Connection connection;
@@ -41,10 +42,16 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         this.user = user;
         setVisible(true);
-        activo = panelSolicitud;
+        activo = panelMantenimiento;
+        activoMantenimiento = gruposPanel;
         activoSolicitud = verPanel;
         setLocationRelativeTo(null);
 
+        JPanel[] paneles = {panelActividad, panelMantenimiento, panelSolicitud, panelCargaDatos, panelUsuario};
+        for (JPanel p : paneles) {
+            p.setSize(940, 540);
+            p.setVisible(false);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -214,7 +221,7 @@ public class Principal extends javax.swing.JFrame {
 
         panelMantenimiento.add(mantenimientoCursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 133, 91, -1));
 
-        mantenimientoGrupos.setBackground(new java.awt.Color(40, 40, 40));
+        mantenimientoGrupos.setBackground(new java.awt.Color(51, 51, 51));
         mantenimientoGrupos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mantenimientoGrupos.setPreferredSize(new java.awt.Dimension(90, 80));
         mantenimientoGrupos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -294,7 +301,7 @@ public class Principal extends javax.swing.JFrame {
 
         panelMantenimiento.add(mantenimientoDepartamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 313, 91, -1));
 
-        mantenimientoProfesores.setBackground(new java.awt.Color(51, 51, 51));
+        mantenimientoProfesores.setBackground(new java.awt.Color(40, 40, 40));
         mantenimientoProfesores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mantenimientoProfesores.setPreferredSize(new java.awt.Dimension(90, 80));
         mantenimientoProfesores.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -401,7 +408,7 @@ public class Principal extends javax.swing.JFrame {
 
         profesorPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 640, -1));
 
-        panelMantenimiento.add(profesorPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
+        panelMantenimiento.add(profesorPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
 
         cursosPanel.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -463,7 +470,7 @@ public class Principal extends javax.swing.JFrame {
         );
         cursosPanelLayout.setVerticalGroup(
             cursosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 473, Short.MAX_VALUE)
+            .addGap(0, 540, Short.MAX_VALUE)
             .addGroup(cursosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(cursosPanelLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -475,7 +482,7 @@ public class Principal extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        panelMantenimiento.add(cursosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
+        panelMantenimiento.add(cursosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
 
         gruposPanel.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -537,7 +544,7 @@ public class Principal extends javax.swing.JFrame {
         );
         gruposPanelLayout.setVerticalGroup(
             gruposPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 473, Short.MAX_VALUE)
+            .addGap(0, 540, Short.MAX_VALUE)
             .addGroup(gruposPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(gruposPanelLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -549,7 +556,7 @@ public class Principal extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        panelMantenimiento.add(gruposPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
+        panelMantenimiento.add(gruposPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
 
         departamentosPanel.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -720,7 +727,7 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        principal.add(panelActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 0));
+        principal.add(panelActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
 
         panelSolicitud.setBackground(new java.awt.Color(40, 40, 40));
         panelSolicitud.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -876,7 +883,7 @@ public class Principal extends javax.swing.JFrame {
 
         verPanel.add(verPanelScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 540));
 
-        panelSolicitud.add(verPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
+        panelSolicitud.add(verPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
 
         cargarPanel.setBackground(new java.awt.Color(40, 40, 40));
         cargarPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1117,9 +1124,9 @@ public class Principal extends javax.swing.JFrame {
         solicitudCargarHoraTxt.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         cargarPanel.add(solicitudCargarHoraTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 382, 187, 20));
 
-        panelSolicitud.add(cargarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
+        panelSolicitud.add(cargarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
 
-        principal.add(panelSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 0));
+        principal.add(panelSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
 
         panelCargaDatos.setBackground(new java.awt.Color(0, 255, 204));
 
@@ -1134,7 +1141,7 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        principal.add(panelCargaDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 0));
+        principal.add(panelCargaDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
 
         panelUsuario.setBackground(new java.awt.Color(40, 40, 40));
 
@@ -1179,7 +1186,7 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        principal.add(panelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 0));
+        principal.add(panelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 940, 540));
 
         fondoIzquierda.setBackground(new java.awt.Color(51, 51, 51));
         fondoIzquierda.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1420,37 +1427,57 @@ public class Principal extends javax.swing.JFrame {
         mantenimientoProfesoresMousePressed(null);
     }
 
-    private void abrirMenu(JPanel panel) {
-        if (activo != null) {
-            activo.setSize(940, 0);
+    private void abrirMenu(JPanel panel, JPanel boton) {
+        JPanel[] botones = {actividad, mantenimiento, solicitud, cargaDatos, usuario};
+        activo.setVisible(false);
+        panel.setVisible(true);
+        activo = panel;
+
+        boton.setBackground(new Color(40, 40, 40));
+        for (JPanel botonNoActivo : botones) {
+            if (!botonNoActivo.equals(boton)) {
+                botonNoActivo.setBackground(new Color(51, 51, 51));
+            }
         }
-        panel.setSize(940, 540);
+
+        principal.revalidate();
+        principal.repaint();
         KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();
     }
 
-    private void cambiarEstado(JPanel panel, Color colorCarga, Color colorMantenimiento, Color colorSolicitud, Color colorActividad, Color colorUsuario) {
-        cargaDatos.setBackground(colorCarga);
-        mantenimiento.setBackground(colorMantenimiento);
-        solicitud.setBackground(colorSolicitud);
-        actividad.setBackground(colorActividad);
-        usuario.setBackground(colorUsuario);
-        abrirMenu(panel);
-        animacionEjecutada = true;
-    }
+    private void abrirMenuMantenimiento(JPanel panel, JPanel boton) {
+        JPanel[] botones = {mantenimientoProfesores, mantenimientoCursos, mantenimientoGrupos, mantenimientoDepartamentos};
+        activoMantenimiento.setVisible(false);
+        panel.setVisible(true);
+        activoMantenimiento = panel;
 
-    private void abrirMenuSolicitud(JPanel panel) {
-        if (activo != null) {
-            activoSolicitud.setSize(850, 0);
+        boton.setBackground(new Color(40, 40, 40));
+        for (JPanel botonNoActivo : botones) {
+            if (!botonNoActivo.equals(boton)) {
+                botonNoActivo.setBackground(new Color(51, 51, 51));
+            }
         }
-        panel.setSize(850, 540);
+
+        panelMantenimiento.revalidate();
+        panelMantenimiento.repaint();
         KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();
     }
 
-    private void abrirMenuMantenimiento(JPanel panel) {
-        if (activo != null) {
-            activoMantenimiento.setSize(850, 0);
+    private void abrirMenuSolicitud(JPanel panel, JPanel boton) {
+        JPanel[] botones = {cargarSolicitudes, verSolicitudes};
+        activoSolicitud.setVisible(false);
+        panel.setVisible(true);
+        activoSolicitud = panel;
+
+        boton.setBackground(new Color(40, 40, 40));
+        for (JPanel botonNoActivo : botones) {
+            if (!botonNoActivo.equals(boton)) {
+                botonNoActivo.setBackground(new Color(51, 51, 51));
+            }
         }
-        panel.setSize(850, 540);
+
+        panelSolicitud.revalidate();
+        panelSolicitud.repaint();
         KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();
     }
 
@@ -1553,23 +1580,23 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private void cargaDatosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargaDatosMousePressed
-        cambiarEstado(panelCargaDatos, new Color(40, 40, 40), new Color(51, 51, 51), new Color(51, 51, 51), new Color(51, 51, 51), new Color(51, 51, 51));
+        abrirMenu(panelCargaDatos, cargaDatos);
     }//GEN-LAST:event_cargaDatosMousePressed
 
     private void mantenimientoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoMousePressed
-        cambiarEstado(panelMantenimiento, new Color(51, 51, 51), new Color(40, 40, 40), new Color(51, 51, 51), new Color(51, 51, 51), new Color(51, 51, 51));
+        abrirMenu(panelMantenimiento, mantenimiento);
     }//GEN-LAST:event_mantenimientoMousePressed
 
     private void solicitudMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_solicitudMousePressed
-        cambiarEstado(panelSolicitud, new Color(51, 51, 51), new Color(51, 51, 51), new Color(40, 40, 40), new Color(51, 51, 51), new Color(51, 51, 51));
+        abrirMenu(panelSolicitud, solicitud);
     }//GEN-LAST:event_solicitudMousePressed
 
     private void actividadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actividadMousePressed
-        cambiarEstado(panelActividad, new Color(51, 51, 51), new Color(51, 51, 51), new Color(51, 51, 51), new Color(40, 40, 40), new Color(51, 51, 51));
+        abrirMenu(panelActividad, actividad);
     }//GEN-LAST:event_actividadMousePressed
 
     private void usuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usuarioMousePressed
-        cambiarEstado(panelUsuario, new Color(51, 51, 51), new Color(51, 51, 51), new Color(51, 51, 51), new Color(51, 51, 51), new Color(40, 40, 40));
+        abrirMenu(panelUsuario, usuario);
         nombreUsuario.setText(funcionesBD.getNombreProfesor(user));
     }//GEN-LAST:event_usuarioMousePressed
 
@@ -1615,13 +1642,13 @@ public class Principal extends javax.swing.JFrame {
     private void cargarSolicitudesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargarSolicitudesMousePressed
         cargarSolicitudes.setBackground(new Color(40, 40, 40));
         verSolicitudes.setBackground(new Color(51, 51, 51));
-        abrirMenuSolicitud(cargarPanel); // Pasar cargarPanel aquí
+        abrirMenuSolicitud(cargarPanel, cargarSolicitudes);
     }//GEN-LAST:event_cargarSolicitudesMousePressed
 
     private void verSolicitudesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verSolicitudesMousePressed
         cargarSolicitudes.setBackground(new Color(51, 51, 51));
         verSolicitudes.setBackground(new Color(40, 40, 40));
-        abrirMenuSolicitud(verPanel); // Pasar verPanel aquí
+        abrirMenuSolicitud(verPanel, verSolicitudes);
         crearPanelesSolicitud("");
         verPanelScroll.setVerticalScrollBar(new ScrollBarCustom());
         ScrollBarCustom sp = new ScrollBarCustom();
@@ -1776,24 +1803,25 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_verPanelScrollMouseWheelMoved
 
     private void mantenimientoCursosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoCursosMousePressed
+        abrirMenuMantenimiento(cursosPanel, mantenimientoCursos);
         MantenimientosBasicos mantenimientosBasicos = new MantenimientosBasicos();
         mantenimientosBasicos.mantenimientoCursos(tablaCursos, cursosPanel);
     }//GEN-LAST:event_mantenimientoCursosMousePressed
 
     private void mantenimientoGruposMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoGruposMousePressed
+        abrirMenuMantenimiento(gruposPanel, mantenimientoGrupos);
         MantenimientosBasicos mantenimientosBasicos = new MantenimientosBasicos();
         mantenimientosBasicos.mantenimientoGrupos(tablaGrupos, gruposPanel);
     }//GEN-LAST:event_mantenimientoGruposMousePressed
 
     private void mantenimientoDepartamentosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoDepartamentosMousePressed
-        // Crear una instancia de MantenimientosBasicos para acceder a los métodos relacionados con los departamentos
+        abrirMenuMantenimiento(departamentosPanel, mantenimientoDepartamentos);
         MantenimientosBasicos mantenimientosBasicos = new MantenimientosBasicos();
-
-        // Llamar al método que carga los datos de los departamentos en la tabla
         mantenimientosBasicos.mantenimientoDepartamentos(tablaDepartamentos, departamentosPanel);
     }//GEN-LAST:event_mantenimientoDepartamentosMousePressed
 
     private void mantenimientoProfesoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoProfesoresMousePressed
+        abrirMenuMantenimiento(profesorPanel, mantenimientoProfesores);
         MantenimientosBasicos mantenimientosBasicos = new MantenimientosBasicos();
         mantenimientosBasicos.mantenimientoProfesores(tablaProfesores, profesorPanel);
     }//GEN-LAST:event_mantenimientoProfesoresMousePressed
