@@ -8,13 +8,16 @@ import com.datos.Curso;
 import com.datos.Departamento;
 import com.datos.Grupo;
 import com.datos.Profesor;
+import com.datos.Solicitud;
 import com.datos.Usuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -129,6 +132,87 @@ public class FuncionesBD {
             }
         }
         return "";
+    }
+
+    public List<Solicitud> obtenerTodasLasSolicitudes() {
+        List<Solicitud> solicitudes = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = AccesoBaseDatos.getInstance().getConn();
+            String sql = "SELECT * FROM solicitud";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                boolean medioTransporte = rs.getBoolean("mediotransporte");
+                int departamento = rs.getInt("departamento");
+                String comentarios = rs.getString("comentariosadicionales");
+                boolean alojamiento = rs.getBoolean("alojamiento");
+                int numeroAlumnos = rs.getInt("numeroalumnos");
+                String estado = rs.getString("estado");
+                int grupocurso = rs.getInt("grupocurso");
+                LocalDate fechaInicio = rs.getDate("fechainicioactividad").toLocalDate();
+                LocalDate fechaFin = rs.getDate("fechafinactividad").toLocalDate();
+                boolean prevista = rs.getBoolean("prevista");
+                String titulo = rs.getString("titulo");
+
+                // Crear objeto Solicitud y agregarlo a la lista
+                Solicitud solicitud = new Solicitud(id, medioTransporte, departamento, comentarios, alojamiento, numeroAlumnos, estado, grupocurso, fechaInicio, fechaFin, prevista, titulo);
+                solicitudes.add(solicitud);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener todas las solicitudes: " + ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error al cerrar ResultSet y PreparedStatement: " + ex.getMessage());
+            }
+        }
+        return solicitudes;
+    }
+
+    public String getEstadoSolicitud(int id) {
+        Connection conn = AccesoBaseDatos.getInstance().getConn();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "SELECT estado FROM solicitud WHERE id = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                String estado = rs.getString("estado");
+                return estado;
+            } else {
+                System.out.println("No se encontró ninguna solicitud con el ID proporcionado.");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en la consulta: " + ex.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error al cerrar la conexión: " + ex.getMessage());
+            }
+        }
+        return ""; // Retorna una cadena vacía si no se pudo obtener el estado.
     }
 
     public String getApellidos(String usuario) {
