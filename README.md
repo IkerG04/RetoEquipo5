@@ -70,3 +70,13 @@ se a iniciado la creacion del servidor con windows server y se ah empezado el ja
 ## Dia 8 (08/05/2024)
 
 ## Dia 9 (09/05/2024)
+
+## Dia 10 (10/05/2024)
+
+## Dia 11 (13/05/2024)
+
+## Dia 12 (14/05/2024)
+
+## Dia 13 (15/05/2024)
+
+## Dia 14 (16/05/2024)
