@@ -1656,7 +1656,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private int insertarSolicitud(int medioTransporte, int departamento, String comentarios, int alojamiento,
-            int numeroAlumnos, String estado, Integer grupoCurso, String fechaInicio,
+            int numeroAlumnos, String estado, String[] grupoCurso, String fechaInicio,
             String fechaFin, int prevista, String titulo) {
         int idSolicitud = -1; // Inicializar la ID de solicitud como -1 por defecto
         try {
@@ -1951,12 +1951,23 @@ public class Principal extends javax.swing.JFrame {
 //                    break;
 //                }
 //            }
+
+            cursosSeleccion.getSelectedItems();
+
+            String[] grupoCurso;
+            if (gruposCursos.getSelection().equals(botonGrupos)) {
+                List<String> seleccion = gruposSeleccion.getSelectedItems();
+                grupoCurso = seleccion.toArray(new String[seleccion.size()]);
+            } else {
+                List<String> seleccion = cursosSeleccion.getSelectedItems();
+                grupoCurso = seleccion.toArray(new String[seleccion.size()]);
+            }
+
             int departamento = Integer.parseInt(solicitudCargarDepartamentoTxt.getText());
             String comentarios = solicitudCargarComentariosTxt.getText();
             int alojamiento = Integer.parseInt(solicitudCargarAlojamientoTxt.getText());
             int numeroAlumnos = Integer.parseInt(solicitudCargarAlumnosTxt.getText());
             String estado = solicitudCargarEstadoTxt.getText();
-            Integer grupoCurso = solicitudCargarGrupoTxt.getText().isEmpty() ? null : Integer.parseInt(solicitudCargarGrupoTxt.getText());
             String fechaInicio = solicitudCargarFechaInicioTxt.getText();
             String fechaFin = solicitudCargarFechaFinTxt.getText();
             String titulo = solicitudCargarTituloTxt1.getText();
