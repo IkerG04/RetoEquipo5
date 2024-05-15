@@ -433,7 +433,7 @@ public class FuncionesBD {
                 boolean activo = rs.getBoolean("activo");
 
                 // Agregar el curso a la lista
-                listaCursos.add(new Curso(id, etapa, descripcion, codigoCurso, activo));
+                listaCursos.add(new Curso(id, codigoCurso, descripcion, etapa, activo));
             }
         } catch (SQLException ex) {
             System.out.println("Error en la consulta: " + ex.getMessage());
@@ -612,4 +612,53 @@ public class FuncionesBD {
             System.out.println("Error al eliminar el departamento: " + ex.getMessage());
         }
     }
+
+    public void insertarVehiculos(int idSolicitud, int idVehiculo) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<Departamento> listaDepartamentos = new ArrayList<>();
+
+        try {
+            conn = AccesoBaseDatos.getInstance().getConn();
+
+            // Consulta para obtener todos los departamento
+            String sql = "INSERT INTO listamediostransporte SET idactividad = ?, idtransporte = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, idSolicitud);
+            statement.setInt(2, idVehiculo);
+            statement.executeUpdate();
+
+            rs = pstmt.executeQuery();
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar el vehiculo: " + ex.getMessage());
+        }
+    }
+
+    public int getVehiculos(String vehiculo) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<Departamento> listaDepartamentos = new ArrayList<>();
+
+        try {
+            conn = AccesoBaseDatos.getInstance().getConn();
+
+            // Consulta para obtener todos los departamento
+            String sql = "SELECT id FROM mediostranporte WHERE descripcion = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, vehiculo);
+            statement.executeUpdate();
+
+            if (rs.next()) {
+                return rs.getInt(sql);
+            }
+
+            rs = pstmt.executeQuery();
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar el vehiculo: " + ex.getMessage());
+        }
+        return 0;
+    }
+
 }

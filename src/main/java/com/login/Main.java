@@ -4,6 +4,9 @@
  */
 package com.login;
 
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import java.awt.Font;
 import java.io.File;
 import javax.swing.UIManager;
@@ -19,6 +22,11 @@ public class Main {
      */
     public static void main(String args[]) {
 
+        FlatRobotoFont.install();
+        FlatLaf.registerCustomDefaultsSource("raven.combobox");
+        UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
+        FlatMacDarkLaf.setup();
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
