@@ -186,13 +186,11 @@ public class Principal extends javax.swing.JFrame {
         botonCancelarCarga = new javax.swing.JPanel();
         textoCancelar = new javax.swing.JLabel();
         textoLlenarTodoSolicitudCargar = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         solicitudCargarTituloTxt1 = new javax.swing.JTextField();
         gruposSeleccion = new com.extra.ComboBoxMultiSelection();
         cursosSeleccion = new com.extra.ComboBoxMultiSelection();
         vehiculoON = new javax.swing.JRadioButton();
         vehiculoOFF = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
         botonesAbajo = new javax.swing.JPanel();
         solicitudCargarPrevistaON = new javax.swing.JRadioButton();
         solicitudCargarPrevistaOFF = new javax.swing.JRadioButton();
@@ -1142,14 +1140,6 @@ public class Principal extends javax.swing.JFrame {
         textoLlenarTodoSolicitudCargar.setForeground(new java.awt.Color(255, 0, 0));
         cargarPanel.add(textoLlenarTodoSolicitudCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 410, 200, -1));
 
-        jButton1.setText("rellenar");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jButton1MouseReleased(evt);
-            }
-        });
-        cargarPanel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 460, -1, -1));
-
         solicitudCargarTituloTxt1.setBackground(new java.awt.Color(51, 51, 51));
         solicitudCargarTituloTxt1.setForeground(new java.awt.Color(255, 255, 255));
         solicitudCargarTituloTxt1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -1166,10 +1156,6 @@ public class Principal extends javax.swing.JFrame {
         vehiculoOFF.setForeground(new java.awt.Color(255, 255, 255));
         vehiculoOFF.setText("No");
         cargarPanel.add(vehiculoOFF, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 97, -1, 20));
-
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("falta: (profesor responsable) (profesores involucrados)");
-        cargarPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         botonesAbajo.setOpaque(false);
         botonesAbajo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -2161,45 +2147,6 @@ public class Principal extends javax.swing.JFrame {
         actividadPrevista.clearSelection();
     }//GEN-LAST:event_textoCancelarMouseReleased
 
-    private void jButton1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseReleased
-        Random rand = new Random();
-
-        // Números aleatorios de 0 a 50
-        solicitudCargarDepartamentoTxt.setText(String.valueOf(rand.nextInt(51)));
-        solicitudCargarAlojamientoTxt.setText(String.valueOf(rand.nextInt(51)));
-        solicitudCargarAlumnosTxt.setText(String.valueOf(rand.nextInt(51)));
-
-        // Letras aleatorias de 'a' a 'z'
-        solicitudCargarComentariosTxt.setText(generarLetrasAleatorias(rand, 10)); // 10 letras
-        solicitudCargarEstadoTxt.setText(generarLetrasAleatorias(rand, 8)); // 8 letras
-
-        // Fechas aleatorias de 2000 hasta 2024
-        int yearInicio = rand.nextInt(25) + 2000; // 2000 - 2024
-        int yearFin = rand.nextInt(25) + 2000; // 2000 - 2024
-        int month = rand.nextInt(12) + 1; // 1 - 12
-        int day = rand.nextInt(28) + 1; // 1 - 28
-        solicitudCargarFechaInicioTxt.setText(LocalDate.of(yearInicio, month, day).toString());
-        solicitudCargarFechaFinTxt.setText(LocalDate.of(yearFin, month, day).toString());
-
-        // Establecer aleatoriamente si está prevista o no
-        if (rand.nextBoolean()) {
-            actividadPrevista.setSelected(solicitudCargarPrevistaON.getModel(), true);
-        } else {
-            actividadPrevista.setSelected(solicitudCargarPrevistaOFF.getModel(), true);
-        }
-        java.awt.event.MouseEvent fakeMouseEvent = new java.awt.event.MouseEvent(new JLabel(), 0, 0, 0, 0, 0, 0, false);
-        textoCargarMouseReleased(fakeMouseEvent);
-    }
-
-    private String generarLetrasAleatorias(Random rand, int longitud) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < longitud; i++) {
-            char randomChar = (char) (rand.nextInt(26) + 'a');
-            sb.append(randomChar);
-        }
-        return sb.toString();
-    }//GEN-LAST:event_jButton1MouseReleased
-
     private void solicitudCargarPrevistaONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solicitudCargarPrevistaONActionPerformed
 
     }//GEN-LAST:event_solicitudCargarPrevistaONActionPerformed
@@ -2697,9 +2644,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel imagenVerSolicitud;
     private javax.swing.JLabel imagenVerSolicitud1;
     private javax.swing.JLabel imagenVerSolicitud2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
