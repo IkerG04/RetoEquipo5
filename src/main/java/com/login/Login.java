@@ -11,6 +11,8 @@ public class Login extends javax.swing.JFrame {
 
     AccesoBaseDatos conexion;
     FuncionesBD accesoBD = new FuncionesBD();
+    String u = "pablo.sanzcampo@educantabria.es";
+    String p = "hp17rrYX";
 
     int xMouse, yMouse;
 
@@ -378,8 +380,8 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_passTxtActionPerformed
 
     private void jToggleButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton1MousePressed
-        String usuarioIngresado = "pablo.sanzcampo@educantabria.es";
-        String passwordIngresada = "u6VqJxOS";
+        String usuarioIngresado = u;
+        String passwordIngresada = p;
 
         conexion = new AccesoBaseDatos("root", "mysql");
 

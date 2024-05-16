@@ -6,6 +6,7 @@ import com.bd.FuncionesBD;
 import com.datos.Curso;
 import com.datos.Grupo;
 import com.datos.Paneles;
+import com.datos.Profesor;
 import com.datos.Solicitud;
 import com.datos.Usuario;
 import com.login.Login;
@@ -15,6 +16,8 @@ import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -33,6 +36,7 @@ import java.util.Map;
 import java.util.Random;
 import javax.swing.ButtonModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -59,6 +63,7 @@ public class Principal extends javax.swing.JFrame {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/gestoractividadesextraescolares";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "mysql";
+    ArrayList<Profesor> profesores;
 
     public Principal(Usuario user) {
         setUndecorated(true);
@@ -193,8 +198,8 @@ public class Principal extends javax.swing.JFrame {
         solicitudCargarProfesorResponsable = new javax.swing.JLabel();
         solicitudCargarProfesoresInvolucrados = new javax.swing.JLabel();
         solicitudCargarPrevista = new javax.swing.JLabel();
-        gruposSeleccion1 = new com.extra.ComboBoxMultiSelection();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        profesoresInvolucrados = new com.extra.ComboBoxMultiSelection();
+        profesorResponsable = new javax.swing.JComboBox<>();
         botonGrupos = new javax.swing.JRadioButton();
         botonCursos = new javax.swing.JRadioButton();
         textoCurso = new javax.swing.JLabel();
@@ -1218,10 +1223,9 @@ public class Principal extends javax.swing.JFrame {
         solicitudCargarPrevista.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         solicitudCargarPrevista.setText("Actividad Prevista");
         botonesAbajo.add(solicitudCargarPrevista, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 104, 120, -1));
-        botonesAbajo.add(gruposSeleccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, 187, 20));
+        botonesAbajo.add(profesoresInvolucrados, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, 187, 20));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        botonesAbajo.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 52, 187, 20));
+        botonesAbajo.add(profesorResponsable, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 52, 187, 20));
 
         cargarPanel.add(botonesAbajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, 610, 190));
 
@@ -1719,6 +1723,32 @@ public class Principal extends javax.swing.JFrame {
                     // Crear el JLabel para el título de la solicitud
                     JLabel tituloLabel = new JLabel(tituloSolicitud);
                     solicitudPanel.add(tituloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+                    // Crear botones
+                    if (user.getPerfil().equals("EquipoAdministrativo") || user.getPerfil().equals("Administrador")) {
+                        JButton aceptarBtn = new JButton("Aceptar");
+                        JButton noAceptarBtn = new JButton("No Aceptar");
+
+                        // Agregar funcionalidad a los botones
+                        aceptarBtn.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                JOptionPane.showMessageDialog(null, "¡Has aceptado!");
+                            }
+                        });
+
+                        noAceptarBtn.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                JOptionPane.showMessageDialog(null, "¡No has aceptado!");
+                            }
+                        });
+
+                        // Agregar los botones al JPanel
+                        solicitudPanel.add(aceptarBtn);
+                        solicitudPanel.add(noAceptarBtn);
+                    }
+
                     // Asignar un nombre dinámico al panel
                     solicitudPanel.setName("solicitud" + solicitud.getId());
 
@@ -1811,6 +1841,15 @@ public class Principal extends javax.swing.JFrame {
         }));
     }
 
+    private void ponerProfesores(JComboBox combo) {
+        profesores = funcionesBD.obtenerListaProfesores();
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        for (Profesor profesor : profesores) {
+            model.addElement(profesor.getNombreCompleto());
+        }
+        combo.setModel(model);
+    }
+
     private void cargarGrupos(JComboBox combo) {
         ArrayList<Grupo> grupos = funcionesBD.obtenerListaGrupos();
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
@@ -1900,6 +1939,11 @@ public class Principal extends javax.swing.JFrame {
         verSolicitudes.setBackground(new Color(51, 51, 51));
         abrirMenuSolicitud(cargarPanel, cargarSolicitudes);
         testData(gruposSeleccion);
+
+        for (Profesor profesor : funcionesBD.obtenerListaProfesores()) {
+            profesorResponsable.addItem(profesor.getNombreCompleto());
+        }
+        ponerProfesores(profesoresInvolucrados);
     }//GEN-LAST:event_cargarSolicitudesMousePressed
 
     private void verSolicitudesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verSolicitudesMousePressed
@@ -1944,8 +1988,6 @@ public class Principal extends javax.swing.JFrame {
             String fechaInicio = solicitudCargarFechaInicioTxt.getText();
             String fechaFin = solicitudCargarFechaFinTxt.getText();
             String titulo = solicitudCargarTituloTxt1.getText();
-            String profesorResponsable = solicitudCargarProfesorResponsableTxt.getText();
-            String profesoresInvolucrados = solicitudCargarProfesoresInvolucrados.getText();
             int prevista;
             int gruposCurso = 0;
             if (botonGrupos.isSelected()) {
@@ -2002,10 +2044,20 @@ public class Principal extends javax.swing.JFrame {
                     }
                 }
 
-                for (Object objeto : gruposSeleccion.getSelectedItems()) {
-                    if (!objeto.equals("Sin Desplazamiento")) {
-                        //    funcionesBD.insertarVehiculos(idSolicitud, funcionesBD.getVehiculos((String) objeto));
+                int idProfesor = -1;
+
+                for (Profesor profesor : profesores) {
+                    if (profesor.getNombreCompleto().equals((String) profesorResponsable.getSelectedItem().toString())) {
+                        idProfesor = profesor.getId();
                     }
+                }
+                if (idProfesor > -1) {
+                    funcionesBD.inseretarProfesor(idProfesor, idSolicitud, "Represntante");
+                }
+
+                for (Profesor profesor : profesores) {
+                    idProfesor = profesor.getId();
+                    funcionesBD.inseretarProfesor(idProfesor, idSolicitud, "Participante");
                 }
 
                 JOptionPane.showMessageDialog(this, "Solicitud creada exitosamente.", "Solicitud Creada", JOptionPane.INFORMATION_MESSAGE);
@@ -2559,7 +2611,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.ButtonGroup gruposCursos;
     private javax.swing.JPanel gruposPanel;
     private com.extra.ComboBoxMultiSelection gruposSeleccion;
-    private com.extra.ComboBoxMultiSelection gruposSeleccion1;
     private javax.swing.JLabel icono1;
     private javax.swing.JLabel imagenActividad;
     private javax.swing.JLabel imagenCargaDatos;
@@ -2574,7 +2625,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel imagenVerSolicitud2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -2600,6 +2650,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel panelUsuario;
     private javax.swing.JPanel principal;
     private javax.swing.JPanel profesorPanel;
+    private javax.swing.JComboBox<String> profesorResponsable;
+    private com.extra.ComboBoxMultiSelection profesoresInvolucrados;
     private javax.swing.JPanel solicitud;
     private javax.swing.JButton solicitudBusquedaBoton;
     private javax.swing.JButton solicitudBusquedaBoton1;

@@ -670,17 +670,17 @@ public class FuncionesBD {
         try {
             conn = AccesoBaseDatos.getInstance().getConn();
 
-            String sql = "SELECT id FROM grupos WHERE codgrupo = ?";
+            String sql = "SELECT idgrupo FROM grupos WHERE codgrupo = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, grupo);
             rs = statement.executeQuery(); // Cambiado a executeQuery()
 
             if (rs.next()) {
-                return rs.getInt("id"); // Corregido para obtener el valor de la columna "id"
+                return rs.getInt("idgrupo"); // Corregido para obtener el valor de la columna "id"
             }
 
         } catch (SQLException ex) {
-            System.out.println("Error al devolver la id: " + ex.getMessage());
+            System.out.println("Error al devolver la id de grupo: " + ex.getMessage());
         }
 
         return 0;
@@ -705,7 +705,7 @@ public class FuncionesBD {
             }
 
         } catch (SQLException ex) {
-            System.out.println("Error al devolver la id: " + ex.getMessage());
+            System.out.println("Error al devolver la id de curso: " + ex.getMessage());
         }
 
         return 0;
@@ -750,6 +750,47 @@ public class FuncionesBD {
 
         } catch (SQLException ex) {
             System.out.println("Error al insertar el curso: " + ex.getMessage());
+        }
+    }
+
+    public void inseretarProfesor(int profesor, int solicitud, String perfil) {
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = AccesoBaseDatos.getInstance().getConn();
+
+            String sql = "INSERT INTO participa (IdProfesor, IdSolicitud, Rol) VALUES (?, ?, ?)";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, profesor);
+            statement.setInt(2, solicitud);
+            statement.setString(3, perfil);
+            statement.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar el profesor: " + ex.getMessage());
+        }
+    }
+
+    public void actualizarSolicitud(String estado, int idSolicitud) {
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = AccesoBaseDatos.getInstance().getConn();
+
+            String sql = "UPDATE solicitud SET estado = ? WHERE id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, estado);
+            statement.setInt(2, idSolicitud);
+            statement.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println("Error al editar el estado de la solicitud: " + ex.getMessage());
         }
     }
 
