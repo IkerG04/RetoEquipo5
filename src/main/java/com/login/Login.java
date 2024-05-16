@@ -379,7 +379,7 @@ public class Login extends javax.swing.JFrame {
 
     private void jToggleButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton1MousePressed
         String usuarioIngresado = "pablo.sanzcampo@educantabria.es";
-        String passwordIngresada = "hp17rrYX";
+        String passwordIngresada = "u6VqJxOS";
 
         conexion = new AccesoBaseDatos("root", "mysql");
 

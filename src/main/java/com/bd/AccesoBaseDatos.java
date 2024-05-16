@@ -21,22 +21,24 @@ public class AccesoBaseDatos {
 
     private Connection conn = null; //atributo conexión
     // constantes a definir. pueden depender de la base a usar, qué credenciales tiene la BD...
+
+    /*
     private static final String BD = "gestoractividadesextraescolares";
-    private static String usuario = "root";//son los datos para conectarse a la BD Mysql
-    private static String clave = "mysql";
-    //private static String clave = "usuario@1";
-    private static final String URL = "jdbc:mysql://localhost:3306/" + BD; //conexión al servidor de la BD
-    //private static final String URL = "jdbc:mysql://10.0.10.10:3306/" + BD; //conexión al servidor de la BD
+    private static final String USUARIO = "g5";
+    private static final String CLAVE = "Usuario@1";
+    private static final String URL = "jdbc:mysql://10.0.10.10:3306/" + BD;
+     */
+    private static final String BD = "gestoractividadesextraescolares";
+    private static final String USUARIO = "root";
+    private static final String CLAVE = "mysql";
+    private static final String URL = "jdbc:mysql://localhost:3306/" + BD;
 
-    public AccesoBaseDatos(String usuario, String clave) {
-
-        this.usuario = usuario;
-        this.clave = clave;
+    public AccesoBaseDatos(String USUARIO, String CLAVE) {
 
         try {
             Properties properties = new Properties();
-            properties.setProperty("user", this.usuario);
-            properties.setProperty("password", this.clave);
+            properties.setProperty("user", this.USUARIO);
+            properties.setProperty("password", this.CLAVE);
             properties.setProperty("useSSL", "false");
             properties.setProperty("autoReconnect", "true");
             conn = (Connection) DriverManager.getConnection(URL, properties);
@@ -65,7 +67,7 @@ public class AccesoBaseDatos {
 
     private static class AccesoBaseDatosHolder {//método privado
 
-        private static final AccesoBaseDatos INSTANCE = new AccesoBaseDatos(usuario, clave);//variable estática privada
+        private static final AccesoBaseDatos INSTANCE = new AccesoBaseDatos(USUARIO, CLAVE);//variable estática privada
     }
 
     //otros métodos que puedan ser necesarios

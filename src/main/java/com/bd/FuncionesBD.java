@@ -661,4 +661,96 @@ public class FuncionesBD {
         return 0;
     }
 
+    public int getGrupo(String grupo) {
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = AccesoBaseDatos.getInstance().getConn();
+
+            String sql = "SELECT id FROM grupos WHERE codgrupo = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, grupo);
+            rs = statement.executeQuery(); // Cambiado a executeQuery()
+
+            if (rs.next()) {
+                return rs.getInt("id"); // Corregido para obtener el valor de la columna "id"
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Error al devolver la id: " + ex.getMessage());
+        }
+
+        return 0;
+    }
+
+    public int getCurso(String curso) {
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = AccesoBaseDatos.getInstance().getConn();
+
+            String sql = "SELECT id FROM curso WHERE codcurso = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, curso);
+            rs = statement.executeQuery(); // Cambiado a executeQuery()
+
+            if (rs.next()) {
+                return rs.getInt("id"); // Corregido para obtener el valor de la columna "id"
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Error al devolver la id: " + ex.getMessage());
+        }
+
+        return 0;
+    }
+
+    public void insertarGrupo(int idSolicitud, int idGrupo) {
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = AccesoBaseDatos.getInstance().getConn();
+
+            String sql = "INSERT INTO gruposparticipantes (codigogrupo, idsolicitud, alumnostotales) VALUES (?, ?, ?)";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, idGrupo);
+            statement.setInt(2, idSolicitud);
+            statement.setInt(3, 0);
+            statement.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar el grupo: " + ex.getMessage());
+        }
+    }
+
+    public void insertarCurso(int idSolicitud, int idCurso) {
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = AccesoBaseDatos.getInstance().getConn();
+
+            String sql = "INSERT INTO cursosparticipantes (codigocurso, idsolicitud, alumnostotales) VALUES (?, ?, ?)";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, idCurso);
+            statement.setInt(2, idSolicitud);
+            statement.setInt(3, 0);
+            statement.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar el curso: " + ex.getMessage());
+        }
+    }
+
 }

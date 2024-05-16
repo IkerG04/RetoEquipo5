@@ -109,17 +109,17 @@ public class Principal extends javax.swing.JFrame {
         imagenVerSolicitud2 = new javax.swing.JLabel();
         textoVerSolicitud2 = new javax.swing.JLabel();
         fondoMantenimientoIzquierda = new javax.swing.JPanel();
+        cursosPanel = new javax.swing.JPanel();
+        editarCursos = new javax.swing.JButton();
+        eliminarCursos = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaCursos = new javax.swing.JTable();
         profesorPanel = new javax.swing.JPanel();
         editarProfesores = new javax.swing.JButton();
         eliminarProfesor = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaProfesores = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        cursosPanel = new javax.swing.JPanel();
-        editarCursos = new javax.swing.JButton();
-        eliminarCursos = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tablaCursos = new javax.swing.JTable();
         gruposPanel = new javax.swing.JPanel();
         editarGrupos = new javax.swing.JButton();
         eliminarGrupos = new javax.swing.JButton();
@@ -169,7 +169,6 @@ public class Principal extends javax.swing.JFrame {
         solicitudCargarAlumnosTxt = new javax.swing.JTextField();
         solicitudCargarEstadoTxt = new javax.swing.JTextField();
         solicitudCargarEstado = new javax.swing.JLabel();
-        solicitudCargarGrupoTxt = new javax.swing.JTextField();
         solicitudCargarGrupo = new javax.swing.JLabel();
         solicitudCargarTitulo = new javax.swing.JLabel();
         botonCargar = new javax.swing.JPanel();
@@ -187,17 +186,15 @@ public class Principal extends javax.swing.JFrame {
         botonesAbajo = new javax.swing.JPanel();
         solicitudCargarPrevistaON = new javax.swing.JRadioButton();
         solicitudCargarPrevistaOFF = new javax.swing.JRadioButton();
-        solicitudCargarHoraTxt = new javax.swing.JTextField();
-        solicitudCargarProfesoresInvolucradosTxt = new javax.swing.JTextField();
-        solicitudCargarProfesorResponsableTxt = new javax.swing.JTextField();
         solicitudCargarFechaFinTxt = new javax.swing.JTextField();
         solicitudCargarFechaInicioTxt = new javax.swing.JTextField();
         solicitudCargarFechaInicio = new javax.swing.JLabel();
         solicitudCargarFechaFin = new javax.swing.JLabel();
         solicitudCargarProfesorResponsable = new javax.swing.JLabel();
         solicitudCargarProfesoresInvolucrados = new javax.swing.JLabel();
-        solicitudCargarHora = new javax.swing.JLabel();
         solicitudCargarPrevista = new javax.swing.JLabel();
+        gruposSeleccion1 = new com.extra.ComboBoxMultiSelection();
+        jComboBox1 = new javax.swing.JComboBox<>();
         botonGrupos = new javax.swing.JRadioButton();
         botonCursos = new javax.swing.JRadioButton();
         textoCurso = new javax.swing.JLabel();
@@ -409,6 +406,47 @@ public class Principal extends javax.swing.JFrame {
 
         panelMantenimiento.add(fondoMantenimientoIzquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 540));
 
+        cursosPanel.setBackground(new java.awt.Color(40, 40, 40));
+
+        editarCursos.setText("Editar");
+        editarCursos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                editarCursosMousePressed(evt);
+            }
+        });
+
+        eliminarCursos.setText("Eliminar");
+        eliminarCursos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                eliminarCursosMousePressed(evt);
+            }
+        });
+
+        tablaCursos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "CODIGO DEL CURSO", "DESCRIPCION", "ETAPA", "ACTIVO"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tablaCursos);
+
         profesorPanel.setBackground(new java.awt.Color(40, 40, 40));
         profesorPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -463,49 +501,6 @@ public class Principal extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("falta: (editar en cursos, grupos y departamentos)");
         profesorPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, -1, -1));
-
-        panelMantenimiento.add(profesorPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
-
-        cursosPanel.setBackground(new java.awt.Color(40, 40, 40));
-
-        editarCursos.setText("Editar");
-        editarCursos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                editarCursosMousePressed(evt);
-            }
-        });
-
-        eliminarCursos.setText("Eliminar");
-        eliminarCursos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                eliminarCursosMousePressed(evt);
-            }
-        });
-
-        tablaCursos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "CODIGO DEL CURSO", "DESCRIPCION", "ETAPA", "ACTIVO"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(tablaCursos);
 
         javax.swing.GroupLayout cursosPanelLayout = new javax.swing.GroupLayout(cursosPanel);
         cursosPanel.setLayout(cursosPanelLayout);
@@ -999,7 +994,7 @@ public class Principal extends javax.swing.JFrame {
 
         verPanel.add(verPanelScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 540));
 
-        panelSolicitud.add(verPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 0));
+        panelSolicitud.add(verPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
 
         cargarPanel.setBackground(new java.awt.Color(40, 40, 40));
         cargarPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1064,11 +1059,6 @@ public class Principal extends javax.swing.JFrame {
         solicitudCargarEstado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         solicitudCargarEstado.setText("Estado");
         cargarPanel.add(solicitudCargarEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(324, 229, 90, -1));
-
-        solicitudCargarGrupoTxt.setBackground(new java.awt.Color(51, 51, 51));
-        solicitudCargarGrupoTxt.setForeground(new java.awt.Color(255, 255, 255));
-        solicitudCargarGrupoTxt.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        cargarPanel.add(solicitudCargarGrupoTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 120, 187, -1));
 
         solicitudCargarGrupo.setBackground(new java.awt.Color(40, 40, 40));
         solicitudCargarGrupo.setForeground(new java.awt.Color(255, 255, 255));
@@ -1168,7 +1158,7 @@ public class Principal extends javax.swing.JFrame {
         cargarPanel.add(vehiculoOFF, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 97, -1, 20));
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("falta: (grupos/cursos) (profesor responsable) (profesores involucrados) (hora inicio) (hora fin)");
+        jLabel1.setText("falta: (profesor responsable) (profesores involucrados)");
         cargarPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         botonesAbajo.setOpaque(false);
@@ -1182,27 +1172,12 @@ public class Principal extends javax.swing.JFrame {
                 solicitudCargarPrevistaONActionPerformed(evt);
             }
         });
-        botonesAbajo.add(solicitudCargarPrevistaON, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, -1, -1));
+        botonesAbajo.add(solicitudCargarPrevistaON, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 104, -1, -1));
 
         actividadPrevista.add(solicitudCargarPrevistaOFF);
         solicitudCargarPrevistaOFF.setForeground(new java.awt.Color(255, 255, 255));
         solicitudCargarPrevistaOFF.setText("No Prevista");
-        botonesAbajo.add(solicitudCargarPrevistaOFF, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, -1, -1));
-
-        solicitudCargarHoraTxt.setBackground(new java.awt.Color(51, 51, 51));
-        solicitudCargarHoraTxt.setForeground(new java.awt.Color(255, 255, 255));
-        solicitudCargarHoraTxt.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        botonesAbajo.add(solicitudCargarHoraTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 104, 187, -1));
-
-        solicitudCargarProfesoresInvolucradosTxt.setBackground(new java.awt.Color(51, 51, 51));
-        solicitudCargarProfesoresInvolucradosTxt.setForeground(new java.awt.Color(255, 255, 255));
-        solicitudCargarProfesoresInvolucradosTxt.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        botonesAbajo.add(solicitudCargarProfesoresInvolucradosTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 78, 187, -1));
-
-        solicitudCargarProfesorResponsableTxt.setBackground(new java.awt.Color(51, 51, 51));
-        solicitudCargarProfesorResponsableTxt.setForeground(new java.awt.Color(255, 255, 255));
-        solicitudCargarProfesorResponsableTxt.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        botonesAbajo.add(solicitudCargarProfesorResponsableTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 52, 187, -1));
+        botonesAbajo.add(solicitudCargarPrevistaOFF, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 104, -1, -1));
 
         solicitudCargarFechaFinTxt.setBackground(new java.awt.Color(51, 51, 51));
         solicitudCargarFechaFinTxt.setForeground(new java.awt.Color(255, 255, 255));
@@ -1238,17 +1213,15 @@ public class Principal extends javax.swing.JFrame {
         solicitudCargarProfesoresInvolucrados.setText("Profesores Involucrados");
         botonesAbajo.add(solicitudCargarProfesoresInvolucrados, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 78, 220, -1));
 
-        solicitudCargarHora.setBackground(new java.awt.Color(40, 40, 40));
-        solicitudCargarHora.setForeground(new java.awt.Color(255, 255, 255));
-        solicitudCargarHora.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        solicitudCargarHora.setText("Hora (HH:MM)");
-        botonesAbajo.add(solicitudCargarHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 104, 220, -1));
-
         solicitudCargarPrevista.setBackground(new java.awt.Color(40, 40, 40));
         solicitudCargarPrevista.setForeground(new java.awt.Color(255, 255, 255));
         solicitudCargarPrevista.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         solicitudCargarPrevista.setText("Actividad Prevista");
-        botonesAbajo.add(solicitudCargarPrevista, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 120, -1));
+        botonesAbajo.add(solicitudCargarPrevista, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 104, 120, -1));
+        botonesAbajo.add(gruposSeleccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, 187, 20));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        botonesAbajo.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 52, 187, 20));
 
         cargarPanel.add(botonesAbajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, 610, 190));
 
@@ -1656,7 +1629,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private int insertarSolicitud(int medioTransporte, int departamento, String comentarios, int alojamiento,
-            int numeroAlumnos, String estado, String[] grupoCurso, String fechaInicio,
+            int numeroAlumnos, String estado, int gruposCurso, String fechaInicio,
             String fechaFin, int prevista, String titulo) {
         int idSolicitud = -1; // Inicializar la ID de solicitud como -1 por defecto
         try {
@@ -1680,7 +1653,7 @@ public class Principal extends javax.swing.JFrame {
             statement.setInt(4, alojamiento);
             statement.setInt(5, numeroAlumnos);
             statement.setString(6, estado);
-            statement.setObject(7, grupoCurso);
+            statement.setInt(7, gruposCurso);
             statement.setString(8, fechaInicio);
             statement.setString(9, fechaFin);
             statement.setInt(10, prevista);
@@ -1973,8 +1946,13 @@ public class Principal extends javax.swing.JFrame {
             String titulo = solicitudCargarTituloTxt1.getText();
             String profesorResponsable = solicitudCargarProfesorResponsableTxt.getText();
             String profesoresInvolucrados = solicitudCargarProfesoresInvolucrados.getText();
-            String hora = solicitudCargarHora.getText();
             int prevista;
+            int gruposCurso = 0;
+            if (botonGrupos.isSelected()) {
+                gruposCurso = 0;
+            } else {
+                gruposCurso = 1;
+            }
 
             ButtonModel selectedModelVehiculo = vehiculo.getSelection();
 
@@ -2010,7 +1988,19 @@ public class Principal extends javax.swing.JFrame {
             if (resultado == JOptionPane.YES_OPTION) {
                 // Insertar la nueva solicitud en la base de datos
                 int idSolicitud = insertarSolicitud(medioTransporte, departamento, comentarios, alojamiento, numeroAlumnos, estado,
-                        grupoCurso, fechaInicio, fechaFin, prevista, titulo);
+                        gruposCurso, fechaInicio, fechaFin, prevista, titulo);
+
+                if (botonGrupos.isSelected()) {
+                    for (Object objeto : gruposSeleccion.getSelectedItems()) {
+                        String grupo = (String) objeto;
+                        funcionesBD.insertarGrupo(idSolicitud, funcionesBD.getGrupo(grupo));
+                    }
+                } else {
+                    for (Object objeto : cursosSeleccion.getSelectedItems()) {
+                        String curso = (String) objeto;
+                        funcionesBD.insertarCurso(idSolicitud, funcionesBD.getCurso(curso));
+                    }
+                }
 
                 for (Object objeto : gruposSeleccion.getSelectedItems()) {
                     if (!objeto.equals("Sin Desplazamiento")) {
@@ -2040,7 +2030,6 @@ public class Principal extends javax.swing.JFrame {
         solicitudCargarAlojamientoTxt.setText("");
         solicitudCargarAlumnosTxt.setText("");
         solicitudCargarEstadoTxt.setText("");
-        solicitudCargarGrupoTxt.setText("");
         solicitudCargarFechaInicioTxt.setText("");
         solicitudCargarFechaFinTxt.setText("");
         actividadPrevista.clearSelection();
@@ -2057,9 +2046,6 @@ public class Principal extends javax.swing.JFrame {
         // Letras aleatorias de 'a' a 'z'
         solicitudCargarComentariosTxt.setText(generarLetrasAleatorias(rand, 10)); // 10 letras
         solicitudCargarEstadoTxt.setText(generarLetrasAleatorias(rand, 8)); // 8 letras
-
-        // Grupo aleatorio de 0 a 99999
-        solicitudCargarGrupoTxt.setText(String.valueOf(rand.nextInt(100000)));
 
         // Fechas aleatorias de 2000 hasta 2024
         int yearInicio = rand.nextInt(25) + 2000; // 2000 - 2024
@@ -2573,6 +2559,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.ButtonGroup gruposCursos;
     private javax.swing.JPanel gruposPanel;
     private com.extra.ComboBoxMultiSelection gruposSeleccion;
+    private com.extra.ComboBoxMultiSelection gruposSeleccion1;
     private javax.swing.JLabel icono1;
     private javax.swing.JLabel imagenActividad;
     private javax.swing.JLabel imagenCargaDatos;
@@ -2587,6 +2574,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel imagenVerSolicitud2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -2634,16 +2622,11 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel solicitudCargarFechaInicio;
     private javax.swing.JTextField solicitudCargarFechaInicioTxt;
     private javax.swing.JLabel solicitudCargarGrupo;
-    private javax.swing.JTextField solicitudCargarGrupoTxt;
-    private javax.swing.JLabel solicitudCargarHora;
-    private javax.swing.JTextField solicitudCargarHoraTxt;
     private javax.swing.JLabel solicitudCargarPrevista;
     private javax.swing.JRadioButton solicitudCargarPrevistaOFF;
     private javax.swing.JRadioButton solicitudCargarPrevistaON;
     private javax.swing.JLabel solicitudCargarProfesorResponsable;
-    private javax.swing.JTextField solicitudCargarProfesorResponsableTxt;
     private javax.swing.JLabel solicitudCargarProfesoresInvolucrados;
-    private javax.swing.JTextField solicitudCargarProfesoresInvolucradosTxt;
     private javax.swing.JLabel solicitudCargarTitulo;
     private javax.swing.JTextField solicitudCargarTituloTxt1;
     private javax.swing.JLabel solicitudCargarTransporte;
