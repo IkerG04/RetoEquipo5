@@ -106,6 +106,11 @@ public class Principal extends javax.swing.JFrame {
         gruposCursos = new javax.swing.ButtonGroup();
         principal = new javax.swing.JPanel();
         panelMantenimiento = new javax.swing.JPanel();
+        profesorPanel = new javax.swing.JPanel();
+        editarProfesores = new javax.swing.JButton();
+        eliminarProfesor = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaProfesores = new javax.swing.JTable();
         mantenimientoCursos = new javax.swing.JPanel();
         imagenVerSolicitud1 = new javax.swing.JLabel();
         textoVerSolicitud1 = new javax.swing.JLabel();
@@ -124,12 +129,6 @@ public class Principal extends javax.swing.JFrame {
         eliminarCursos = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaCursos = new javax.swing.JTable();
-        profesorPanel = new javax.swing.JPanel();
-        editarProfesores = new javax.swing.JButton();
-        eliminarProfesor = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaProfesores = new javax.swing.JTable();
-        jLabel3 = new javax.swing.JLabel();
         gruposPanel = new javax.swing.JPanel();
         editarGrupos = new javax.swing.JButton();
         eliminarGrupos = new javax.swing.JButton();
@@ -237,6 +236,59 @@ public class Principal extends javax.swing.JFrame {
 
         panelMantenimiento.setBackground(new java.awt.Color(40, 40, 40));
         panelMantenimiento.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        profesorPanel.setBackground(new java.awt.Color(40, 40, 40));
+        profesorPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        editarProfesores.setText("Editar");
+        editarProfesores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                editarProfesoresMousePressed(evt);
+            }
+        });
+        profesorPanel.add(editarProfesores, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 480, -1, -1));
+
+        eliminarProfesor.setText("Eliminar");
+        eliminarProfesor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                eliminarProfesorMousePressed(evt);
+            }
+        });
+        profesorPanel.add(eliminarProfesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 480, -1, -1));
+
+        tablaProfesores.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "DNI", "CORREO", "NOMBRE COMPLETO", "ACTIVO", "PERFIL", "CONTRASEÑA", "DEPARTAMENTO"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablaProfesores);
+        if (tablaProfesores.getColumnModel().getColumnCount() > 0) {
+            tablaProfesores.getColumnModel().getColumn(5).setHeaderValue("PERFIL");
+            tablaProfesores.getColumnModel().getColumn(6).setHeaderValue("CONTRASEÑA");
+            tablaProfesores.getColumnModel().getColumn(7).setHeaderValue("DEPARTAMENTO");
+        }
+
+        profesorPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 640, -1));
+
+        panelMantenimiento.add(profesorPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
 
         mantenimientoCursos.setBackground(new java.awt.Color(51, 51, 51));
         mantenimientoCursos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -454,61 +506,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(tablaCursos);
-
-        profesorPanel.setBackground(new java.awt.Color(40, 40, 40));
-        profesorPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        editarProfesores.setText("Editar");
-        editarProfesores.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                editarProfesoresMousePressed(evt);
-            }
-        });
-        profesorPanel.add(editarProfesores, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 480, -1, -1));
-
-        eliminarProfesor.setText("Eliminar");
-        eliminarProfesor.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                eliminarProfesorMousePressed(evt);
-            }
-        });
-        profesorPanel.add(eliminarProfesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 480, -1, -1));
-
-        tablaProfesores.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "DNI", "CORREO", "NOMBRE COMPLETO", "ACTIVO", "PERFIL", "CONTRASEÑA", "DEPARTAMENTO"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tablaProfesores);
-        if (tablaProfesores.getColumnModel().getColumnCount() > 0) {
-            tablaProfesores.getColumnModel().getColumn(5).setHeaderValue("PERFIL");
-            tablaProfesores.getColumnModel().getColumn(6).setHeaderValue("CONTRASEÑA");
-            tablaProfesores.getColumnModel().getColumn(7).setHeaderValue("DEPARTAMENTO");
-        }
-
-        profesorPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 640, -1));
-
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("falta: (editar en cursos, grupos y departamentos)");
-        profesorPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, -1, -1));
 
         javax.swing.GroupLayout cursosPanelLayout = new javax.swing.GroupLayout(cursosPanel);
         cursosPanel.setLayout(cursosPanelLayout);
@@ -2646,7 +2643,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel imagenVerSolicitud2;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
