@@ -30,6 +30,7 @@
             <groupId>com.miglayout</groupId>
             <artifactId>miglayout-swing</artifactId>
             <version>11.3</version>
+            <type>jar</type>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.formdev/flatlaf -->
         <dependency>
@@ -64,12 +65,19 @@
             <version>2.137</version>
             <type>jar</type>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.github.bweng20/jSVG -->
+        <dependency>
+            <groupId>io.github.bweng20</groupId>
+            <artifactId>jSVG</artifactId>
+            <version>1.4</version>
+        </dependency>
+
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>20</maven.compiler.source>
         <maven.compiler.target>20</maven.compiler.target>
-        <exec.mainClass>com.mycompany.iniciosesion1.InicioSesion1</exec.mainClass>
+        <exec.mainClass>com.login.Main</exec.mainClass>
     </properties>
     <build>
         <resources>

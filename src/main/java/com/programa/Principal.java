@@ -14,8 +14,7 @@ import com.extra.ScrollBarCustom;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import java.awt.Color;
-import java.awt.Component;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -50,7 +49,17 @@ import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import com.extra.*;
 
+/**
+ * Clase principal del programa.
+ *
+ * @author Alvaro
+ * @author Marcos
+ * @version 1.0
+ * @see AccesoBaseDatos
+ * @see FuncionesBD
+ */
 public class Principal extends javax.swing.JFrame {
 
     private boolean animacionEjecutada = false;
@@ -68,6 +77,11 @@ public class Principal extends javax.swing.JFrame {
     private ArrayList<Profesor> profesores;
     private String perfil;
 
+    /**
+     * Constructor de la clase Principal.
+     *
+     * @param user Usuario que inicia sesión en el programa.
+     */
     public Principal(Usuario user) {
         setUndecorated(true);
         initComponents();
@@ -77,7 +91,7 @@ public class Principal extends javax.swing.JFrame {
         activoMantenimiento = gruposPanel;
         activoSolicitud = verPanel;
         setLocationRelativeTo(null);
-        JPanel[] paneles = {panelActividad, panelMantenimiento, panelSolicitud, panelCargaDatos, panelUsuario};
+        JPanel[] paneles = { panelActividad, panelMantenimiento, panelSolicitud, panelCargaDatos, panelUsuario };
         for (JPanel p : paneles) {
             p.setSize(940, 540);
             p.setVisible(false);
@@ -98,6 +112,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -186,8 +201,6 @@ public class Principal extends javax.swing.JFrame {
         textoCancelar = new javax.swing.JLabel();
         textoLlenarTodoSolicitudCargar = new javax.swing.JLabel();
         solicitudCargarTituloTxt1 = new javax.swing.JTextField();
-        gruposSeleccion = new com.extra.ComboBoxMultiSelection();
-        cursosSeleccion = new com.extra.ComboBoxMultiSelection();
         vehiculoON = new javax.swing.JRadioButton();
         vehiculoOFF = new javax.swing.JRadioButton();
         botonesAbajo = new javax.swing.JPanel();
@@ -200,12 +213,14 @@ public class Principal extends javax.swing.JFrame {
         solicitudCargarProfesorResponsable = new javax.swing.JLabel();
         solicitudCargarProfesoresInvolucrados = new javax.swing.JLabel();
         solicitudCargarPrevista = new javax.swing.JLabel();
-        profesoresInvolucrados = new com.extra.ComboBoxMultiSelection();
         profesorResponsable = new javax.swing.JComboBox<>();
+        profesoresInvolucrados = new com.extra.ComboBoxMultiSelection();
         botonGrupos = new javax.swing.JRadioButton();
         botonCursos = new javax.swing.JRadioButton();
         textoCurso = new javax.swing.JLabel();
         textoGrupo = new javax.swing.JLabel();
+        gruposSeleccion = new com.extra.ComboBoxMultiSelection();
+        cursosSeleccion = new com.extra.ComboBoxMultiSelection();
         panelCargaDatos = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         panelUsuario = new javax.swing.JPanel();
@@ -780,42 +795,22 @@ public class Principal extends javax.swing.JFrame {
         verPanelScroll1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         verPanelScroll1.setColumnHeaderView(null);
         verPanelScroll1.setOpaque(false);
-        verPanelScroll1.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                verPanelScroll1MouseWheelMoved(evt);
-            }
-        });
 
         verPanelScrollFrame1.setBackground(new java.awt.Color(40, 40, 40));
         verPanelScrollFrame1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         solicitudBusquedaTxt1.setBackground(new java.awt.Color(51, 51, 51));
         solicitudBusquedaTxt1.setForeground(new java.awt.Color(255, 255, 255));
-        solicitudBusquedaTxt1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                solicitudBusquedaTxt1KeyPressed(evt);
-            }
-        });
         verPanelScrollFrame1.add(solicitudBusquedaTxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 290, 30));
 
         solicitudBusquedaBotonVerTodo1.setBackground(new java.awt.Color(51, 51, 51));
         solicitudBusquedaBotonVerTodo1.setForeground(new java.awt.Color(255, 255, 255));
         solicitudBusquedaBotonVerTodo1.setText("Ver todo");
-        solicitudBusquedaBotonVerTodo1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                solicitudBusquedaBotonVerTodo1MouseReleased(evt);
-            }
-        });
         verPanelScrollFrame1.add(solicitudBusquedaBotonVerTodo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, -1, 30));
 
         solicitudBusquedaBoton1.setBackground(new java.awt.Color(51, 51, 51));
         solicitudBusquedaBoton1.setForeground(new java.awt.Color(255, 255, 255));
         solicitudBusquedaBoton1.setText("Buscar");
-        solicitudBusquedaBoton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                solicitudBusquedaBoton1MouseReleased(evt);
-            }
-        });
         verPanelScrollFrame1.add(solicitudBusquedaBoton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, -1, 30));
 
         jPanel2.setBackground(new java.awt.Color(40, 40, 40));
@@ -953,22 +948,12 @@ public class Principal extends javax.swing.JFrame {
         verPanelScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         verPanelScroll.setColumnHeaderView(null);
         verPanelScroll.setOpaque(false);
-        verPanelScroll.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                verPanelScrollMouseWheelMoved(evt);
-            }
-        });
 
         verPanelScrollFrame.setBackground(new java.awt.Color(40, 40, 40));
         verPanelScrollFrame.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         solicitudBusquedaTxt.setBackground(new java.awt.Color(51, 51, 51));
         solicitudBusquedaTxt.setForeground(new java.awt.Color(255, 255, 255));
-        solicitudBusquedaTxt.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                solicitudBusquedaTxtKeyPressed(evt);
-            }
-        });
         verPanelScrollFrame.add(solicitudBusquedaTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 290, 30));
 
         solicitudBusquedaBotonVerTodo.setBackground(new java.awt.Color(51, 51, 51));
@@ -1141,8 +1126,6 @@ public class Principal extends javax.swing.JFrame {
         solicitudCargarTituloTxt1.setForeground(new java.awt.Color(255, 255, 255));
         solicitudCargarTituloTxt1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         cargarPanel.add(solicitudCargarTituloTxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 71, 187, -1));
-        cargarPanel.add(gruposSeleccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 187, 20));
-        cargarPanel.add(cursosSeleccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 187, 20));
 
         vehiculo.add(vehiculoON);
         vehiculoON.setForeground(new java.awt.Color(255, 255, 255));
@@ -1160,11 +1143,6 @@ public class Principal extends javax.swing.JFrame {
         actividadPrevista.add(solicitudCargarPrevistaON);
         solicitudCargarPrevistaON.setForeground(new java.awt.Color(255, 255, 255));
         solicitudCargarPrevistaON.setText("Prevista");
-        solicitudCargarPrevistaON.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                solicitudCargarPrevistaONActionPerformed(evt);
-            }
-        });
         botonesAbajo.add(solicitudCargarPrevistaON, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 104, -1, -1));
 
         actividadPrevista.add(solicitudCargarPrevistaOFF);
@@ -1211,9 +1189,9 @@ public class Principal extends javax.swing.JFrame {
         solicitudCargarPrevista.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         solicitudCargarPrevista.setText("Actividad Prevista");
         botonesAbajo.add(solicitudCargarPrevista, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 104, 120, -1));
-        botonesAbajo.add(profesoresInvolucrados, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, 187, 20));
 
         botonesAbajo.add(profesorResponsable, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 52, 187, 20));
+        botonesAbajo.add(profesoresInvolucrados, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, 187, -1));
 
         cargarPanel.add(botonesAbajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, 610, 190));
 
@@ -1244,6 +1222,8 @@ public class Principal extends javax.swing.JFrame {
         textoGrupo.setForeground(new java.awt.Color(255, 255, 255));
         textoGrupo.setText("Grupos");
         cargarPanel.add(textoGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 280, -1, -1));
+        cargarPanel.add(gruposSeleccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 187, -1));
+        cargarPanel.add(cursosSeleccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 187, -1));
 
         panelSolicitud.add(cargarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 850, 540));
 
@@ -1255,11 +1235,6 @@ public class Principal extends javax.swing.JFrame {
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jButton2MousePressed(evt);
-            }
-        });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
             }
         });
 
@@ -1557,17 +1532,37 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void editProfesor(int id, String dni, String correo, String nombreCompleto, boolean activo, String perfil, String contraseña, int departamento) {
+    /**
+     * Método para editar la información de un profesor en la base de datos.
+     *
+     * @param id             ID del profesor a editar.
+     * @param dni            DNI del profesor.
+     * @param correo         Correo electrónico del profesor.
+     * @param nombreCompleto Nombre completo del profesor.
+     * @param activo         Estado de actividad del profesor.
+     * @param perfil         Perfil del profesor.
+     * @param contraseña     Contraseña del profesor.
+     * @param departamento   ID del departamento al que pertenece el profesor.
+     */
+    private void editProfesor(int id, String dni, String correo, String nombreCompleto, boolean activo, String perfil,
+            String contraseña, int departamento) {
         String[] partesNombre = nombreCompleto.split("\\s+");
         String nombre = partesNombre[0];
         String apellidos = (partesNombre.length > 1) ? partesNombre[1] : "";
 
-        funcionesBD.actualizarDatosProfesor(id, dni, correo, nombre, apellidos, activo, perfil, contraseña, departamento);
+        funcionesBD.actualizarDatosProfesor(id, dni, correo, nombre, apellidos, activo, perfil, contraseña,
+                departamento);
         mantenimientoProfesoresMousePressed(null);
     }
 
+    /**
+     * Método para abrir un menú en la interfaz gráfica.
+     *
+     * @param panel Panel a mostrar.
+     * @param boton Botón asociado al panel.
+     */
     private void abrirMenu(JPanel panel, JPanel boton) {
-        JPanel[] botones = {actividad, mantenimiento, solicitud, cargaDatos, usuario};
+        JPanel[] botones = { actividad, mantenimiento, solicitud, cargaDatos, usuario };
         activo.setVisible(false);
         panel.setVisible(true);
         activo = panel;
@@ -1584,8 +1579,15 @@ public class Principal extends javax.swing.JFrame {
         KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();
     }
 
+    /**
+     * Método para abrir un menú de mantenimiento en la interfaz gráfica.
+     *
+     * @param panel Panel a mostrar.
+     * @param boton Botón asociado al panel.
+     */
     private void abrirMenuMantenimiento(JPanel panel, JPanel boton) {
-        JPanel[] botones = {mantenimientoProfesores, mantenimientoCursos, mantenimientoGrupos, mantenimientoDepartamentos};
+        JPanel[] botones = { mantenimientoProfesores, mantenimientoCursos, mantenimientoGrupos,
+                mantenimientoDepartamentos };
         activoMantenimiento.setVisible(false);
         panel.setVisible(true);
         activoMantenimiento = panel;
@@ -1602,8 +1604,14 @@ public class Principal extends javax.swing.JFrame {
         KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();
     }
 
+    /**
+     * Método para abrir un menú de solicitud en la interfaz gráfica.
+     *
+     * @param panel Panel a mostrar.
+     * @param boton Botón asociado al panel.
+     */
     private void abrirMenuSolicitud(JPanel panel, JPanel boton) {
-        JPanel[] botones = {cargarSolicitudes, verSolicitudes};
+        JPanel[] botones = { cargarSolicitudes, verSolicitudes };
         activoSolicitud.setVisible(false);
         panel.setVisible(true);
         activoSolicitud = panel;
@@ -1620,6 +1628,22 @@ public class Principal extends javax.swing.JFrame {
         KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();
     }
 
+    /**
+     * Método para insertar una solicitud en la base de datos.
+     *
+     * @param medioTransporte ID del medio de transporte.
+     * @param departamento    ID del departamento.
+     * @param comentarios     Comentarios adicionales.
+     * @param alojamiento     ID del alojamiento.
+     * @param numeroAlumnos   Número de alumnos.
+     * @param estado          Estado de la solicitud.
+     * @param gruposCurso     ID del grupo de curso.
+     * @param fechaInicio     Fecha de inicio de la actividad.
+     * @param fechaFin        Fecha de fin de la actividad.
+     * @param prevista        Previsión de la solicitud.
+     * @param titulo          Título de la solicitud.
+     * @return ID de la solicitud insertada.
+     */
     private int insertarSolicitud(int medioTransporte, int departamento, String comentarios, int alojamiento,
             int numeroAlumnos, String estado, int gruposCurso, String fechaInicio,
             String fechaFin, int prevista, String titulo) {
@@ -1657,7 +1681,8 @@ public class Principal extends javax.swing.JFrame {
             // Obtener las claves generadas
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
-                idSolicitud = generatedKeys.getInt(1); // Obtener la primera columna generada, que sería la ID de la solicitud
+                idSolicitud = generatedKeys.getInt(1); // Obtener la primera columna generada, que sería la ID de la
+                                                       // solicitud
             }
 
             generatedKeys.close(); // Cerrar el ResultSet
@@ -1671,11 +1696,18 @@ public class Principal extends javax.swing.JFrame {
         return idSolicitud;
     }
 
+    /**
+     * Método para crear paneles de solicitud en la interfaz gráfica.
+     *
+     * @param textoBusqueda Texto utilizado para filtrar las solicitudes a
+     *                      mostrar.
+     */
     private void crearPanelesSolicitud(String textoBusqueda) {
         System.out.println("Iniciando creación de paneles de solicitud...");
 
         // Guardar referencias a los componentes que no deseas borrar
-        Component[] componentesNoBorrables = {solicitudBusquedaTxt, solicitudBusquedaBotonVerTodo, solicitudBusquedaBoton};
+        Component[] componentesNoBorrables = { solicitudBusquedaTxt, solicitudBusquedaBotonVerTodo,
+                solicitudBusquedaBoton };
 
         // Limpiar el verPanelScrollFrame1 antes de crear los nuevos paneles
         for (Component componente : verPanelScrollFrame.getComponents()) {
@@ -1693,7 +1725,8 @@ public class Principal extends javax.swing.JFrame {
 
         // Calcular la posición vertical inicial
         int ultimaPosicion = 80;
-        // Iterar sobre todas las solicitudes y crear los paneles que coincidan con la búsqueda
+        // Iterar sobre todas las solicitudes y crear los paneles que coincidan con la
+        // búsqueda
         List<Solicitud> solicitudes = funcionesBD.obtenerTodasLasSolicitudes();
         System.out.println("Número de solicitudes obtenidas: " + solicitudes.size());
         for (Solicitud solicitud : solicitudes) {
@@ -1706,14 +1739,16 @@ public class Principal extends javax.swing.JFrame {
                     System.out.println("Creando panel para solicitud: " + solicitud.getId());
                     JPanel solicitudPanel = new JPanel();
                     solicitudPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-                    verPanelScrollFrame.add(solicitudPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, ultimaPosicion, 750, 80));
+                    verPanelScrollFrame.add(solicitudPanel,
+                            new org.netbeans.lib.awtextra.AbsoluteConstraints(20, ultimaPosicion, 750, 80));
 
                     // Crear el JLabel para el título de la solicitud
                     JLabel tituloLabel = new JLabel(tituloSolicitud);
                     solicitudPanel.add(tituloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
                     // Crear botones si el usuario tiene el perfil adecuado
-                    if (funcionesBD.getPerfil(user.getCorreo()).equals("EquipoAdministrativo") || funcionesBD.getPerfil(user.getCorreo()).equals("Administrador")) {
+                    if (funcionesBD.getPerfil(user.getCorreo()).equals("EquipoAdministrativo")
+                            || funcionesBD.getPerfil(user.getCorreo()).equals("Administrador")) {
                         JButton aceptarBtn = new JButton("Aceptar");
                         JButton noAceptarBtn = new JButton("No Aceptar");
 
@@ -1737,8 +1772,14 @@ public class Principal extends javax.swing.JFrame {
                         });
 
                         // Agregar los botones al JPanel
-                        solicitudPanel.add(aceptarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, -1, -1)); // Ajusta la posición según sea necesario
-                        solicitudPanel.add(noAceptarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1)); // Ajusta la posición según sea necesario
+                        solicitudPanel.add(aceptarBtn,
+                                new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, -1, -1)); // Ajusta la
+                                                                                                     // posición según
+                                                                                                     // sea necesario
+                        solicitudPanel.add(noAceptarBtn,
+                                new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1)); // Ajusta la
+                                                                                                     // posición según
+                                                                                                     // sea necesario
                     }
 
                     // Asignar un nombre dinámico al panel
@@ -1754,18 +1795,27 @@ public class Principal extends javax.swing.JFrame {
         JPanel solicitudRelleno = new JPanel();
         solicitudRelleno.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         solicitudRelleno.setBackground(new Color(0, 0, 0, 0)); // Color transparente
-        verPanelScrollFrame.add(solicitudRelleno, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, ultimaPosicion - 20, 850, 20));
+        verPanelScrollFrame.add(solicitudRelleno,
+                new org.netbeans.lib.awtextra.AbsoluteConstraints(20, ultimaPosicion - 20, 850, 20));
 
-        // Refrescar la interfaz gráfica para que los cambios sean visibles después de agregar los nuevos paneles de solicitud
+        // Refrescar la interfaz gráfica para que los cambios sean visibles después de
+        // agregar los nuevos paneles de solicitud
         verPanelScrollFrame.revalidate();
         verPanelScrollFrame.repaint();
 
         System.out.println("Creación de paneles de solicitud completada.");
     }
 
+    /**
+     * Método para crear paneles de actividad en la interfaz gráfica.
+     *
+     * @param textoBusqueda Texto utilizado para filtrar las actividades a
+     *                      mostrar.
+     */
     private void crearPanelesActividad(String textoBusqueda) {
         // Guardar referencias a los componentes que no deseas borrar
-        Component[] componentesNoBorrables = {solicitudBusquedaTxt1, solicitudBusquedaBotonVerTodo1, solicitudBusquedaBoton1};
+        Component[] componentesNoBorrables = { solicitudBusquedaTxt1, solicitudBusquedaBotonVerTodo1,
+                solicitudBusquedaBoton1 };
 
         // Limpiar el verPanelScrollFrame antes de crear los nuevos paneles
         for (Component componente : verPanelScrollFrame1.getComponents()) {
@@ -1784,7 +1834,8 @@ public class Principal extends javax.swing.JFrame {
         // Calcular la posición vertical inicial
         int ultimaPosicion = 80;
 
-        // Iterar sobre todas las solicitudes y crear los paneles que coincidan con la búsqueda
+        // Iterar sobre todas las solicitudes y crear los paneles que coincidan con la
+        // búsqueda
         List<Solicitud> solicitudes = funcionesBD.obtenerTodasLasSolicitudes();
         for (Solicitud solicitud : solicitudes) {
             String tituloSolicitud = solicitud.getTitulo();
@@ -1795,13 +1846,15 @@ public class Principal extends javax.swing.JFrame {
                 if (estadoSolicitud != null && estadoSolicitud.equals("Aceptada")) {
                     JPanel solicitudPanel = new JPanel();
                     solicitudPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-                    verPanelScrollFrame1.add(solicitudPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, ultimaPosicion, 750, 80));
+                    verPanelScrollFrame1.add(solicitudPanel,
+                            new org.netbeans.lib.awtextra.AbsoluteConstraints(20, ultimaPosicion, 750, 80));
 
                     // Crear el JLabel para el título de la solicitud
                     JLabel tituloLabel = new JLabel(tituloSolicitud);
                     solicitudPanel.add(tituloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-                    // Agregar ActionListener para mostrar los detalles de la solicitud al hacer clic en el panel
+                    // Agregar ActionListener para mostrar los detalles de la solicitud al hacer
+                    // clic en el panel
                     solicitudPanel.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
@@ -1820,7 +1873,11 @@ public class Principal extends javax.swing.JFrame {
         }
     }
 
-    // Método para mostrar los detalles de la solicitud en un nuevo panel
+    /**
+     * Método para mostrar los detalles de la solicitud en un nuevo panel.
+     *
+     * @param idSolicitud ID de la solicitud.
+     */
     private void abrirDetallesSolicitud(int idSolicitud) {
         // Verificar si existe un panel de solicitud con el ID especificado
         Component[] components = verPanelScrollFrame1.getComponents();
@@ -1875,23 +1932,34 @@ public class Principal extends javax.swing.JFrame {
         }
         // Si no se encontró la solicitud, mostrar un mensaje de error
         if (!solicitudEncontrada) {
-            JOptionPane.showMessageDialog(null, "La solicitud con ID " + idSolicitud + " no existe.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La solicitud con ID " + idSolicitud + " no existe.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
+    /**
+     * Método para cargar datos de prueba en un JComboBox.
+     *
+     * @param combo JComboBox al que se cargarán los datos.
+     */
     private void testData(JComboBox combo) {
-        combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{
-            "Sin Desplazamiento",
-            "Andando",
-            "Bici",
-            "Autobus",
-            "Taxi",
-            "Tren",
-            "Barco",
-            "Avion"
+        combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {
+                "Sin Desplazamiento",
+                "Andando",
+                "Bici",
+                "Autobus",
+                "Taxi",
+                "Tren",
+                "Barco",
+                "Avion"
         }));
     }
 
+    /**
+     * Método para cargar los nombres de los profesores en un JComboBox.
+     *
+     * @param combo JComboBox al que se cargarán los nombres de los profesores.
+     */
     private void ponerProfesores(JComboBox combo) {
         profesores = funcionesBD.obtenerListaProfesores();
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
@@ -1901,6 +1969,11 @@ public class Principal extends javax.swing.JFrame {
         combo.setModel(model);
     }
 
+    /**
+     * Método para cargar los grupos en un JComboBox.
+     *
+     * @param combo JComboBox al que se cargarán los grupos.
+     */
     private void cargarGrupos(JComboBox combo) {
         ArrayList<Grupo> grupos = funcionesBD.obtenerListaGrupos();
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
@@ -1910,6 +1983,11 @@ public class Principal extends javax.swing.JFrame {
         combo.setModel(model);
     }
 
+    /**
+     * Método para cargar los cursos en un JComboBox.
+     *
+     * @param combo JComboBox al que se cargarán los cursos.
+     */
     private void cargarCursos(JComboBox combo) {
         ArrayList<Curso> cursos = funcionesBD.obtenerListaCursos();
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
@@ -1919,73 +1997,126 @@ public class Principal extends javax.swing.JFrame {
         combo.setModel(model);
     }
 
-
-    private void cargaDatosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargaDatosMousePressed
+    /**
+     * Acción al presionar el botón de carga de datos.
+     */
+    private void cargaDatosMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_cargaDatosMousePressed
         abrirMenu(panelCargaDatos, cargaDatos);
-    }//GEN-LAST:event_cargaDatosMousePressed
+    }// GEN-LAST:event_cargaDatosMousePressed
 
-    private void mantenimientoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoMousePressed
+    /**
+     * Acción al presionar el botón de mantenimiento.
+     */
+    private void mantenimientoMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_mantenimientoMousePressed
         abrirMenu(panelMantenimiento, mantenimiento);
-    }//GEN-LAST:event_mantenimientoMousePressed
+    }// GEN-LAST:event_mantenimientoMousePressed
 
-    private void solicitudMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_solicitudMousePressed
+    /**
+     * Acción al presionar el botón de solicitud.
+     */
+    private void solicitudMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_solicitudMousePressed
         abrirMenu(panelSolicitud, solicitud);
-    }//GEN-LAST:event_solicitudMousePressed
+    }// GEN-LAST:event_solicitudMousePressed
 
-    private void actividadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actividadMousePressed
+    /**
+     * Acción al presionar el botón de actividad.
+     */
+
+    private void actividadMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_actividadMousePressed
         abrirMenu(panelActividad, actividad);
         crearPanelesActividad("");
         verPanelScroll.setVerticalScrollBar(new ScrollBarCustom());
         ScrollBarCustom sp = new ScrollBarCustom();
         sp.setOrientation(JScrollBar.VERTICAL);
         verPanelScroll.setVerticalScrollBar(sp);
-    }//GEN-LAST:event_actividadMousePressed
+    }// GEN-LAST:event_actividadMousePressed
 
-    private void usuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usuarioMousePressed
+    /**
+     * Acción al presionar el botón de usuario.
+     */
+
+    private void usuarioMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_usuarioMousePressed
         abrirMenu(panelUsuario, usuario);
         nombreUsuario.setText(funcionesBD.getNombreProfesor(user));
-    }//GEN-LAST:event_usuarioMousePressed
+    }// GEN-LAST:event_usuarioMousePressed
 
-    private void cerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarMouseEntered
+    /**
+     * Cambio de color al entrar el cursor sobre el botón de cerrar.
+     */
+
+    private void cerrarMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_cerrarMouseEntered
         cerrar.setBackground(Color.RED);
-    }//GEN-LAST:event_cerrarMouseEntered
+    }// GEN-LAST:event_cerrarMouseEntered
 
-    private void cerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarMouseExited
+    /**
+     * Restablecer color al salir el cursor del botón de cerrar.
+     */
+
+    private void cerrarMouseExited(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_cerrarMouseExited
         cerrar.setBackground(new Color(51, 51, 51));
-    }//GEN-LAST:event_cerrarMouseExited
+    }// GEN-LAST:event_cerrarMouseExited
 
-    private void minimizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizarMouseEntered
+    /**
+     * Cambio de color al entrar el cursor sobre el botón de minimizar.
+     */
+
+    private void minimizarMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_minimizarMouseEntered
         minimizar.setBackground(new Color(60, 63, 65));
-    }//GEN-LAST:event_minimizarMouseEntered
+    }// GEN-LAST:event_minimizarMouseEntered
 
-    private void minimizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizarMouseExited
+    /**
+     * Restablecer color al salir el cursor del botón de minimizar.
+     */
+
+    private void minimizarMouseExited(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_minimizarMouseExited
         minimizar.setBackground(new Color(51, 51, 51));
-    }//GEN-LAST:event_minimizarMouseExited
+    }// GEN-LAST:event_minimizarMouseExited
 
-    private void cerrarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarMouseReleased
-        int opcion = javax.swing.JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres cerrar la aplicación?", "Cerrar", javax.swing.JOptionPane.YES_NO_OPTION);
+    /**
+     * Acción al soltar el botón de cerrar.
+     */
+
+    private void cerrarMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_cerrarMouseReleased
+        int opcion = javax.swing.JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que quieres cerrar la aplicación?", "Cerrar", javax.swing.JOptionPane.YES_NO_OPTION);
 
         if (opcion == javax.swing.JOptionPane.YES_OPTION) {
             System.exit(0);
         }
-    }//GEN-LAST:event_cerrarMouseReleased
+    }// GEN-LAST:event_cerrarMouseReleased
 
-    private void minimizarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizarMouseReleased
+    /**
+     * Acción al soltar el botón de minimizar.
+     */
+
+    private void minimizarMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_minimizarMouseReleased
         setState(JFrame.ICONIFIED);
-    }//GEN-LAST:event_minimizarMouseReleased
+    }// GEN-LAST:event_minimizarMouseReleased
 
-    private void icono1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icono1MouseDragged
+    /**
+     * Evento al arrastrar el mouse.
+     */
+
+    private void icono1MouseDragged(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_icono1MouseDragged
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
         this.setLocation(x - xMouse, y - yMouse);
-    }//GEN-LAST:event_icono1MouseDragged
+    }// GEN-LAST:event_icono1MouseDragged
 
-    private void icono1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icono1MousePressed
+    /**
+     * Evento al presionar el mouse.
+     */
+
+    private void icono1MousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_icono1MousePressed
         xMouse = evt.getX();
         yMouse = evt.getY();
-    }//GEN-LAST:event_icono1MousePressed
+    }// GEN-LAST:event_icono1MousePressed
 
-    private void cargarSolicitudesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cargarSolicitudesMousePressed
+    /**
+     * Acción al presionar el botón de cargar solicitudes.
+     */
+
+    private void cargarSolicitudesMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_cargarSolicitudesMousePressed
         cargarSolicitudes.setBackground(new Color(40, 40, 40));
         verSolicitudes.setBackground(new Color(51, 51, 51));
         abrirMenuSolicitud(cargarPanel, cargarSolicitudes);
@@ -1995,9 +2126,13 @@ public class Principal extends javax.swing.JFrame {
             profesorResponsable.addItem(profesor.getNombreCompleto());
         }
         ponerProfesores(profesoresInvolucrados);
-    }//GEN-LAST:event_cargarSolicitudesMousePressed
+    }// GEN-LAST:event_cargarSolicitudesMousePressed
 
-    private void verSolicitudesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verSolicitudesMousePressed
+    /**
+     * Acción al presionar el botón de ver solicitudes.
+     */
+
+    private void verSolicitudesMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_verSolicitudesMousePressed
         cargarSolicitudes.setBackground(new Color(51, 51, 51));
         verSolicitudes.setBackground(new Color(40, 40, 40));
         abrirMenuSolicitud(verPanel, verSolicitudes);
@@ -2006,19 +2141,23 @@ public class Principal extends javax.swing.JFrame {
         ScrollBarCustom sp = new ScrollBarCustom();
         sp.setOrientation(JScrollBar.VERTICAL);
         verPanelScroll.setVerticalScrollBar(sp);
-    }//GEN-LAST:event_verSolicitudesMousePressed
+    }// GEN-LAST:event_verSolicitudesMousePressed
 
-    private void textoCargarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoCargarMouseReleased
+    /**
+     * Acción al soltar el mouse en el campo de texto de cargar.
+     */
+
+    private void textoCargarMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_textoCargarMouseReleased
         try {
 
-            //ParaActvidad
+            // ParaActvidad
             int medioTransporte = 0;
-//            for (Object objeto : comboBoxMultiSelection1.getSelectedItems()) {
-//                if (!objeto.equals("Sin Desplazamiento")) {
-//                    medioTransporte = 1;
-//                    break;
-//                }
-//            }
+            // for (Object objeto : comboBoxMultiSelection1.getSelectedItems()) {
+            // if (!objeto.equals("Sin Desplazamiento")) {
+            // medioTransporte = 1;
+            // break;
+            // }
+            // }
 
             cursosSeleccion.getSelectedItems();
 
@@ -2076,11 +2215,13 @@ public class Principal extends javax.swing.JFrame {
             }
 
             // Ventana de confirmación
-            int resultado = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas cargar esta solicitud?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            int resultado = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas cargar esta solicitud?",
+                    "Confirmación", JOptionPane.YES_NO_OPTION);
 
             if (resultado == JOptionPane.YES_OPTION) {
                 // Insertar la nueva solicitud en la base de datos
-                int idSolicitud = insertarSolicitud(medioTransporte, departamento, comentarios, alojamiento, numeroAlumnos, estado,
+                int idSolicitud = insertarSolicitud(medioTransporte, departamento, comentarios, alojamiento,
+                        numeroAlumnos, estado,
                         gruposCurso, fechaInicio, fechaFin, prevista, titulo);
 
                 if (botonGrupos.isSelected()) {
@@ -2098,12 +2239,13 @@ public class Principal extends javax.swing.JFrame {
                 int idProfesor = -1;
 
                 for (Profesor profesor : profesores) {
-                    if (profesor.getNombreCompleto().equals((String) profesorResponsable.getSelectedItem().toString())) {
+                    if (profesor.getNombreCompleto()
+                            .equals((String) profesorResponsable.getSelectedItem().toString())) {
                         idProfesor = profesor.getId();
                     }
                 }
                 if (idProfesor > -1) {
-                    funcionesBD.inseretarProfesor(idProfesor, idSolicitud, "Represntante");
+                    funcionesBD.insertarProfesor(idProfesor, idSolicitud, "Represntante");
                 }
 
                 for (Profesor profesor : profesores) {
@@ -2112,12 +2254,13 @@ public class Principal extends javax.swing.JFrame {
                         System.out.println(profesor1);
                         if (profesor.getNombreCompleto().equals(profesor1)) {
                             idProfesor = profesor.getId();
-                            funcionesBD.inseretarProfesor(idProfesor, idSolicitud, "Participante");
+                            funcionesBD.insertarProfesor(idProfesor, idSolicitud, "Participante");
                         }
                     }
                 }
 
-                JOptionPane.showMessageDialog(this, "Solicitud creada exitosamente.", "Solicitud Creada", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Solicitud creada exitosamente.", "Solicitud Creada",
+                        JOptionPane.INFORMATION_MESSAGE);
             } else {
                 // Operación cancelada
                 // Puedes agregar aquí cualquier código necesario en caso de cancelación
@@ -2130,9 +2273,13 @@ public class Principal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e1.getMessage(), "Error de Entrada", JOptionPane.ERROR_MESSAGE);
         }
 
-    }//GEN-LAST:event_textoCargarMouseReleased
+    }// GEN-LAST:event_textoCargarMouseReleased
 
-    private void textoCancelarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoCancelarMouseReleased
+    /**
+     * Acción al soltar el mouse en el campo de texto de cancelar.
+     */
+
+    private void textoCancelarMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_textoCancelarMouseReleased
         gruposSeleccion.setSelectedItems(new ArrayList<>());
         solicitudCargarDepartamentoTxt.setText("");
         solicitudCargarComentariosTxt.setText("");
@@ -2142,32 +2289,41 @@ public class Principal extends javax.swing.JFrame {
         solicitudCargarFechaInicioTxt.setText("");
         solicitudCargarFechaFinTxt.setText("");
         actividadPrevista.clearSelection();
-    }//GEN-LAST:event_textoCancelarMouseReleased
+    }// GEN-LAST:event_textoCancelarMouseReleased
 
-    private void solicitudCargarPrevistaONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solicitudCargarPrevistaONActionPerformed
+    /**
+     * Acción al soltar el mouse en el botón de "Ver Todo" en la búsqueda de
+     * solicitudes.
+     */
 
-    }//GEN-LAST:event_solicitudCargarPrevistaONActionPerformed
-
-    private void solicitudBusquedaBotonVerTodoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_solicitudBusquedaBotonVerTodoMouseReleased
+    private void solicitudBusquedaBotonVerTodoMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_solicitudBusquedaBotonVerTodoMouseReleased
         crearPanelesSolicitud("");
         solicitudBusquedaTxt.setText("");
-    }//GEN-LAST:event_solicitudBusquedaBotonVerTodoMouseReleased
+    }// GEN-LAST:event_solicitudBusquedaBotonVerTodoMouseReleased
 
-    private void solicitudBusquedaBotonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_solicitudBusquedaBotonMouseReleased
+    /**
+     * Acción al soltar el mouse en el botón de búsqueda de solicitudes.
+     */
+
+    private void solicitudBusquedaBotonMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_solicitudBusquedaBotonMouseReleased
         crearPanelesSolicitud(solicitudBusquedaTxt.getText());
-    }//GEN-LAST:event_solicitudBusquedaBotonMouseReleased
+    }// GEN-LAST:event_solicitudBusquedaBotonMouseReleased
 
-    private void jLabel2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseReleased
+    /**
+     * Acción al soltar el mouse en la etiqueta de cierre de sesión.
+     */
+
+    private void jLabel2MouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jLabel2MouseReleased
         Login login = new Login();
         this.dispose();
         login.setVisible(true);
-    }//GEN-LAST:event_jLabel2MouseReleased
+    }// GEN-LAST:event_jLabel2MouseReleased
 
-    private void solicitudBusquedaTxtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_solicitudBusquedaTxtKeyPressed
+    /**
+     * Evento al mover la rueda del mouse sobre el panel de ver solicitudes.
+     */
 
-    }//GEN-LAST:event_solicitudBusquedaTxtKeyPressed
-
-    private void verPanelScrollMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_verPanelScrollMouseWheelMoved
+    private void verPanelScrollMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {// GEN-FIRST:event_verPanelScrollMouseWheelMoved
         // Obtener la posición actual del scroll
         int currentValue = verPanelScroll.getVerticalScrollBar().getValue();
 
@@ -2175,92 +2331,139 @@ public class Principal extends javax.swing.JFrame {
         int units = evt.getUnitsToScroll();
 
         // Establecer la nueva posición del scroll
-        verPanelScroll.getVerticalScrollBar().setValue(currentValue + units * 20); // Ajustar el valor "20" según la velocidad deseada
-    }//GEN-LAST:event_verPanelScrollMouseWheelMoved
+        verPanelScroll.getVerticalScrollBar().setValue(currentValue + units * 20); // Ajustar el valor "20" según la
+                                                                                   // velocidad deseada
+    }// GEN-LAST:event_verPanelScrollMouseWheelMoved
 
-    private void mantenimientoCursosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoCursosMousePressed
+    /**
+     * Acción al presionar el botón de mantenimiento de cursos.
+     */
+
+    private void mantenimientoCursosMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_mantenimientoCursosMousePressed
         abrirMenuMantenimiento(cursosPanel, mantenimientoCursos);
         MantenimientosBasicos mantenimientosBasicos = new MantenimientosBasicos();
         mantenimientosBasicos.mantenimientoCursos(tablaCursos, cursosPanel);
-    }//GEN-LAST:event_mantenimientoCursosMousePressed
+    }// GEN-LAST:event_mantenimientoCursosMousePressed
 
-    private void mantenimientoGruposMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoGruposMousePressed
+    /**
+     * Acción al presionar el botón de mantenimiento de grupos.
+     */
+
+    private void mantenimientoGruposMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_mantenimientoGruposMousePressed
         abrirMenuMantenimiento(gruposPanel, mantenimientoGrupos);
         MantenimientosBasicos mantenimientosBasicos = new MantenimientosBasicos();
         mantenimientosBasicos.mantenimientoGrupos(tablaGrupos, gruposPanel);
-    }//GEN-LAST:event_mantenimientoGruposMousePressed
+    }// GEN-LAST:event_mantenimientoGruposMousePressed
 
-    private void mantenimientoDepartamentosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoDepartamentosMousePressed
+    /**
+     * Acción al presionar el botón de mantenimiento de departamentos.
+     */
+
+    private void mantenimientoDepartamentosMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_mantenimientoDepartamentosMousePressed
         abrirMenuMantenimiento(departamentosPanel, mantenimientoDepartamentos);
         MantenimientosBasicos mantenimientosBasicos = new MantenimientosBasicos();
         mantenimientosBasicos.mantenimientoDepartamentos(tablaDepartamentos, departamentosPanel);
-    }//GEN-LAST:event_mantenimientoDepartamentosMousePressed
+    }// GEN-LAST:event_mantenimientoDepartamentosMousePressed
 
-    private void mantenimientoProfesoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantenimientoProfesoresMousePressed
+    /**
+     * Acción al presionar el botón de mantenimiento de profesores.
+     */
+
+    private void mantenimientoProfesoresMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_mantenimientoProfesoresMousePressed
         abrirMenuMantenimiento(profesorPanel, mantenimientoProfesores);
         MantenimientosBasicos mantenimientosBasicos = new MantenimientosBasicos();
         mantenimientosBasicos.mantenimientoProfesores(tablaProfesores, profesorPanel);
-    }//GEN-LAST:event_mantenimientoProfesoresMousePressed
+    }// GEN-LAST:event_mantenimientoProfesoresMousePressed
 
-    private void editarProfesoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarProfesoresMousePressed
+    /**
+     * Acción al presionar el botón de editar profesores.
+     */
+
+    private void editarProfesoresMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_editarProfesoresMousePressed
         int selectedRow = tablaProfesores.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Por favor seleccione un profesor para editar.");
             return;
         }
         TableModel tableModel = tablaProfesores.getModel();
-        // Verificar si el modelo de tabla no está vacío y si la fila seleccionada es válida
+        // Verificar si el modelo de tabla no está vacío y si la fila seleccionada es
+        // válida
         if (tableModel != null && selectedRow >= 0 && selectedRow < tableModel.getRowCount()) {
             String idStr = tableModel.getValueAt(selectedRow, 0).toString();
-            String dni = JOptionPane.showInputDialog(this, "Nuevo DNI del profesor:", tableModel.getValueAt(selectedRow, 1));
-            String correo = JOptionPane.showInputDialog(this, "Nuevo Correo del profesor:", tableModel.getValueAt(selectedRow, 2));
-            String nombreCompleto = JOptionPane.showInputDialog(this, "Nuevo Nombre completo del profesor:", tableModel.getValueAt(selectedRow, 3));
-            String activoStr = JOptionPane.showInputDialog(this, "Activo (1 para sí, 0 para no):", tableModel.getValueAt(selectedRow, 4));
+            String dni = JOptionPane.showInputDialog(this, "Nuevo DNI del profesor:",
+                    tableModel.getValueAt(selectedRow, 1));
+            String correo = JOptionPane.showInputDialog(this, "Nuevo Correo del profesor:",
+                    tableModel.getValueAt(selectedRow, 2));
+            String nombreCompleto = JOptionPane.showInputDialog(this, "Nuevo Nombre completo del profesor:",
+                    tableModel.getValueAt(selectedRow, 3));
+            String activoStr = JOptionPane.showInputDialog(this, "Activo (1 para sí, 0 para no):",
+                    tableModel.getValueAt(selectedRow, 4));
             boolean activo = (activoStr != null && activoStr.equals("1"));
-            String perfil = JOptionPane.showInputDialog(this, "Nuevo Perfil del profesor:", tableModel.getValueAt(selectedRow, 5));
-            String contraseña = JOptionPane.showInputDialog(this, "Nueva Contraseña del profesor:", tableModel.getValueAt(selectedRow, 6));
-            String departamentoStr = JOptionPane.showInputDialog(this, "Nuevo ID del departamento:", tableModel.getValueAt(selectedRow, 7));
+            String perfil = JOptionPane.showInputDialog(this, "Nuevo Perfil del profesor:",
+                    tableModel.getValueAt(selectedRow, 5));
+            String contraseña = JOptionPane.showInputDialog(this, "Nueva Contraseña del profesor:",
+                    tableModel.getValueAt(selectedRow, 6));
+            String departamentoStr = JOptionPane.showInputDialog(this, "Nuevo ID del departamento:",
+                    tableModel.getValueAt(selectedRow, 7));
 
-            if (dni != null && correo != null && nombreCompleto != null && perfil != null && contraseña != null && departamentoStr != null) {
+            if (dni != null && correo != null && nombreCompleto != null && perfil != null && contraseña != null
+                    && departamentoStr != null) {
                 int id = Integer.parseInt(idStr);
                 int departamento = Integer.parseInt(departamentoStr);
                 editProfesor(id, dni, correo, nombreCompleto, activo, perfil, contraseña, departamento);
             }
         } else {
-            // Manejar el caso en el que el modelo de tabla está vacío o la fila seleccionada no es válida
+            // Manejar el caso en el que el modelo de tabla está vacío o la fila
+            // seleccionada no es válida
             JOptionPane.showMessageDialog(this, "No se puede editar la fila seleccionada.");
         }
-    }//GEN-LAST:event_editarProfesoresMousePressed
+    }// GEN-LAST:event_editarProfesoresMousePressed
 
-    private void eliminarProfesorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarProfesorMousePressed
+    /**
+     * Acción al presionar el botón de eliminar profesor.
+     */
+
+    private void eliminarProfesorMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_eliminarProfesorMousePressed
         int selectedRow = tablaProfesores.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Por favor seleccione un profesor para eliminar.");
             return;
         }
         TableModel tableModel = tablaProfesores.getModel();
-        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar el profesor seleccionado?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+        int confirmacion = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que deseas eliminar el profesor seleccionado?", "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
-            int id = (int) tableModel.getValueAt(selectedRow, 0); // Suponiendo que el ID del profesor está en la columna 0
+            int id = (int) tableModel.getValueAt(selectedRow, 0); // Suponiendo que el ID del profesor está en la
+                                                                  // columna 0
             funcionesBD.eliminarProfesor(id);
             mantenimientoProfesoresMousePressed(null);
         }
-    }//GEN-LAST:event_eliminarProfesorMousePressed
+    }// GEN-LAST:event_eliminarProfesorMousePressed
 
-    private void editarCursosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarCursosMousePressed
+    /**
+     * Acción al presionar el botón de editar cursos.
+     */
+
+    private void editarCursosMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_editarCursosMousePressed
         int selectedRow = tablaCursos.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Por favor seleccione un curso para editar.");
             return;
         }
         TableModel tableModel = tablaCursos.getModel();
-        // Verificar si el modelo de tabla no está vacío y si la fila seleccionada es válida
+        // Verificar si el modelo de tabla no está vacío y si la fila seleccionada es
+        // válida
         if (tableModel != null && selectedRow >= 0 && selectedRow < tableModel.getRowCount()) {
             String idStr = tableModel.getValueAt(selectedRow, 0).toString();
-            String nuevoCodCurso = tableModel.getValueAt(selectedRow, 1).toString(); // Suponiendo que el código de curso está en la columna 1
-            String nuevaEtapa = JOptionPane.showInputDialog(this, "Nueva Etapa del curso:", tableModel.getValueAt(selectedRow, 2));
-            String nuevaDescripcion = JOptionPane.showInputDialog(this, "Nueva Descripción del curso:", tableModel.getValueAt(selectedRow, 3));
-            String nuevoActivoStr = JOptionPane.showInputDialog(this, "Nuevo Estado del curso (1 para activo, 0 para inactivo):", tableModel.getValueAt(selectedRow, 4));
+            String nuevoCodCurso = tableModel.getValueAt(selectedRow, 1).toString(); // Suponiendo que el código de
+                                                                                     // curso está en la columna 1
+            String nuevaEtapa = JOptionPane.showInputDialog(this, "Nueva Etapa del curso:",
+                    tableModel.getValueAt(selectedRow, 2));
+            String nuevaDescripcion = JOptionPane.showInputDialog(this, "Nueva Descripción del curso:",
+                    tableModel.getValueAt(selectedRow, 3));
+            String nuevoActivoStr = JOptionPane.showInputDialog(this,
+                    "Nuevo Estado del curso (1 para activo, 0 para inactivo):", tableModel.getValueAt(selectedRow, 4));
 
             if (nuevaEtapa != null && nuevaDescripcion != null && nuevoActivoStr != null) {
                 int id = Integer.parseInt(idStr);
@@ -2269,13 +2472,18 @@ public class Principal extends javax.swing.JFrame {
                 mantenimientoCursosMousePressed(null);
             }
         } else {
-            // Manejar el caso en el que el modelo de tabla está vacío o la fila seleccionada no es válida
+            // Manejar el caso en el que el modelo de tabla está vacío o la fila
+            // seleccionada no es válida
             JOptionPane.showMessageDialog(this, "No se puede editar la fila seleccionada.");
         }
         mantenimientoCursosMousePressed(null);
-    }//GEN-LAST:event_editarCursosMousePressed
+    }// GEN-LAST:event_editarCursosMousePressed
 
-    private void eliminarCursosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarCursosMousePressed
+    /**
+     * Acción al presionar el botón de eliminar curso.
+     */
+
+    private void eliminarCursosMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_eliminarCursosMousePressed
         int selectedRow = tablaCursos.getSelectedRow();
         if (selectedRow != -1) {
             int id = (int) tablaCursos.getValueAt(selectedRow, 0);
@@ -2292,24 +2500,34 @@ public class Principal extends javax.swing.JFrame {
                     "Eliminar Curso", JOptionPane.WARNING_MESSAGE);
         }
         mantenimientoCursosMousePressed(null);
-    }//GEN-LAST:event_eliminarCursosMousePressed
+    }// GEN-LAST:event_eliminarCursosMousePressed
 
-    private void editarGruposMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarGruposMousePressed
+    /**
+     * Acción al presionar el botón de editar grupos.
+     */
+
+    private void editarGruposMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_editarGruposMousePressed
         int selectedRow = tablaGrupos.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Por favor seleccione un grupo para editar.");
             return;
         }
         DefaultTableModel tableModel = (DefaultTableModel) tablaGrupos.getModel();
-        // Verificar si el modelo de tabla no está vacío y si la fila seleccionada es válida
+        // Verificar si el modelo de tabla no está vacío y si la fila seleccionada es
+        // válida
         if (tableModel != null && selectedRow >= 0 && selectedRow < tableModel.getRowCount()) {
             String idStr = tableModel.getValueAt(selectedRow, 0).toString();
-            String nuevoCodGrupo = JOptionPane.showInputDialog(this, "Nuevo Código de Grupo:", tableModel.getValueAt(selectedRow, 1));
-            String nuevoCursoStr = JOptionPane.showInputDialog(this, "Nuevo Curso:", tableModel.getValueAt(selectedRow, 2));
-            String nuevoNumAlumnosStr = JOptionPane.showInputDialog(this, "Nuevo Número de Alumnos:", tableModel.getValueAt(selectedRow, 3));
-            String nuevoActivoStr = JOptionPane.showInputDialog(this, "Nuevo Estado del Grupo (1 para activo, 0 para inactivo):", tableModel.getValueAt(selectedRow, 4));
+            String nuevoCodGrupo = JOptionPane.showInputDialog(this, "Nuevo Código de Grupo:",
+                    tableModel.getValueAt(selectedRow, 1));
+            String nuevoCursoStr = JOptionPane.showInputDialog(this, "Nuevo Curso:",
+                    tableModel.getValueAt(selectedRow, 2));
+            String nuevoNumAlumnosStr = JOptionPane.showInputDialog(this, "Nuevo Número de Alumnos:",
+                    tableModel.getValueAt(selectedRow, 3));
+            String nuevoActivoStr = JOptionPane.showInputDialog(this,
+                    "Nuevo Estado del Grupo (1 para activo, 0 para inactivo):", tableModel.getValueAt(selectedRow, 4));
 
-            if (nuevoCodGrupo != null && nuevoCursoStr != null && nuevoNumAlumnosStr != null && nuevoActivoStr != null) {
+            if (nuevoCodGrupo != null && nuevoCursoStr != null && nuevoNumAlumnosStr != null
+                    && nuevoActivoStr != null) {
                 int id = Integer.parseInt(idStr);
                 int nuevoCurso = Integer.parseInt(nuevoCursoStr);
                 int nuevoNumAlumnos = Integer.parseInt(nuevoNumAlumnosStr);
@@ -2317,20 +2535,27 @@ public class Principal extends javax.swing.JFrame {
                 funcionesBD.actualizarDatosGrupo(id, nuevoCodGrupo, nuevoCurso, nuevoNumAlumnos, nuevoActivo);
             }
         } else {
-            // Manejar el caso en el que el modelo de tabla está vacío o la fila seleccionada no es válida
+            // Manejar el caso en el que el modelo de tabla está vacío o la fila
+            // seleccionada no es válida
             JOptionPane.showMessageDialog(this, "No se puede editar la fila seleccionada.");
         }
         mantenimientoGruposMousePressed(null); // Actualiza la tabla de grupos después de la edición
-    }//GEN-LAST:event_editarGruposMousePressed
+    }// GEN-LAST:event_editarGruposMousePressed
 
-    private void eliminarGruposMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarGruposMousePressed
+    /**
+     * Acción al presionar el botón de eliminar grupo.
+     */
+
+    private void eliminarGruposMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_eliminarGruposMousePressed
         int selectedRow = tablaGrupos.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Por favor seleccione un grupo para eliminar.");
             return;
         }
         DefaultTableModel tableModel = (DefaultTableModel) tablaGrupos.getModel();
-        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar el grupo seleccionado?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+        int confirmacion = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que deseas eliminar el grupo seleccionado?", "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
             int id = (int) tableModel.getValueAt(selectedRow, 0); // Suponiendo que el ID del grupo está en la columna 0
             funcionesBD.eliminarGrupo(id);
@@ -2338,56 +2563,78 @@ public class Principal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Grupo eliminado correctamente.");
             mantenimientoGruposMousePressed(null); // Actualiza la tabla de grupos después de la edición
         }
-    }//GEN-LAST:event_eliminarGruposMousePressed
+    }// GEN-LAST:event_eliminarGruposMousePressed
 
-    private void editarDepartamentosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editarDepartamentosMousePressed
+    /**
+     * Acción al presionar el botón de editar departamentos.
+     */
+
+    private void editarDepartamentosMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_editarDepartamentosMousePressed
         int selectedRow = tablaDepartamentos.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Por favor seleccione un departamento para editar.");
             return;
         }
         DefaultTableModel tableModel = (DefaultTableModel) tablaDepartamentos.getModel();
-        // Verificar si el modelo de tabla no está vacío y si la fila seleccionada es válida
+        // Verificar si el modelo de tabla no está vacío y si la fila seleccionada es
+        // válida
         if (tableModel != null && selectedRow >= 0 && selectedRow < tableModel.getRowCount()) {
             String idStr = tableModel.getValueAt(selectedRow, 0).toString();
-            String nuevoCodigo = JOptionPane.showInputDialog(this, "Nuevo Código del departamento:", tableModel.getValueAt(selectedRow, 1));
-            String nuevoNombre = JOptionPane.showInputDialog(this, "Nuevo Nombre del departamento:", tableModel.getValueAt(selectedRow, 2));
+            String nuevoCodigo = JOptionPane.showInputDialog(this, "Nuevo Código del departamento:",
+                    tableModel.getValueAt(selectedRow, 1));
+            String nuevoNombre = JOptionPane.showInputDialog(this, "Nuevo Nombre del departamento:",
+                    tableModel.getValueAt(selectedRow, 2));
 
             if (nuevoCodigo != null && nuevoNombre != null) {
                 int id = Integer.parseInt(idStr);
                 funcionesBD.actualizarDatosDepartamento(id, nuevoCodigo, nuevoNombre);
             }
         } else {
-            // Manejar el caso en el que el modelo de tabla está vacío o la fila seleccionada no es válida
+            // Manejar el caso en el que el modelo de tabla está vacío o la fila
+            // seleccionada no es válida
             JOptionPane.showMessageDialog(this, "No se puede editar la fila seleccionada.");
         }
-    }//GEN-LAST:event_editarDepartamentosMousePressed
+    }// GEN-LAST:event_editarDepartamentosMousePressed
 
-    private void eliminarDepartamentosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarDepartamentosMousePressed
+    /**
+     * Acción al presionar el botón de eliminar departamento.
+     */
+
+    private void eliminarDepartamentosMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_eliminarDepartamentosMousePressed
         int selectedRow = tablaDepartamentos.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Por favor seleccione un departamento para eliminar.");
             return;
         }
         DefaultTableModel tableModel = (DefaultTableModel) tablaDepartamentos.getModel();
-        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar el departamento seleccionado?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+        int confirmacion = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que deseas eliminar el departamento seleccionado?", "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
-            int id = (int) tableModel.getValueAt(selectedRow, 0); // Suponiendo que el ID del departamento está en la columna 0
+            int id = (int) tableModel.getValueAt(selectedRow, 0); // Suponiendo que el ID del departamento está en la
+                                                                  // columna 0
             funcionesBD.eliminarDepartamento(id);
             MantenimientosBasicos mantenimientosBasicos = new MantenimientosBasicos();
-            mantenimientosBasicos.mantenimientoDepartamentos(tablaDepartamentos, departamentosPanel); // Cambio del nombre del panel
+            mantenimientosBasicos.mantenimientoDepartamentos(tablaDepartamentos, departamentosPanel); // Cambio del
+                                                                                                      // nombre del
+                                                                                                      // panel
         }
-    }//GEN-LAST:event_eliminarDepartamentosMousePressed
+    }// GEN-LAST:event_eliminarDepartamentosMousePressed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    /**
+     * Carga los datos de los profesores desde un archivo CSV.
+     * 
+     * @param file Archivo CSV de profesores.
+     * @throws IOException  Si hay un error de entrada/salida.
+     * @throws SQLException Si hay un error de SQL.
+     */
 
     private void cargarProfesoresDesdeCSV(File file) throws IOException, SQLException {
         Map<String, Integer> departamentoIdMap = new HashMap<>();
         boolean primeraLinea = true; // Variable para identificar la primera línea
 
-        try (Connection conn = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD); BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        try (Connection conn = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+                BufferedReader reader = new BufferedReader(new FileReader(file))) {
 
             String line;
             while ((line = reader.readLine()) != null) {
@@ -2406,7 +2653,8 @@ public class Principal extends javax.swing.JFrame {
 
                     String[] apellidosNombreArray = apellidosNombre.split(",", 2);
                     String apellidos = (apellidosNombreArray.length > 0) ? apellidosNombreArray[0].trim() : "";
-                    String nombre = (apellidosNombreArray.length > 1) ? apellidosNombreArray[1].trim() : apellidosNombre.trim();
+                    String nombre = (apellidosNombreArray.length > 1) ? apellidosNombreArray[1].trim()
+                            : apellidosNombre.trim();
 
                     // Obtener o insertar el ID del departamento
                     int departamentoId = obtenerOInsertarDepartamentoId(departamentoNombre, conn, departamentoIdMap);
@@ -2438,11 +2686,24 @@ public class Principal extends javax.swing.JFrame {
         }
     }
 
-    private int obtenerOInsertarDepartamentoId(String departamentoNombre, Connection conn, Map<String, Integer> departamentoIdMap) throws SQLException {
+    /**
+     * Obtiene el ID del departamento desde la base de datos o lo inserta si no
+     * existe.
+     * 
+     * @param departamentoNombre Nombre del departamento.
+     * @param conn               Conexión a la base de datos.
+     * @param departamentoIdMap  Mapa que contiene los IDs de departamento.
+     * @return ID del departamento.
+     * @throws SQLException Si hay un error de SQL.
+     */
+
+    private int obtenerOInsertarDepartamentoId(String departamentoNombre, Connection conn,
+            Map<String, Integer> departamentoIdMap) throws SQLException {
         if (departamentoIdMap.containsKey(departamentoNombre)) {
             return departamentoIdMap.get(departamentoNombre);
         } else {
-            // Si el departamento no está en el mapa, obtener su ID de la base de datos o insertar uno nuevo
+            // Si el departamento no está en el mapa, obtener su ID de la base de datos o
+            // insertar uno nuevo
             String cod = generarCodigoUnico(conn);
 
             PreparedStatement pstmt = conn.prepareStatement(
@@ -2467,10 +2728,24 @@ public class Principal extends javax.swing.JFrame {
         }
     }
 
-    // Método para dividir una línea de CSV considerando solo comas como delimitadores
+    /**
+     * Divide una línea de texto CSV.
+     * 
+     * @param line Línea de texto CSV.
+     * @return Arreglo de strings con los campos separados.
+     */
+
     private String[] splitCSVLine(String line) {
         return line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
     }
+
+    /**
+     * Genera un código único para el departamento.
+     * 
+     * @param conn Conexión a la base de datos.
+     * @return Código único.
+     * @throws SQLException Si hay un error de SQL.
+     */
 
     private String generarCodigoUnico(Connection conn) throws SQLException {
         String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -2494,6 +2769,15 @@ public class Principal extends javax.swing.JFrame {
         return cod;
     }
 
+    /**
+     * Verifica si un código ya existe en la base de datos.
+     * 
+     * @param cod  Código a verificar.
+     * @param conn Conexión a la base de datos.
+     * @return True si el código existe, False si no.
+     * @throws SQLException Si hay un error de SQL.
+     */
+
     private boolean codigoExiste(String cod, Connection conn) throws SQLException {
         PreparedStatement pstmt = conn.prepareStatement(
                 "SELECT COUNT(*) AS count FROM departamento WHERE cod = ?");
@@ -2511,6 +2795,12 @@ public class Principal extends javax.swing.JFrame {
         return count > 0;
     }
 
+    /**
+     * Genera una contraseña aleatoria.
+     * 
+     * @return Contraseña generada.
+     */
+
     private String generarPassword() {
         String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder sb = new StringBuilder();
@@ -2522,20 +2812,42 @@ public class Principal extends javax.swing.JFrame {
         return sb.toString();
     }
 
+    /**
+     * Obtiene un perfil aleatorio para el profesor.
+     * 
+     * @return Perfil aleatorio.
+     */
+
     private String obtenerPerfilAleatorio() {
-        String[] perfiles = {"SuperUsuario", "Administrador", "EquipoAdministrativo", "Profesor"};
+        String[] perfiles = { "SuperUsuario", "Administrador", "EquipoAdministrativo", "Profesor" };
         return perfiles[(int) (perfiles.length * Math.random())];
     }
+
+    /**
+     * Muestra un mensaje de éxito.
+     * 
+     * @param mensaje Mensaje de éxito.
+     */
 
     private void mostrarMensajeExito(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * Muestra un mensaje de error.
+     * 
+     * @param mensaje Mensaje de error.
+     */
+
     private void mostrarMensajeError(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
+    /**
+     * Acción al presionar el botón para cargar un archivo CSV de profesores.
+     */
+
+    private void jButton2MousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jButton2MousePressed
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Seleccionar Archivo CSV de Profesores");
         fileChooser.setMultiSelectionEnabled(false);
@@ -2559,25 +2871,13 @@ public class Principal extends javax.swing.JFrame {
                 mostrarMensajeError("Selecciona un archivo CSV válido.");
             }
         }
-    }//GEN-LAST:event_jButton2MousePressed
+    }// GEN-LAST:event_jButton2MousePressed
 
-    private void solicitudBusquedaTxt1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_solicitudBusquedaTxt1KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_solicitudBusquedaTxt1KeyPressed
+    /**
+     * Acción al presionar el botón para mostrar los grupos.
+     */
 
-    private void solicitudBusquedaBotonVerTodo1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_solicitudBusquedaBotonVerTodo1MouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_solicitudBusquedaBotonVerTodo1MouseReleased
-
-    private void solicitudBusquedaBoton1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_solicitudBusquedaBoton1MouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_solicitudBusquedaBoton1MouseReleased
-
-    private void verPanelScroll1MouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_verPanelScroll1MouseWheelMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_verPanelScroll1MouseWheelMoved
-
-    private void botonGruposMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGruposMousePressed
+    private void botonGruposMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_botonGruposMousePressed
         cursosSeleccion.setVisible(false);
         gruposSeleccion.setVisible(true);
 
@@ -2586,9 +2886,13 @@ public class Principal extends javax.swing.JFrame {
 
         Dimension size = botonesAbajo.getPreferredSize();
         cargarGrupos(gruposSeleccion);
-    }//GEN-LAST:event_botonGruposMousePressed
+    }// GEN-LAST:event_botonGruposMousePressed
 
-    private void botonCursosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCursosMousePressed
+    /**
+     * Acción al presionar el botón para mostrar los cursos.
+     */
+
+    private void botonCursosMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_botonCursosMousePressed
         cursosSeleccion.setVisible(true);
         gruposSeleccion.setVisible(false);
 
@@ -2597,7 +2901,7 @@ public class Principal extends javax.swing.JFrame {
 
         Dimension size = botonesAbajo.getPreferredSize();
         cargarCursos(cursosSeleccion);
-    }//GEN-LAST:event_botonCursosMousePressed
+    }// GEN-LAST:event_botonCursosMousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actividad;

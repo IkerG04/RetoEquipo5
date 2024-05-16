@@ -1,7 +1,3 @@
-/*
- * Diferentes métdos que puedo requerir en mi conexión
-Es muy conveniente comprobar el resultado de las consultas ejecutadas en la propia BD
- */
 package com.bd;
 
 import com.datos.Curso;
@@ -20,12 +16,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Clase que contiene funciones para interactuar con la base de datos.
  *
- * @author pe
+ * @author Marcos
+ * @author Alvaro
  */
 public class FuncionesBD {
 
-    // Validar datos
+    /**
+     * Valida los datos de usuario y contraseña.
+     *
+     * @param usuario el nombre de usuario
+     * @param password la contraseña del usuario
+     * @return true si los datos son válidos, false en caso contrario
+     */
     public boolean validarDatos(String usuario, String password) {
         Statement sentencia = null;
         ResultSet rs = null;
@@ -57,6 +61,13 @@ public class FuncionesBD {
         return false;
     }
 
+    /**
+     * Valida si el usuario es administrador.
+     *
+     * @param usuario el nombre de usuario
+     * @return un código entero que representa el perfil del usuario (0:
+     * SuperUsuario, 1: Administrador, 2: EquipoDirectivo, 3: Profesor)
+     */
     public int validarAdmin(String usuario) {
         Statement sentencia = null;
         ResultSet rs = null;
@@ -100,6 +111,12 @@ public class FuncionesBD {
         return 0;
     }
 
+    /**
+     * Obtiene el nombre del usuario.
+     *
+     * @param usuario el nombre de usuario
+     * @return el nombre del usuario, o una cadena vacía si no se encuentra
+     */
     public String getNombre(String usuario) {
         Statement sentencia = null;
         ResultSet rs = null;
@@ -134,6 +151,11 @@ public class FuncionesBD {
         return "";
     }
 
+    /**
+     * Obtiene todas las solicitudes de la base de datos.
+     *
+     * @return una lista de todas las solicitudes
+     */
     public List<Solicitud> obtenerTodasLasSolicitudes() {
         List<Solicitud> solicitudes = new ArrayList<>();
         Connection conn = null;
@@ -181,6 +203,12 @@ public class FuncionesBD {
         return solicitudes;
     }
 
+    /**
+     * Obtiene el estado de una solicitud por su ID.
+     *
+     * @param id el ID de la solicitud
+     * @return el estado de la solicitud, o una cadena vacía si no se encuentra
+     */
     public String getEstadoSolicitud(int id) {
         Connection conn = AccesoBaseDatos.getInstance().getConn();
         PreparedStatement pstmt = null;
@@ -215,6 +243,12 @@ public class FuncionesBD {
         return ""; // Retorna una cadena vacía si no se pudo obtener el estado.
     }
 
+    /**
+     * Obtiene los apellidos del usuario.
+     *
+     * @param usuario el nombre de usuario
+     * @return los apellidos del usuario, o una cadena vacía si no se encuentra
+     */
     public String getApellidos(String usuario) {
         Statement sentencia = null;
         ResultSet rs = null;
@@ -249,6 +283,11 @@ public class FuncionesBD {
         return "";
     }
 
+    /**
+     * Obtiene el número total de solicitudes en la base de datos.
+     *
+     * @return el número total de solicitudes
+     */
     public int numeroSolicitudes() {
 
         Connection conn = null;
@@ -274,9 +313,14 @@ public class FuncionesBD {
 
         // Si algo falla o no se encuentra ningún resultado, retornamos 0
         return 0;
-
     }
 
+    /**
+     * Obtiene el título de una solicitud por su ID.
+     *
+     * @param solicitud el ID de la solicitud
+     * @return el título de la solicitud, o una cadena vacía si no se encuentra
+     */
     public String obtenerTituloSolicitud(int solicitud) {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -305,11 +349,21 @@ public class FuncionesBD {
         return "";
     }
 
+    /**
+     * Obtiene el nombre completo de un profesor a partir de un objeto Usuario.
+     *
+     * @param user Objeto Usuario del cual se obtendrá el nombre y apellidos.
+     * @return Nombre completo del profesor.
+     */
     public String getNombreProfesor(Usuario user) {
         return user.getNombre() + " " + user.getApellidos();
     }
 
-    //Profesores
+    /**
+     * Obtiene el número total de profesores registrados en la base de datos.
+     *
+     * @return Número total de profesores.
+     */
     public int numeroProfesores() {
 
         Connection conn = null;
@@ -335,9 +389,14 @@ public class FuncionesBD {
 
         // Si algo falla o no se encuentra ningún resultado, retornamos 0
         return 0;
-
     }
 
+    /**
+     * Obtiene una lista de todos los profesores registrados en la base de
+     * datos.
+     *
+     * @return Lista de objetos Profesor.
+     */
     public ArrayList<Profesor> obtenerListaProfesores() {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -373,6 +432,19 @@ public class FuncionesBD {
         return listaProfesores;
     }
 
+    /**
+     * Actualiza los datos de un profesor en la base de datos.
+     *
+     * @param id ID del profesor a actualizar.
+     * @param dni Nuevo DNI del profesor.
+     * @param correo Nuevo correo del profesor.
+     * @param nombre Nuevo nombre del profesor.
+     * @param apellidos Nuevos apellidos del profesor.
+     * @param activo Nuevo estado de actividad del profesor.
+     * @param perfil Nuevo perfil del profesor.
+     * @param contraseña Nueva contraseña del profesor.
+     * @param departamento Nuevo departamento del profesor.
+     */
     public void actualizarDatosProfesor(int id, String dni, String correo, String nombre, String apellidos, boolean activo, String perfil, String contraseña, int departamento) {
         try {
             Connection conn = AccesoBaseDatos.getInstance().getConn();
@@ -395,6 +467,11 @@ public class FuncionesBD {
         }
     }
 
+    /**
+     * Elimina un profesor de la base de datos.
+     *
+     * @param idProfesor ID del profesor a eliminar.
+     */
     public void eliminarProfesor(int idProfesor) {
         try {
             Connection conn = AccesoBaseDatos.getInstance().getConn();
@@ -409,6 +486,11 @@ public class FuncionesBD {
         }
     }
 
+    /**
+     * Obtiene una lista de todos los cursos registrados en la base de datos.
+     *
+     * @return Lista de objetos Curso.
+     */
     public ArrayList<Curso> obtenerListaCursos() {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -457,6 +539,15 @@ public class FuncionesBD {
         return listaCursos;
     }
 
+    /**
+     * Actualiza los datos de un curso en la base de datos.
+     *
+     * @param id ID del curso a actualizar.
+     * @param nuevaCodCurso Nuevo código del curso.
+     * @param nuevaEtapa Nueva etapa del curso.
+     * @param nuevaDescripcion Nueva descripción del curso.
+     * @param activo Nuevo estado de actividad del curso.
+     */
     public void modificarDatosCurso(int id, String nuevaCodCurso, String nuevaEtapa, String nuevaDescripcion, boolean activo) {
         try {
             Connection conn = AccesoBaseDatos.getInstance().getConn();
@@ -475,6 +566,11 @@ public class FuncionesBD {
         }
     }
 
+    /**
+     * Elimina un curso de la base de datos.
+     *
+     * @param idCurso ID del curso a eliminar.
+     */
     public void eliminarCurso(int idCurso) {
         try {
             Connection conn = AccesoBaseDatos.getInstance().getConn();
@@ -489,6 +585,11 @@ public class FuncionesBD {
         }
     }
 
+    /**
+     * Obtiene una lista de todos los grupos registrados en la base de datos.
+     *
+     * @return Lista de objetos Grupo.
+     */
     public ArrayList<Grupo> obtenerListaGrupos() {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -521,6 +622,15 @@ public class FuncionesBD {
         return listaGrupos;
     }
 
+    /**
+     * Actualiza los datos de un grupo en la base de datos.
+     *
+     * @param id ID del grupo a actualizar.
+     * @param codgrupo Nuevo código del grupo.
+     * @param curso Nuevo curso del grupo.
+     * @param numAlumnos Nuevo número de alumnos del grupo.
+     * @param activo Nuevo estado de actividad del grupo.
+     */
     public void actualizarDatosGrupo(int id, String codgrupo, int curso, int numAlumnos, boolean activo) {
         try {
             Connection conn = AccesoBaseDatos.getInstance().getConn();
@@ -539,6 +649,11 @@ public class FuncionesBD {
         }
     }
 
+    /**
+     * Elimina un grupo de la base de datos.
+     *
+     * @param idGrupo ID del grupo a eliminar.
+     */
     public void eliminarGrupo(int idGrupo) {
         try {
             Connection conn = AccesoBaseDatos.getInstance().getConn();
@@ -553,6 +668,12 @@ public class FuncionesBD {
         }
     }
 
+    /**
+     * Obtiene una lista de todos los departamentos registrados en la base de
+     * datos.
+     *
+     * @return Lista de objetos Departamento.
+     */
     public ArrayList<Departamento> obtenerListaDepartamentos() {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -583,6 +704,13 @@ public class FuncionesBD {
         return listaDepartamentos;
     }
 
+    /**
+     * Actualiza los datos de un departamento en la base de datos.
+     *
+     * @param id ID del departamento a actualizar.
+     * @param cod Nuevo código del departamento.
+     * @param nombre Nuevo nombre del departamento.
+     */
     public void actualizarDatosDepartamento(int id, String cod, String nombre) {
         try {
             Connection conn = AccesoBaseDatos.getInstance().getConn();
@@ -599,6 +727,11 @@ public class FuncionesBD {
         }
     }
 
+    /**
+     * Elimina un departamento de la base de datos.
+     *
+     * @param idDepartamento ID del departamento a eliminar.
+     */
     public void eliminarDepartamento(int idDepartamento) {
         try {
             Connection conn = AccesoBaseDatos.getInstance().getConn();
@@ -613,6 +746,13 @@ public class FuncionesBD {
         }
     }
 
+    /**
+     * Inserta una relación entre una solicitud y un vehículo en la base de
+     * datos.
+     *
+     * @param idSolicitud ID de la solicitud.
+     * @param idVehiculo ID del vehículo.
+     */
     public void insertarVehiculos(int idSolicitud, int idVehiculo) {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -635,6 +775,12 @@ public class FuncionesBD {
         }
     }
 
+    /**
+     * Obtiene el ID de un vehículo a partir de su descripción.
+     *
+     * @param vehiculo Descripción del vehículo.
+     * @return ID del vehículo.
+     */
     public int getVehiculos(String vehiculo) {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -661,6 +807,12 @@ public class FuncionesBD {
         return 0;
     }
 
+    /**
+     * Obtiene el ID de un grupo a partir de su código.
+     *
+     * @param grupo Código del grupo.
+     * @return ID del grupo.
+     */
     public int getGrupo(String grupo) {
 
         Connection conn = null;
@@ -686,6 +838,12 @@ public class FuncionesBD {
         return 0;
     }
 
+    /**
+     * Obtiene el ID de un curso a partir de su código.
+     *
+     * @param curso Código del curso.
+     * @return ID del curso.
+     */
     public int getCurso(String curso) {
 
         Connection conn = null;
@@ -711,6 +869,12 @@ public class FuncionesBD {
         return 0;
     }
 
+    /**
+     * Inserta un grupo asociado a una solicitud en la base de datos.
+     *
+     * @param idSolicitud ID de la solicitud.
+     * @param idGrupo ID del grupo.
+     */
     public void insertarGrupo(int idSolicitud, int idGrupo) {
 
         Connection conn = null;
@@ -732,6 +896,12 @@ public class FuncionesBD {
         }
     }
 
+    /**
+     * Inserta un curso asociado a una solicitud en la base de datos.
+     *
+     * @param idSolicitud ID de la solicitud.
+     * @param idCurso ID del curso.
+     */
     public void insertarCurso(int idSolicitud, int idCurso) {
 
         Connection conn = null;
@@ -753,7 +923,15 @@ public class FuncionesBD {
         }
     }
 
-    public void inseretarProfesor(int profesor, int solicitud, String perfil) {
+    /**
+     * Inserta un profesor asociado a una solicitud en la base de datos con un
+     * perfil específico.
+     *
+     * @param profesor ID del profesor.
+     * @param solicitud ID de la solicitud.
+     * @param perfil Perfil del profesor en la solicitud.
+     */
+    public void insertarProfesor(int profesor, int solicitud, String perfil) {
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -774,6 +952,12 @@ public class FuncionesBD {
         }
     }
 
+    /**
+     * Actualiza el estado de una solicitud en la base de datos.
+     *
+     * @param estado Nuevo estado de la solicitud.
+     * @param idSolicitud ID de la solicitud a actualizar.
+     */
     public void actualizarSolicitud(String estado, int idSolicitud) {
 
         Connection conn = null;
@@ -794,6 +978,12 @@ public class FuncionesBD {
         }
     }
 
+    /**
+     * Obtiene el perfil de un profesor a partir de su correo electrónico.
+     *
+     * @param usuario Correo electrónico del profesor.
+     * @return Perfil del profesor.
+     */
     public String getPerfil(String usuario) {
         Statement sentencia = null;
         ResultSet rs = null;
@@ -828,6 +1018,12 @@ public class FuncionesBD {
         return "";
     }
 
+    /**
+     * Obtiene el ID de un profesor a partir de su correo electrónico.
+     *
+     * @param usuario Correo electrónico del profesor.
+     * @return ID del profesor.
+     */
     public String getIdProfesor(String usuario) {
         Statement sentencia = null;
         ResultSet rs = null;
@@ -861,6 +1057,13 @@ public class FuncionesBD {
         }
         return "";
     }
+
+    /**
+     * Obtiene una solicitud a partir de su ID.
+     *
+     * @param idSolicitud ID de la solicitud.
+     * @return Solicitud con los datos asociados.
+     */
 
     public Solicitud obtenerSolicitudPorId(int idSolicitud) {
         Solicitud solicitud = null;
