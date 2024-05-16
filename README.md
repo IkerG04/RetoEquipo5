@@ -25,19 +25,26 @@ La base de datos se utiliza para gestionar todas y cada una de las actividades e
 ### Estructura E/R
 Explicación: El diagrama E/R muestra las entidades clave.
 [![image.png](https://i.postimg.cc/JnGJZFct/image.png)](https://postimg.cc/Q9ZHr0zr)
+
 La base de datos gira en torno a las solicitudes, teniendo esto en cuenta hemos creado una tabla llamada solicitudes que tiene conexión con las tablas, grupos, cursos, profesores y actividades.
+[![image.png](https://i.postimg.cc/T1bDHWs6/image.png)](https://postimg.cc/BPqbjtsY)
 
 La tabla profesores está conectada a la tabla departamento de dos maneras, un profesor está si o si en uno y solo un departamento y a su vez un departamento a de tener un jefe si o si y solo uno.
+[![image.png](https://i.postimg.cc/CLyDnmZL/image.png)](https://postimg.cc/MXDXh0bh)
 
 La tabla perfil tiene dos claves ajenas sacadas de profesor, que son el id y el correo electrónico, esto se debe a que el perfil está estrechamente relacionado a los profesores, un profesor tiene un solo perfil y un perfil solo puede pertenecer a un profesor.
 
 La tabla de profesores está relacionada con la tabla solicitudes mediante 4 roles, profesor, superusuario, administrador, personal administrativo. Dependiendo de qué rol cumpla en el instituto tendrá acceso a unas funciones u otras en la aplicación.
+[![image.png](https://i.postimg.cc/VkgbTwKd/image.png)](https://postimg.cc/cvKHgpyS)
 
 La tabla solicitud contiene toda la información sobre una actividad solicitada por un profesor incluyendo el profesor que la solicita, si una solicitud es rechaza la información se queda hay pero en estado pone rechazada, si es aceptada se creará unos campos en la tabla ACEX programadas, que utilizará el id de solicitud para crear dicha actividad.
+[![image.png](https://i.postimg.cc/k55tPHHw/image.png)](https://postimg.cc/XrTvws4y)
 
 A la tabla solicitud están conectadas las tablas de grupos y cursos, en las que se almacena toda la información sobre estos y cuando hay una actividad se elije si van a participar grupos o cursos, obviamente, los grupos contienen el curso en el que están.
+[![image.png](https://i.postimg.cc/LXcqf880/image.png)](https://postimg.cc/0MC21xmp)
 
 Luego las actividades que han sido aceptadas están conectadas con dos tablas, fotos, que contiene todas las fotos hechas y medios de transporte para saber qué medios de transporte son utilizados, ha de ser marcado en solicitud que hay medios de transporte, sino, esta opción se deshabilita.
+[![image.png](https://i.postimg.cc/sx5MJCBf/image.png)](https://postimg.cc/N2fGgV7Z)
 
 ### Diagrama Relacional
 Explicación: Este diagrama muestra cómo se estructuran las tablas en la base de datos.
