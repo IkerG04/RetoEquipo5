@@ -95,6 +95,8 @@ A la tabla de actividades se conecta otra tabla llamada medios de transporte que
 [![image.png](https://i.postimg.cc/Ss64TSGP/image.png)](https://postimg.cc/Kk8C4yw7)
 
 También está conectada a una lista de fotos que almacena todas las fotos que son propias de esta actividad y la URL de dicha foto la cual saca de una tabla llamada fotos en la que se almacenan todas las fotos de todas las actividades y una descripción de dicha foto.
+### Archivo SQL de Importación
+Puedes encontrar el archivo SQL de importación debajo.
 
 [![image.png](https://i.postimg.cc/mkVs4mJN/image.png)](https://postimg.cc/Mfc4bmWv)
 ```sql
@@ -375,8 +377,6 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 ```
 
-### Archivo SQL de Importación
-Puedes encontrar el archivo SQL de importación [aquí](link).
 
 ## Sobre la Web
 
