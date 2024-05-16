@@ -24,7 +24,7 @@ La base de datos se utiliza para gestionar todas y cada una de las actividades e
 
 ### Estructura E/R
 Explicación: El diagrama E/R muestra las entidades clave.
-
+[![image.png](https://i.postimg.cc/JnGJZFct/image.png)](https://postimg.cc/Q9ZHr0zr)
 La base de datos gira en torno a las solicitudes, teniendo esto en cuenta hemos creado una tabla llamada solicitudes que tiene conexión con las tablas, grupos, cursos, profesores y actividades.
 
 La tabla profesores está conectada a la tabla departamento de dos maneras, un profesor está si o si en uno y solo un departamento y a su vez un departamento a de tener un jefe si o si y solo uno.
