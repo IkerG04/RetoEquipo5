@@ -383,7 +383,35 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 ### Estructura de la Página
 La página web se divide en secciones para la página principal con información de los cursos del centro, así como un footer con las páginas oficiales de Instagram y YouTube del propio centro (Esto último está presente en toda la página), otra parte para las actividades solicitadas, en proceso y ya programadas con todos los datos de las propias actividades, otra para sobre nosotros con todos los datos del propio centro, como la ubicación, los diferentes cursos con los horarios y una muy breve historia de la historia del curso y una parte con una galería con fotos de las actividades ya realizadas.
 
-...
+### Estilos Utilizados
+Se utiliza CSS para darle un formato agradable y plausible para un centro de educacion formal a la pagina.
+
+### Contenidos de la Web
+La web incluye:
+
+[![image.png](https://i.postimg.cc/4dQCv8fk/image.png)](https://postimg.cc/7GhQwnJm)
+[![image.png](https://i.postimg.cc/qqJP18qt/image.png)](https://postimg.cc/Q9zYtKps)
+
+•	Lista de actividades actuales, pendientes y actividades en curso
+
+[![image.png](https://i.postimg.cc/kXh0yRm4/image.png)](https://postimg.cc/rKxZVmzX)
+
+•	Detalles del centro
+
+[![image.png](https://i.postimg.cc/GmW6W09n/image.png)](https://postimg.cc/CR4v8Qjc)
+
+•	Informacion sobre lo que ofrece el centro
+
+[![image.png](https://i.postimg.cc/LsjGRyZY/image.png)](https://postimg.cc/QBxfJJmh)
+
+### Sobre java
+
+•	Diagrama de Clases
+Explicación: Este diagrama muestra las clases Java utilizadas en el proyecto, sus métodos y relaciones.
+
+
+•	JavaDoc
+
 
 ## Implementación y Despliegue
 
