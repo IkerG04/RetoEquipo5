@@ -794,4 +794,102 @@ public class FuncionesBD {
         }
     }
 
+    public String getPerfil(String usuario) {
+        Statement sentencia = null;
+        ResultSet rs = null;
+        Connection conn = AccesoBaseDatos.getInstance().getConn();
+        boolean admin = false;
+
+        try {
+            sentencia = conn.createStatement();
+            // dentro de executeQuery va el código de la select
+            String sql = "select perfil from profesor where correo = ?";
+
+            // Utilizamos PreparedStatement para evitar problemas de SQL Injection y mejorar la legibilidad del código
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, usuario);
+
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en la consulta " + ex.getMessage());
+        } finally {
+            try {
+                if (sentencia != null) {
+                    rs.close();
+                    sentencia.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error al cerrar la sentencia " + ex.getMessage());
+            }
+        }
+        return "";
+    }
+
+    public String getIdProfesor(String usuario) {
+        Statement sentencia = null;
+        ResultSet rs = null;
+        Connection conn = AccesoBaseDatos.getInstance().getConn();
+        boolean admin = false;
+
+        try {
+            sentencia = conn.createStatement();
+            // dentro de executeQuery va el código de la select
+            String sql = "select nombre from profesor where correo = ?";
+
+            // Utilizamos PreparedStatement para evitar problemas de SQL Injection y mejorar la legibilidad del código
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, usuario);
+
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("nombre");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en la consulta " + ex.getMessage());
+        } finally {
+            try {
+                if (sentencia != null) {
+                    rs.close();
+                    sentencia.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error al cerrar la sentencia " + ex.getMessage());
+            }
+        }
+        return "";
+    }
+
+    public Solicitud obtenerSolicitudPorId(int idSolicitud) {
+        Solicitud solicitud = null;
+        Connection conn = AccesoBaseDatos.getInstance().getConn();
+        try {
+            String sql = "SELECT * FROM solicitud WHERE id = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, idSolicitud);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                boolean medioTransporte = rs.getBoolean("mediotransporte");
+                int departamento = rs.getInt("departamento");
+                String comentarios = rs.getString("comentariosadicionales");
+                boolean alojamiento = rs.getBoolean("alojamiento");
+                int numeroAlumnos = rs.getInt("numeroalumnos");
+                String estado = rs.getString("estado");
+                int grupocurso = rs.getInt("grupocurso");
+                LocalDate fechaInicio = rs.getDate("fecha_inicio").toLocalDate();
+                LocalDate fechaFin = rs.getDate("fecha_fin").toLocalDate();
+                boolean prevista = rs.getBoolean("prevista");
+                String titulo = rs.getString("titulo");
+
+                solicitud = new Solicitud(idSolicitud, medioTransporte, departamento, comentarios,
+                        alojamiento, numeroAlumnos, estado, grupocurso, fechaInicio, fechaFin, prevista, titulo);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener la solicitud con id " + idSolicitud + ": " + ex.getMessage());
+        }
+        return solicitud;
+    }
+
 }

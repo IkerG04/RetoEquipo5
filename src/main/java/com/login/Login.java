@@ -176,7 +176,7 @@ public class Login extends javax.swing.JFrame {
         loginBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
         loginBtnTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         loginBtnTxt.setText("ENTRAR");
-        loginBtnTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        loginBtnTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         loginBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 loginBtnTxtMouseClicked(evt);

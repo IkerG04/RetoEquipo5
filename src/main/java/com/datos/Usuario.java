@@ -16,7 +16,7 @@ public class Usuario {
     private String password;
 
     public enum perfil {
-        SuperUsuario, Administrador, EquipoDirectivo, Profesor
+        SuperUsuario, Administrador, EquipoAdministrativo, Profesor
     };
 
     private perfil perfilUsuario;
@@ -40,5 +40,9 @@ public class Usuario {
 
     public Enum getPerfil() {
         return perfilUsuario;
+    }
+
+    public String getCorreo() {
+        return correo;
     }
 }

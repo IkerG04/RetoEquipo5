@@ -18,6 +18,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -63,7 +65,8 @@ public class Principal extends javax.swing.JFrame {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/gestoractividadesextraescolares";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "mysql";
-    ArrayList<Profesor> profesores;
+    private ArrayList<Profesor> profesores;
+    private String perfil;
 
     public Principal(Usuario user) {
         setUndecorated(true);
@@ -90,6 +93,8 @@ public class Principal extends javax.swing.JFrame {
 
         textoGrupo.setVisible(false);
         textoCurso.setVisible(false);
+
+        perfil = user.getPerfil().toString();
     }
 
     @SuppressWarnings("unchecked")
@@ -1724,8 +1729,8 @@ public class Principal extends javax.swing.JFrame {
                     JLabel tituloLabel = new JLabel(tituloSolicitud);
                     solicitudPanel.add(tituloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-                    // Crear botones
-                    if (user.getPerfil().equals("EquipoAdministrativo") || user.getPerfil().equals("Administrador")) {
+                    // Crear botones si el usuario tiene el perfil adecuado
+                    if (funcionesBD.getPerfil(user.getCorreo()).equals("EquipoAdministrativo") || funcionesBD.getPerfil(user.getCorreo()).equals("Administrador")) {
                         JButton aceptarBtn = new JButton("Aceptar");
                         JButton noAceptarBtn = new JButton("No Aceptar");
 
@@ -1733,6 +1738,8 @@ public class Principal extends javax.swing.JFrame {
                         aceptarBtn.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
+                                funcionesBD.actualizarSolicitud("Aceptada", solicitud.getId());
+                                crearPanelesSolicitud("");
                                 JOptionPane.showMessageDialog(null, "¡Has aceptado!");
                             }
                         });
@@ -1740,13 +1747,15 @@ public class Principal extends javax.swing.JFrame {
                         noAceptarBtn.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
+                                funcionesBD.actualizarSolicitud("NoAceptada", solicitud.getId());
+                                crearPanelesSolicitud("");
                                 JOptionPane.showMessageDialog(null, "¡No has aceptado!");
                             }
                         });
 
                         // Agregar los botones al JPanel
-                        solicitudPanel.add(aceptarBtn);
-                        solicitudPanel.add(noAceptarBtn);
+                        solicitudPanel.add(aceptarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, -1, -1)); // Ajusta la posición según sea necesario
+                        solicitudPanel.add(noAceptarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1)); // Ajusta la posición según sea necesario
                     }
 
                     // Asignar un nombre dinámico al panel
@@ -1808,6 +1817,16 @@ public class Principal extends javax.swing.JFrame {
                     // Crear el JLabel para el título de la solicitud
                     JLabel tituloLabel = new JLabel(tituloSolicitud);
                     solicitudPanel.add(tituloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+                    // Agregar ActionListener para mostrar los detalles de la solicitud al hacer clic en el panel
+                    solicitudPanel.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            // Aquí puedes llamar a un método para mostrar los detalles de la solicitud
+                            abrirDetallesSolicitud(solicitud.getId());
+                        }
+                    });
+
                     // Asignar un nombre dinámico al panel
                     solicitudPanel.setName("solicitud" + solicitud.getId());
 
@@ -1816,16 +1835,65 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
         }
+    }
 
-        // Añadir un panel de relleno al final para mantener el espacio
-        JPanel solicitudRelleno = new JPanel();
-        solicitudRelleno.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        solicitudRelleno.setBackground(new Color(0, 0, 0, 0)); // Color transparente
-        verPanelScrollFrame1.add(solicitudRelleno, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, ultimaPosicion - 20, 850, 20));
+    // Método para mostrar los detalles de la solicitud en un nuevo panel
+    private void abrirDetallesSolicitud(int idSolicitud) {
+        // Verificar si existe un panel de solicitud con el ID especificado
+        Component[] components = verPanelScrollFrame1.getComponents();
+        boolean solicitudEncontrada = false;
+        for (Component component : components) {
+            if (component instanceof JPanel) {
+                JPanel solicitudPanel = (JPanel) component;
+                String nombrePanel = solicitudPanel.getName();
+                if (nombrePanel != null && nombrePanel.equals("solicitud" + idSolicitud)) {
+                    solicitudEncontrada = true;
+                    // Obtener la solicitud por su ID
+                    Solicitud solicitud = funcionesBD.obtenerSolicitudPorId(idSolicitud);
+                    if (solicitud != null) {
+                        // Crear un nuevo JFrame para los detalles de la solicitud
+                        JFrame detallesFrame = new JFrame("Detalles de Solicitud");
+                        detallesFrame.setSize(400, 300);
+                        detallesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        detallesFrame.setLocationRelativeTo(null); // Centrar en pantalla
 
-        // Refrescar la interfaz gráfica para que los cambios sean visibles después de agregar los nuevos paneles de solicitud
-        verPanelScrollFrame1.revalidate();
-        verPanelScrollFrame1.repaint();
+                        // Crear un panel para mostrar los detalles de la solicitud
+                        JPanel detallesPanel = new JPanel();
+                        detallesPanel.setLayout(new GridLayout(6, 2));
+
+                        // Añadir etiquetas para mostrar los detalles de la solicitud
+                        detallesPanel.add(new JLabel("ID:"));
+                        detallesPanel.add(new JLabel(String.valueOf(solicitud.getId())));
+
+                        detallesPanel.add(new JLabel("Título:"));
+                        detallesPanel.add(new JLabel(solicitud.getTitulo()));
+
+                        detallesPanel.add(new JLabel("Estado:"));
+                        detallesPanel.add(new JLabel(solicitud.getEstado()));
+
+                        // Agregar más etiquetas para otros campos de la solicitud según sea necesario
+                        // Botón para cerrar la ventana de detalles
+                        JButton cerrarButton = new JButton("Cerrar");
+                        cerrarButton.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                detallesFrame.dispose(); // Cerrar la ventana de detalles
+                            }
+                        });
+                        detallesPanel.add(new JLabel()); // Espacio en blanco para alinear el botón
+                        detallesPanel.add(cerrarButton);
+
+                        detallesFrame.add(detallesPanel);
+                        detallesFrame.setVisible(true);
+                        break; // Importante: salir del bucle una vez que se ha encontrado la solicitud
+                    }
+                }
+            }
+        }
+        // Si no se encontró la solicitud, mostrar un mensaje de error
+        if (!solicitudEncontrada) {
+            JOptionPane.showMessageDialog(null, "La solicitud con ID " + idSolicitud + " no existe.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void testData(JComboBox combo) {
@@ -2056,8 +2124,14 @@ public class Principal extends javax.swing.JFrame {
                 }
 
                 for (Profesor profesor : profesores) {
-                    idProfesor = profesor.getId();
-                    funcionesBD.inseretarProfesor(idProfesor, idSolicitud, "Participante");
+                    for (Object profesor1 : profesoresInvolucrados.getSelectedItems()) {
+                        System.out.println(profesor.getNombreCompleto());
+                        System.out.println(profesor1);
+                        if (profesor.getNombreCompleto().equals(profesor1)) {
+                            idProfesor = profesor.getId();
+                            funcionesBD.inseretarProfesor(idProfesor, idSolicitud, "Participante");
+                        }
+                    }
                 }
 
                 JOptionPane.showMessageDialog(this, "Solicitud creada exitosamente.", "Solicitud Creada", JOptionPane.INFORMATION_MESSAGE);
