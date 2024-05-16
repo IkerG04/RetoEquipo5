@@ -79,3 +79,6 @@ La página web se divide en secciones para la página principal con información
 | Tecnología    | Características                                    | Justificación                                  |
 |---------------|----------------------------------------------------|------------------------------------------------|
 | Chat GPT      | Facilita el desarrollo de la aplicación corrigiendo errores y explicándolos | Facilita el entendimiento del código con comentarios |
+|---------------|----------------------------------------------------|------------------------------------------------|
+| StackOverflow | Foro con tadas las dependencias necesarias de la aplicacion | Facil de entender y usar |
+
