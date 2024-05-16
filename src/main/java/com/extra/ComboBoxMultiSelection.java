@@ -26,16 +26,28 @@ import javax.swing.plaf.basic.ComboPopup;
 import net.miginfocom.swing.MigLayout;
 
 /**
- *
- * @author RAVEN
- * @param <E>
+ * La clase ComboBoxMultiSelection extiende JComboBox para permitir selecciones múltiples mediante una interfaz personalizada.
+ * 
+ * @param <E> Tipo genérico de elementos en el ComboBox
+ * @author Marcos
+ * @author Álvaro
  */
 public class ComboBoxMultiSelection<E> extends JComboBox<E> {
 
+    /**
+     * Obtiene una lista de los elementos seleccionados en el ComboBox.
+     * 
+     * @return Lista de elementos seleccionados
+     */
     public List<Object> getSelectedItems() {
         return selectedItems;
     }
 
+    /**
+     * Establece los elementos seleccionados en el ComboBox.
+     * 
+     * @param selectedItems Lista de elementos a establecer como seleccionados
+     */
     public void setSelectedItems(List<Object> selectedItems) {
         List<Object> comboItem = new ArrayList<>();
         int count = getItemCount();
@@ -50,6 +62,9 @@ public class ComboBoxMultiSelection<E> extends JComboBox<E> {
         comboItem.clear();
     }
 
+    /**
+     * Borra todos los elementos seleccionados del ComboBox.
+     */
     public void clearSelectedItems() {
         selectedItems.clear();
         Component editorCom = getEditor().getEditorComponent();
@@ -83,6 +98,9 @@ public class ComboBoxMultiSelection<E> extends JComboBox<E> {
         }
     }
 
+    /**
+     * Constructor de la clase ComboBoxMultiSelection.
+     */
     public ComboBoxMultiSelection() {
         setUI(new ComboBoxMultiUI());
         comboBoxMultiCellEditor = new ComboBoxMultiCellEditor();
@@ -172,21 +190,14 @@ public class ComboBoxMultiSelection<E> extends JComboBox<E> {
 
             // Configuración de la barra de desplazamiento
             scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-            scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); // Para que no aparezca la barra de desplazamiento horizontal
-            scroll.setBorder(null); // Eliminar el borde del JScrollPane
-            scroll.putClientProperty(FlatClientProperties.STYLE, ""
-                    + "border:2,2,2,2;"
-                    + "background:$ComboBox.editableBackground");
-            panel.putClientProperty(FlatClientProperties.STYLE, ""
-                    + "background:$ComboBox.editableBackground");
+            scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            scroll.setBorder(null);
+            scroll.putClientProperty(FlatClientProperties.STYLE, "border:2,2,2,2; background:$ComboBox.editableBackground");
+            panel.putClientProperty(FlatClientProperties.STYLE, "background:$ComboBox.editableBackground");
             scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
             scroll.setHorizontalScrollBar(new ScrollBarCustom());
             JScrollBar scrollBar = scroll.getHorizontalScrollBar();
-            scrollBar.putClientProperty(FlatClientProperties.STYLE, ""
-                    + "width:1;"
-                    + "thumbInsets:0,0,0,1;"
-                    + "hoverTrackColor:null");
-
+            scrollBar.putClientProperty(FlatClientProperties.STYLE, "width:1; thumbInsets:0,0,0,1; hoverTrackColor:null");
             scrollBar.setUnitIncrement(10);
         }
 
@@ -226,15 +237,9 @@ public class ComboBoxMultiSelection<E> extends JComboBox<E> {
         }
 
         private void init() {
-            putClientProperty(FlatClientProperties.STYLE, ""
-                    + "border:0,5,0,20;"
-                    + "background:darken($ComboBox.background,10%)");
+            putClientProperty(FlatClientProperties.STYLE, "border:0,5,0,20; background:darken($ComboBox.background,10%)");
             JButton cmd = new JButton(new FlatSVGIcon("raven/combobox/close.svg", 0.6f));
-            cmd.putClientProperty(FlatClientProperties.STYLE, ""
-                    + "arc:999;"
-                    + "margin:1,1,1,1;"
-                    + "background:null;"
-                    + "focusWidth:0");
+            cmd.putClientProperty(FlatClientProperties.STYLE, "arc:999; margin:1,1,1,1; background:null; focusWidth:0");
             cmd.addActionListener((e) -> {
                 removeItemObject(item);
             });

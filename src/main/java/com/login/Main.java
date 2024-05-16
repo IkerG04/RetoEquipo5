@@ -8,17 +8,18 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import java.awt.Font;
-import java.io.File;
 import javax.swing.UIManager;
 
 /**
- *
- * @author DAW104
+ * Clase principal que inicia la aplicación de inicio de sesión.
+ * @author Marcos
+ * @author Álvaro
  */
 public class Main {
 
     /**
-     * @param args the command line arguments
+     * Método principal que inicia la aplicación.
+     * @param args Los argumentos de línea de comandos (no se utilizan en este caso)
      */
     public static void main(String args[]) {
 

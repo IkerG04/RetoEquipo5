@@ -12,10 +12,22 @@ import javax.swing.JComponent;
 import javax.swing.JScrollBar;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
+/**
+ * La clase ModernScrollBarUI personaliza la apariencia de las barras de desplazamiento (scrollbars) en componentes Swing.
+ * Proporciona un diseño y estilo moderno para los botones y las áreas de la barra de desplazamiento.
+ * 
+ * @author Marcos
+ * @author Álvaro
+ */
 public class ModernScrollBarUI extends BasicScrollBarUI {
 
     private final int THUMB_SIZE = 40;
 
+    /**
+     * Devuelve el tamaño máximo de la barra de desplazamiento.
+     * 
+     * @return Dimension que especifica el tamaño máximo del pulgar de la barra de desplazamiento
+     */
     @Override
     protected Dimension getMaximumThumbSize() {
         if (scrollbar.getOrientation() == JScrollBar.VERTICAL) {
@@ -25,6 +37,11 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
         }
     }
 
+    /**
+     * Devuelve el tamaño mínimo del pulgar de la barra de desplazamiento.
+     * 
+     * @return Dimension que especifica el tamaño mínimo del pulgar de la barra de desplazamiento
+     */
     @Override
     protected Dimension getMinimumThumbSize() {
         if (scrollbar.getOrientation() == JScrollBar.VERTICAL) {
@@ -34,51 +51,76 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
         }
     }
 
+    /**
+     * Crea un botón de incremento para la barra de desplazamiento.
+     * 
+     * @param orientation orientación de la barra de desplazamiento
+     * @return JButton creado como botón de incremento
+     */
     @Override
-    protected JButton createIncreaseButton(int i) {
+    protected JButton createIncreaseButton(int orientation) {
         return new ScrollBarButton();
     }
 
+    /**
+     * Crea un botón de decremento para la barra de desplazamiento.
+     * 
+     * @param orientation orientación de la barra de desplazamiento
+     * @return JButton creado como botón de decremento
+     */
     @Override
-    protected JButton createDecreaseButton(int i) {
+    protected JButton createDecreaseButton(int orientation) {
         return new ScrollBarButton();
     }
 
+    /**
+     * Pinta la pista (track) de la barra de desplazamiento.
+     * 
+     * @param g objeto Graphics para pintar
+     * @param c componente de barra de desplazamiento
+     * @param r área del rectángulo que representa la pista
+     */
     @Override
-    protected void paintTrack(Graphics grphcs, JComponent jc, Rectangle rctngl) {
-        Graphics2D g2 = (Graphics2D) grphcs;
+    protected void paintTrack(Graphics g, JComponent c, Rectangle r) {
+        Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        int orientation = scrollbar.getOrientation();
         int size;
         int x;
         int y;
         int width;
         int height;
-        if (orientation == JScrollBar.VERTICAL) {
-            size = rctngl.width / 2;
-            x = rctngl.x + ((rctngl.width - size) / 2);
-            y = rctngl.y;
+        if (scrollbar.getOrientation() == JScrollBar.VERTICAL) {
+            size = r.width / 2;
+            x = r.x + ((r.width - size) / 2);
+            y = r.y;
             width = size;
-            height = rctngl.height;
+            height = r.height;
         } else {
-            size = rctngl.height / 2;
-            y = rctngl.y + ((rctngl.height - size) / 2);
+            size = r.height / 2;
+            y = r.y + ((r.height - size) / 2);
             x = 0;
-            width = rctngl.width;
+            width = r.width;
             height = size;
         }
         g2.setColor(new Color(240, 240, 240));
         g2.fillRect(x, y, width, height);
     }
 
+    /**
+     * Pinta el pulgar (thumb) de la barra de desplazamiento.
+     * 
+     * @param g objeto Graphics para pintar
+     * @param c componente de barra de desplazamiento
+     * @param r área del rectángulo que representa el pulgar
+     */
     @Override
-    protected void paintThumb(Graphics grphcs, JComponent jc, Rectangle rctngl) {
-        Graphics2D g2 = (Graphics2D) grphcs;
+    protected void paintThumb(Graphics g, JComponent c, Rectangle r) {
+        Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        int x = rctngl.x;
-        int y = rctngl.y;
-        int width = rctngl.width;
-        int height = rctngl.height;
+        int x = r.x;
+        int y = r.y;
+        int width = r.width;
+        int height = r.height;
         if (scrollbar.getOrientation() == JScrollBar.VERTICAL) {
             y += 8;
             height -= 16;
@@ -90,14 +132,26 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
         g2.fillRoundRect(x, y, width, height, 10, 10);
     }
 
+    /**
+     * Clase interna que representa un botón personalizado para la barra de desplazamiento.
+     */
     private class ScrollBarButton extends JButton {
 
+        /**
+         * Constructor de ScrollBarButton.
+         */
         public ScrollBarButton() {
             setBorder(BorderFactory.createEmptyBorder());
         }
 
+        /**
+         * Sustitución del método paint para no realizar ninguna operación.
+         * 
+         * @param g objeto Graphics para pintar
+         */
         @Override
-        public void paint(Graphics grphcs) {
+        public void paint(Graphics g) {
+            // No se realiza ninguna operación de pintado
         }
     }
 }

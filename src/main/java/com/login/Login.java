@@ -7,18 +7,27 @@ import com.programa.Principal;
 
 import java.awt.Color;
 
+/**
+ * La clase Login representa la ventana de inicio de sesión de la aplicación.
+ * Permite a los usuarios autenticarse utilizando credenciales de usuario y
+ * contraseña.
+ * @author Marcos
+ * @author Álvaro
+ */
 public class Login extends javax.swing.JFrame {
 
     AccesoBaseDatos conexion;
     FuncionesBD accesoBD = new FuncionesBD();
-    String u = "pablo.sanzcampo@educantabria.es";
-    String p = "hp17rrYX";
 
     int xMouse, yMouse;
 
+    /**
+     * Constructor de la clase Login. Inicializa la ventana de inicio de sesión
+     * y los componentes visuales.
+     */
     public Login() {
         initComponents();
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // Centra la ventana en la pantalla
     }
 
     @SuppressWarnings("unchecked")
@@ -65,7 +74,6 @@ public class Login extends javax.swing.JFrame {
         exitBtn.setOpaque(false);
 
         exitTxt.setFont(new java.awt.Font("Roboto Light", 0, 24)); // NOI18N
-        exitTxt.setForeground(new java.awt.Color(0, 0, 0));
         exitTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         exitTxt.setText("x");
         exitTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -119,7 +127,6 @@ public class Login extends javax.swing.JFrame {
         userLabel.setText("USUARIO");
 
         userTxt.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        userTxt.setForeground(new java.awt.Color(0, 0, 0));
         userTxt.setToolTipText("");
         userTxt.setBorder(null);
         userTxt.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -146,7 +153,6 @@ public class Login extends javax.swing.JFrame {
         passLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         passLabel.setText("CONTRASEÑA");
 
-        passTxt.setForeground(new java.awt.Color(0, 0, 0));
         passTxt.setBorder(null);
         passTxt.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -268,26 +274,53 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Método invocado cuando se presiona el mouse en el área del encabezado.
+     * Captura las coordenadas del mouse para permitir el arrastre de la
+     * ventana.
+     *
+     * @param evt Evento del mouse
+     */
     private void headerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMousePressed
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_headerMousePressed
-
+    /**
+     * Método invocado cuando se arrastra el mouse mientras se mantiene
+     * presionado en el área del encabezado. Mueve la ventana a la posición
+     * calculada en base al desplazamiento del mouse.
+     *
+     * @param evt Evento del mouse
+     */
     private void headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMouseDragged
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
         this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_headerMouseDragged
-
+    /**
+     * Método invocado cuando se hace clic en el botón de salida (X) en el
+     * encabezado. Cierra la aplicación al salir.
+     *
+     * @param evt Evento del mouse
+     */
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
         System.exit(0);
     }//GEN-LAST:event_exitTxtMouseClicked
-
+    /**
+     * Método invocado cuando el cursor entra en el área del botón de salida.
+     * Cambia el color del texto para indicar la interacción.
+     *
+     * @param evt Evento del mouse
+     */
     private void exitTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseEntered
         exitTxt.setForeground(Color.red);
     }//GEN-LAST:event_exitTxtMouseEntered
-
+    /**
+     * Método invocado cuando el cursor sale del área del botón de salida.
+     * Restaura el color del texto después de la interacción.
+     *
+     * @param evt Evento del mouse
+     */
     private void exitTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseExited
         exitTxt.setForeground(Color.black);
     }//GEN-LAST:event_exitTxtMouseExited
@@ -307,7 +340,13 @@ public class Login extends javax.swing.JFrame {
     private void passTxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passTxtMousePressed
 
     }//GEN-LAST:event_passTxtMousePressed
-
+    /**
+     * Método invocado cuando se hace clic en el botón de inicio de sesión.
+     * Valida las credenciales de usuario ingresadas y abre la ventana principal
+     * si son válidas.
+     *
+     * @param evt Evento del mouse
+     */
     private void loginBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnTxtMouseClicked
         String usuarioIngresado = userTxt.getText();
         String passwordIngresada = String.valueOf(passTxt.getPassword());
@@ -326,6 +365,12 @@ public class Login extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_loginBtnTxtMouseClicked
+    /**
+     * Método invocado cuando se presiona la tecla Enter mientras se está en el
+     * campo de usuario. Cambia el foco al campo de contraseña.
+     *
+     * @param evt Evento del teclado
+     */
 
     private void userTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userTxtActionPerformed
         passTxt.requestFocusInWindow();
@@ -346,7 +391,13 @@ public class Login extends javax.swing.JFrame {
     private void userTxtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userTxtFocusLost
 
     }//GEN-LAST:event_userTxtFocusLost
-
+    /**
+     * Método invocado cuando se hace clic en el botón de acceso rápido. Utiliza
+     * credenciales predeterminadas para autenticar al usuario y abrir la
+     * ventana principal.
+     *
+     * @param evt Evento del mouse
+     */
     private void passTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passTxtActionPerformed
         String usuarioIngresado = userTxt.getText();
         String passwordIngresada = String.valueOf(passTxt.getPassword());
