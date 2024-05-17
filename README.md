@@ -11,7 +11,6 @@
    - Contenidos de la Web
 3. [Sobre Java](#sobre-java)
    - Diagrama de Clases
-   - JavaDoc
 4. [Implementación y Despliegue](#implementación-y-despliegue)
    - Tecnologías Utilizadas
 
@@ -426,8 +425,6 @@ Los grupos de estudiantes se gestionan mediante la clase Grupo, que incluye atri
 Las actividades extracurriculares y las solicitudes de actividades se gestionan mediante las clases ACEXProgramadas y Solicitud, respectivamente. Estas clases incluyen atributos para especificar detalles como la programación prevista, el transporte, el alojamiento y los participantes, lo que permite planificar y coordinar actividades fuera del plan de estudios principal.
 
 En resumen, este sistema proporciona una estructura sólida para la gestión integral de una institución educativa, desde la asignación de roles y responsabilidades hasta la planificación y coordinación de actividades académicas y extracurriculares. La interrelación entre las diferentes clases permite una administración eficiente y organizada de todas las operaciones dentro de la institución.
-
-•	JavaDoc
 
 
 ## Implementación y Despliegue
