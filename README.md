@@ -407,8 +407,23 @@ La web incluye:
 ### Sobre java
 
 •	Diagrama de Clases
+[image.ong](https://ibb.co/0y98LLw)
 Explicación: Este diagrama muestra las clases Java utilizadas en el proyecto, sus métodos y relaciones.
+El sistema educativo que se describe aquí es bastante completo en términos de gestión de usuarios, departamentos, profesores, cursos, grupos de estudiantes y actividades extracurriculares. Todo esto se organiza a través de una serie de clases interrelacionadas que permiten una administración eficiente de las operaciones educativas y administrativas dentro de una institución.
 
+Comencemos con la clase User, que representa a los usuarios del sistema. Estos usuarios pueden variar en roles, desde SuperUsuario hasta Profesor. Cada usuario tiene atributos como identificación, dni, correo, departamento, nombre, apellidos, estado activo y perfil. La relación con la clase Departamento indica la asociación de un usuario con un departamento específico, lo que facilita la asignación de roles y responsabilidades dentro de la institución.
+
+La clase Departamento, por su parte, representa las diferentes divisiones dentro de la organización. Cada departamento tiene su propio jefe, identificación, código y nombre. La relación con la clase Profesor a través del atributo Jefe establece quién lidera cada departamento, lo que proporciona una estructura jerárquica clara.
+
+Los profesores se representan mediante la clase Profesores, que es similar a la clase User pero específica para el personal docente. Además de los atributos compartidos con la clase User, los profesores tienen un campo adicional para indicar el departamento al que pertenecen. Esto facilita la asignación de cursos y responsabilidades docentes dentro de la institución.
+
+Los cursos son representados por la clase Curso, que incluye atributos como identificación, etapa y descripción. Esta clase se utiliza para definir los diferentes niveles educativos disponibles en la institución, como ESO o Bachillerato, lo que ayuda a organizar el plan de estudios y la programación académica.
+
+Los grupos de estudiantes se gestionan mediante la clase Grupo, que incluye atributos como código de grupo, curso y número de alumnos. La relación con la clase Curso indica a qué curso pertenece cada grupo, lo que facilita la asignación de estudiantes a clases específicas.
+
+Las actividades extracurriculares y las solicitudes de actividades se gestionan mediante las clases ACEXProgramadas y Solicitud, respectivamente. Estas clases incluyen atributos para especificar detalles como la programación prevista, el transporte, el alojamiento y los participantes, lo que permite planificar y coordinar actividades fuera del plan de estudios principal.
+
+En resumen, este sistema proporciona una estructura sólida para la gestión integral de una institución educativa, desde la asignación de roles y responsabilidades hasta la planificación y coordinación de actividades académicas y extracurriculares. La interrelación entre las diferentes clases permite una administración eficiente y organizada de todas las operaciones dentro de la institución.
 
 •	JavaDoc
 
