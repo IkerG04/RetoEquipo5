@@ -407,7 +407,9 @@ La web incluye:
 ### Sobre java
 
 •	Diagrama de Clases
-[image.ong](https://ibb.co/0y98LLw)
+
+[![imagen-2024-05-17-104950154.png](https://i.postimg.cc/m2zL6L12/imagen-2024-05-17-104950154.png)](https://postimg.cc/w7zY1dkS)
+
 Explicación: Este diagrama muestra las clases Java utilizadas en el proyecto, sus métodos y relaciones.
 El sistema educativo que se describe aquí es bastante completo en términos de gestión de usuarios, departamentos, profesores, cursos, grupos de estudiantes y actividades extracurriculares. Todo esto se organiza a través de una serie de clases interrelacionadas que permiten una administración eficiente de las operaciones educativas y administrativas dentro de una institución.
 
